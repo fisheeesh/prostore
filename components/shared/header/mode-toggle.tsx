@@ -27,17 +27,17 @@ export default function ModeToggle() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className="focus-visible:right-0 focus-visible:ring-offset-0">
-                    {theme === 'system' ? <SunMoon /> : theme === 'dark' ? <Moon /> : <Sun />}
+                <Button variant='ghost' className="focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-none">
+                    {theme === 'system' ? (<SunMoon />) : theme === 'dark' ? (<Moon />) : (<Sun />)}
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>Appearance</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem checked={theme === 'system'} onClick={() => setTheme('system')}>System</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem checked={theme === 'dark'} onClick={() => setTheme('dark')}>Dark</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem checked={theme === 'light'} onClick={() => setTheme('light')}>Light</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={theme == 'system'} onClick={() => setTheme('system')}>System</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={theme == 'dark'} onClick={() => setTheme('dark')}>Dark</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={theme == 'light'} onClick={() => setTheme('light')}>Light</DropdownMenuCheckboxItem>
             </DropdownMenuContent>
-        </DropdownMenu >
+        </DropdownMenu>
     )
 }
