@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import ProductPrice from "./product-price";
 
 export default function ProductCard({ product }: { product: any }) {
     return (
@@ -21,7 +22,7 @@ export default function ProductCard({ product }: { product: any }) {
                     <p>{product.rating} Stars</p>
                     {
                         product.stock > 0 ? (
-                            <p className="font-bold">{product.price}</p>
+                            <ProductPrice value={Number(product.price)} className="" />
                         ) : (
                             <p className="text-destructive">Out of Stock</p>
                         )
