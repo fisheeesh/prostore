@@ -1,3 +1,5 @@
+import ProductCard from "./product-card";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function ProductList({ data, title, limit }: { data: any; title?: string; limit?: number }) {
     const limitedData = limit ? data.slice(0, limit) : data
@@ -7,10 +9,10 @@ export default function ProductList({ data, title, limit }: { data: any; title?:
             <h2 className="h2-bold mb-4">{title}</h2>
             {
                 data.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-stretch">
                         {
                             limitedData.map((product: any) => (
-                                <div key={product.id}>{product.name}</div>
+                                <ProductCard key={product.slug} product={product} />
                             ))
                         }
                     </div>
