@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import ProductList from '@/components/shared/product/product-list'
+import sampleData from '@/db/sample-data'
 
 export default function page() {
+  console.log(sampleData)
   return (
-    <Button>
-      Prostore
-    </Button>
+    <>
+      <ProductList data={sampleData.products} title='Newest Arrrivals' limit={4} /></>
   )
 }
