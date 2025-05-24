@@ -1,7 +1,9 @@
 //* Prisma lets you work with your database (like PostgreSQL, MySQL, SQLite, etc.) using clean and readable code instead of writing raw SQL queries.
+//? Whenver we make changes in this file, we have to run npx prisma generate
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../lib/generated/prisma"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
