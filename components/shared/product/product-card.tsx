@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import ProductPrice from "./product-price";
 
-export default function ProductCard({ product }: { product: any }) {
+export default function ProductCard({ product }: { product: Product }) {
     return (
         <Card className="w-full max-w-lg sm:max-w-sm h-full flex flex-col justify-between">
             <CardHeader className="p-0 items-center">
