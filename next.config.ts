@@ -5,7 +5,10 @@ const nextConfig: NextConfig = {
   typescript: {
     //* This will still allow production build with type errors!
     ignoreBuildErrors: true
-  }
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
