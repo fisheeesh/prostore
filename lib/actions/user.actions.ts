@@ -1,10 +1,13 @@
 "use server"
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { signInFormSchema } from "../validator"
+import { signInFormSchema, signUPFormSchema } from "../validator"
 import { signIn, signOut } from '@/auth'
+import { hashSync } from "bcrypt-ts-edge"
+import { prisma } from "@/db/prisma"
 
 //* sign in user with credentials
+//? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
 export const signInWithCredentialsAction = async (prevState: unknown, formData: FormData) => {
     try {
         const user = signInFormSchema.parse({
@@ -28,4 +31,42 @@ export const signInWithCredentialsAction = async (prevState: unknown, formData: 
 //* sign user out
 export const signOutUserAction = async () => {
     await signOut()
+}
+
+//* sign up user
+export const signUpUserAction = async (prevState: unknown, formData: FormData) => {
+    try {
+        const user = signUPFormSchema.parse({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+            confirmPassword: formData.get('confirmPassword')
+        })
+
+        const plainPassword = user.password
+
+        user.password = hashSync(user.password, 10)
+
+        await prisma.user.create({
+            data: {
+                name: user.name,
+                email: user.email,
+                password: user.password
+            }
+        })
+
+        await signIn('credentials', {
+            email: user.email,
+            password: plainPassword
+        })
+
+        return { success: true, message: 'User registered successfully.' }
+    }
+    catch (err) {
+        if (isRedirectError(err)) {
+            throw err
+        }
+
+        return { success: false, message: 'User was not registered.' }
+    }
 }
