@@ -5,7 +5,7 @@ import { signInFormSchema } from "../validator"
 import { signIn, signOut } from '@/auth'
 
 //* sign in user with credentials
-export const signInWithCredentials = async (prevState: unknown, formData: FormData) => {
+export const signInWithCredentialsAction = async (prevState: unknown, formData: FormData) => {
     try {
         const user = signInFormSchema.parse({
             email: formData.get('email'),
@@ -26,6 +26,6 @@ export const signInWithCredentials = async (prevState: unknown, formData: FormDa
 }
 
 //* sign user out
-export const signOutUser = async () => {
+export const signOutUserAction = async () => {
     await signOut()
 }

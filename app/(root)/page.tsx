@@ -1,8 +1,8 @@
 import ProductList from '@/components/shared/product/product-list'
-import { getLatestProducts } from '@/lib/actions/product.actions'
+import { getLatestProductsAction } from '@/lib/actions/product.actions'
 
 export default async function page() {
-  const latestProducts = await getLatestProducts()
+  const latestProducts = await getLatestProductsAction()
 
   return (
     <>

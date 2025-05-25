@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { signInWithCredentials } from "@/lib/actions/user.actions"
+import { signInWithCredentialsAction } from "@/lib/actions/user.actions"
 import { SIGN_IN_DEFAULT_VALUES } from "@/lib/constants"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -11,7 +11,7 @@ import { useActionState } from "react"
 import { useFormStatus } from "react-dom"
 
 export default function CredentialsSignInForm() {
-    const [data, action] = useActionState(signInWithCredentials, {
+    const [data, action] = useActionState(signInWithCredentialsAction, {
         success: false,
         message: ''
     })
