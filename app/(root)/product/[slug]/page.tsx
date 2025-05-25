@@ -3,16 +3,24 @@ import ProductPrice from "@/components/shared/product/product-price"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { getProductBySlugAction } from "@/lib/actions/product.actions"
+import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/product.actions"
 import { notFound } from "next/navigation"
 
-// export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
-//     const { slug } = await props.params
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+    const { slug } = await props.params
 
-//     const product = await getProductBySlugAction(slug)
+    const product = await getProductBySlugAction(slug)
 
-//     return { title: `${product?.name}` }
-// }
+    return { title: `${product?.name}` }
+}
+
+export const generateStaticParams = async () => {
+    const products = await getLatestProductsAction()
+
+    const slugs = products.map(product => ({ slug: product.slug }))
+
+    return slugs
+}
 
 export default async function ProductDetailPage(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
