@@ -6,6 +6,7 @@ import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
 
 export const config = {
+    secret: process.env.NEXT_AUTH_SECRET,
     pages: {
         signIn: '/sign-in',
         error: '/sign-in',
