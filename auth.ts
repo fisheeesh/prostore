@@ -57,6 +57,8 @@ export const config = {
             //* Set user id from token
             //? jwt token has a subject property(sub). By default that is userId
             session.user.id = token.sub
+            session.user.role = token.role
+            session.user.name = token.name
 
             //* If there is an update, set the user name
             if (trigger === 'update') {
@@ -65,6 +67,25 @@ export const config = {
 
             return session
         },
+        async jwt({ token, user, trigger, session }: any) {
+            //* assign user fields to token
+            if (user) {
+                token.role = user.role
+
+                //* If user has not name, use email
+                if (user.name === 'NO_NAME') {
+                    token.name = user.email.split('@')
+                }
+
+                //* Update the database to reflect the token name
+                await prisma.user.update({
+                    where: { id: user.id },
+                    data: { name: token.name }
+                })
+            }
+
+            return token
+        }
     }
 } satisfies NextAuthConfig
 
