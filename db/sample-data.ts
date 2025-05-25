@@ -1,4 +1,22 @@
+import { hashSync } from 'bcrypt-ts-edge'
+
 const sampleData = {
+  users: [
+    {
+      name: 'Fish',
+      email: 'admin@prostore.com',
+      //* second para is called salt -> a random value added to the password before hashing it to make it more secure. And that makes it so that even if two users have the same password, their hashed outputs are different.
+      password: hashSync('123456', 10),
+      role: 'admin',
+    },
+    {
+      name: 'SYP',
+      email: 'syp@prostore.com',
+      //* second para is called salt -> a random value added to the password before hashing it to make it more secure. And that makes it so that even if two users have the same password, their hashed outputs are different.
+      password: hashSync('123456', 10),
+      role: 'user',
+    },
+  ],
   products: [
     {
       name: 'Polo Sporting Stretch Shirt',
