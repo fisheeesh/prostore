@@ -4,7 +4,12 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getProductBySlug } from "@/lib/actions/product.actions"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
+
+export const metadata: Metadata = {
+    title: 'Product Details'
+}
 
 export default async function ProductDetailPage(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
