@@ -5,6 +5,7 @@ import { signInFormSchema, signUPFormSchema } from "../validator"
 import { signIn, signOut } from '@/auth'
 import { hashSync } from "bcrypt-ts-edge"
 import { prisma } from "@/db/prisma"
+import { formatErrors } from "../utils"
 
 //* sign in user with credentials
 //? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
@@ -63,10 +64,15 @@ export const signUpUserAction = async (prevState: unknown, formData: FormData) =
         return { success: true, message: 'User registered successfully.' }
     }
     catch (err) {
+        // console.log(err.name)
+        // console.log(err.code)
+        // console.log(err.errors)
+        // console.log(err.meta?.target)
+
         if (isRedirectError(err)) {
             throw err
         }
 
-        return { success: false, message: 'User was not registered.' }
+        return { success: false, message: formatErrors(err) }
     }
 }

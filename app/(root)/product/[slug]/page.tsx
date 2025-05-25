@@ -4,12 +4,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getProductBySlugAction } from "@/lib/actions/product.actions"
-import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-export const metadata: Metadata = {
-    title: 'Product Details'
-}
+// export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+//     const { slug } = await props.params
+
+//     const product = await getProductBySlugAction(slug)
+
+//     return { title: `${product?.name}` }
+// }
 
 export default async function ProductDetailPage(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params

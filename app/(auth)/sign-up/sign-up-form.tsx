@@ -34,11 +34,11 @@ export default function SignUpForm() {
             <div className="space-y-6">
                 <div>
                     <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Name, e.g. user@prostore.com" name="name" type="text" required autoComplete="name" defaultValue={SIGN_UP_DEFAULT_VALUES.name} />
+                    <Input id="name" placeholder="Name, e.g. user@prostore.com" name="name" type="text" autoComplete="name" defaultValue={SIGN_UP_DEFAULT_VALUES.name} />
                 </div>
                 <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="email" required autoComplete="email" defaultValue={SIGN_UP_DEFAULT_VALUES.email} />
+                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="text" autoComplete="email" defaultValue={SIGN_UP_DEFAULT_VALUES.email} />
                 </div>
                 <div>
                     <Label htmlFor="password">Password</Label>
