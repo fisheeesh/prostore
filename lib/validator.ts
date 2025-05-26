@@ -51,7 +51,7 @@ export const signUPFormSchema = z.object({
 
 //* cart schemas
 export const cartItemSchema = z.object({
-    proudctId: z.string().min(1, { message: 'Product is required.' }),
+    productId: z.string().min(1, { message: 'Product is required.' }),
     name: z.string().min(1, { message: 'Name is required.' }),
     slug: z.string().min(1, { message: 'Slug is required.' }),
     qty: z.number().int().nonnegative({ message: 'Quantity must be a positive integer.' }),

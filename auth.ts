@@ -1,10 +1,10 @@
-import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "./db/prisma";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { NextResponse } from "next/server";
+import { prisma } from "./db/prisma";
 
 export const config = {
     secret: process.env.NEXT_AUTH_SECRET,
@@ -87,7 +87,9 @@ export const config = {
 
             return token
         },
-        async authorized({ request, auth }: any) {
+        //* We have to create middleeare.ts to work this function 
+        // ** -----
+        authorized({ request, auth }: any) {
             //* Check for session cart cookie
             if (!request.cookies.get('sessionCartId')) {
                 const sessionCartId = crypto.randomUUID()
@@ -115,3 +117,14 @@ export const config = {
 } satisfies NextAuthConfig
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config)
+
+// * ----- 
+/**
+ * * user log in or not add to cart loh ya ml so sessionCartId so ml 
+ * * so dok website ko win lr dr nae ae dr ko create py lyk ml p mha ae dr nae manipulate br nyar
+ * * authorized function ko use ml p create ml ae kg ka response to return pyn ya ml
+ * * a yin sone req htl ka cookies htl mr sessionCartId ko check ml
+ * * shi yin return true htet create ma ny dok vu cuz pages tine mr run ny mr moh
+ * * ma shi yin sessionCartId ko create ml uuid format a tine so use crypto.randomUUID()
+ * * p yin headers ko clone new response lope ae response.cookies htl ko sessionCartId set.
+ */

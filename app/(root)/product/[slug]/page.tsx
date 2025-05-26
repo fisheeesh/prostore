@@ -75,7 +75,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                                 product.stock > 0 && (
                                     <div className="flex-center mt-5">
                                         <AddToCart item={{
-                                            proudctId: product.id,
+                                            productId: product.id,
                                             name: product.name,
                                             slug: product.slug,
                                             qty: 1,
