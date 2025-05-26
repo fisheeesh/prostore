@@ -15,17 +15,17 @@ export default function AddToCart({ item }: { item: CartItem }) {
     const handleAddToCart = async () => {
         const res = await addItemToCartAction(item)
 
-        if (!res.success) {
+        if (!res?.success) {
             toast({
                 variant: 'destructive',
-                description: res.message,
+                description: res?.message,
             })
             return
         }
 
         //* handle success add to cart
         toast({
-            description: `${item.name} added to cart.`,
+            description: res?.message,
             action: (
                 <ToastAction className="bg-primary text-white dark:bg-white dark:text-slate-900 dark:hover:bg-gray-200 hover:bg-gray-800" altText="Go to cart" onClick={() => router.push('/cart')} >
                     Go to cart

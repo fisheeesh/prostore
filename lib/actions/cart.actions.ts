@@ -1,12 +1,12 @@
 "use server"
 
-import { CartItem } from "@/types"
-import { calcPrice, convertToPlainObject, formatErrors } from "../utils"
-import { cookies } from "next/headers"
 import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
-import { cartItemSchema, insertCartSchema } from "../validator"
+import { CartItem } from "@/types"
 import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
+import { calcPrice, convertToPlainObject, formatErrors } from "../utils"
+import { cartItemSchema, insertCartSchema } from "../validator"
 
 export async function addItemToCartAction(data: CartItem) {
     try {
@@ -47,19 +47,51 @@ export async function addItemToCartAction(data: CartItem) {
             })
 
             //* Revalidate product page
-            revalidatePath(`/prodcut/${product.slug}`)
+            revalidatePath(`/product/${product.slug}`)
 
-            return { success: true, message: 'Item added to cart.' }
+            return { success: true, message: `${product.name} added to cart.` }
         }
-        else{
-            
+        else {
+            //* Check if item is already in cart
+            const existItem = (cart.items as CartItem[]).find(i => i.productId === item.productId)
+            if (existItem) {
+                //* Check stock
+                if (product.stock < existItem.qty + 1) {
+                    throw new Error('Not enough stock.')
+                }
+
+                //* Increase quantity
+                (cart.items as CartItem[]).find(i => i.productId === item.productId)!.qty = existItem.qty + 1
+            }
+            else {
+                //* If item does not exit in cart, check stock
+                if (product.stock < 1) throw new Error('Not enough stock.')
+
+                //* Add items to cart.items
+                cart.items.push(item)
+            }
+            //* Save to database
+            await prisma.cart.update({
+                where: { id: cart.id },
+                data: {
+                    items: cart.items as CartItem[],
+                    ...calcPrice(cart.items as CartItem[])
+                }
+            })
+
+            //* Revalidate product page
+            revalidatePath(`/product/${product.slug}`)
+
+            console.log(existItem)
+
+            return { success: true, message: `${product.name} ${!!existItem ? 'updated in' : 'added to'} cart.` }
         }
 
         //$ TESTING PURPOSES
         // console.log({ sessionCartId: sessionCartId, userId: userId, itemsRequested: item, productFound: product })
     }
     catch (err) {
-        return { success: true, message: formatErrors(err) }
+        return { success: false, message: formatErrors(err) }
     }
 }
 
