@@ -1,11 +1,12 @@
 "use server"
 
 import { CartItem } from "@/types"
-import { convertToPlainObject, formatErrors } from "../utils"
+import { calcPrice, convertToPlainObject, formatErrors } from "../utils"
 import { cookies } from "next/headers"
 import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
-import { cartItemSchema } from "../validator"
+import { cartItemSchema, insertCartSchema } from "../validator"
+import { revalidatePath } from "next/cache"
 
 export async function addItemToCartAction(data: CartItem) {
     try {
@@ -28,10 +29,34 @@ export async function addItemToCartAction(data: CartItem) {
             where: { id: item.productId }
         })
 
-        //$ TESTING PURPOSES
-        console.log({ sessionCartId: sessionCartId, userId: userId, itemsRequested: item, productFound: product })
+        if (!product) throw new Error('Product not found.')
 
-        return { success: true, message: 'Item added to cart.' }
+        if (!cart) {
+            //* Create new cart obj
+            const newCart = insertCartSchema.parse({
+                userId: userId,
+                items: [item],
+                sessionCartId: sessionCartId,
+                ...calcPrice([item])
+            })
+
+            // console.log(newCart)
+            //* Add to database
+            await prisma.cart.create({
+                data: newCart
+            })
+
+            //* Revalidate product page
+            revalidatePath(`/prodcut/${product.slug}`)
+
+            return { success: true, message: 'Item added to cart.' }
+        }
+        else{
+            
+        }
+
+        //$ TESTING PURPOSES
+        // console.log({ sessionCartId: sessionCartId, userId: userId, itemsRequested: item, productFound: product })
     }
     catch (err) {
         return { success: true, message: formatErrors(err) }
