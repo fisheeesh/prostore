@@ -34,11 +34,11 @@ export default function CredentialsSignInForm() {
             <div className="space-y-6">
                 <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="email" required autoComplete="email" defaultValue={SIGN_IN_DEFAULT_VALUES.email} />
+                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="email" autoComplete="email" defaultValue={SIGN_IN_DEFAULT_VALUES.email} />
                 </div>
                 <div>
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" placeholder="Password" name="password" type="password" required autoComplete="password" defaultValue={SIGN_IN_DEFAULT_VALUES.password} />
+                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" defaultValue={SIGN_IN_DEFAULT_VALUES.password} />
                 </div>
                 <div>
                     <SignInButton />

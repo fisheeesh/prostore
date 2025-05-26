@@ -42,11 +42,11 @@ export default function SignUpForm() {
                 </div>
                 <div>
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" placeholder="Password" name="password" type="password" required autoComplete="password" defaultValue={SIGN_UP_DEFAULT_VALUES.password} />
+                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" defaultValue={SIGN_UP_DEFAULT_VALUES.password} />
                 </div>
                 <div>
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
-                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" required autoComplete="confirmPassword" defaultValue={SIGN_UP_DEFAULT_VALUES.confirmPassword} />
+                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" autoComplete="confirmPassword" defaultValue={SIGN_UP_DEFAULT_VALUES.confirmPassword} />
                 </div>
                 <div>
                     <SignUpButton />
