@@ -1,11 +1,12 @@
 "use server"
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { signInFormSchema, signUPFormSchema } from "../validator"
-import { signIn, signOut } from '@/auth'
+import { shippingAddressSchema, signInFormSchema, signUPFormSchema } from "../validator"
+import { auth, signIn, signOut } from '@/auth'
 import { hashSync } from "bcrypt-ts-edge"
 import { prisma } from "@/db/prisma"
 import { formatErrors } from "../utils"
+import { ShippingAddress } from "@/types"
 
 //* sign in user with credentials
 //? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
@@ -86,4 +87,28 @@ export const getUserByIdAction = async (userId: string) => {
     if (!user) throw new Error('User not found.')
 
     return user
+}
+
+//* Update user address
+export async function updateUserAddressAction(data: ShippingAddress) {
+    try {
+        const session = await auth()
+        const currentUser = await prisma.user.findFirst({
+            where: { id: session?.user?.id }
+        })
+
+        if (!currentUser) throw new Error('User not found. Please sign in to continue.')
+
+        const address = shippingAddressSchema.parse(data)
+
+        await prisma.user.update({
+            where: { id: currentUser.id },
+            data: { address }
+        })
+
+        return { success: true, message: 'User updated sucessfully.' }
+
+    } catch (error) {
+        return { success: false, message: formatErrors(error) }
+    }
 }

@@ -4,7 +4,7 @@ import { getUserByIdAction } from '@/lib/actions/user.actions'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import React from 'react'
-import ShippingAddressForm from './shippping-address-form'
+import ShippingAddressForm from './shipping-address-form'
 import { ShippingAddress } from '@/types'
 
 export const metadata: Metadata = {
