@@ -12,3 +12,10 @@ export const SIGN_UP_DEFAULT_VALUES = {
     password: '123456',
     confirmPassword: '123456'
 }
+export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
+    fullName: 'John Doe',
+    streetAddress: '123 Main St',
+    city: 'New York',
+    postalCode: '10001',
+    country: 'USA',
+}
