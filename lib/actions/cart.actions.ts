@@ -8,6 +8,15 @@ import { cookies } from "next/headers"
 import { calcPrice, convertToPlainObject, formatErrors } from "../utils"
 import { cartItemSchema, insertCartSchema } from "../validator"
 
+/**
+ * * Cart htl add moh so cart loh ml add mae product lo ml
+ * * Cart ko u ml so sessionCartId or userId ko use p u ml
+ * * Prodcut ko ka add like tae item nae u ml ma u khin item and valid phyit ma phyit test ml
+ * * Cart ma shi yin cart create py ml validate lope p p yin db htl insert ml revalidate path ml return ml
+ * * Cart htl mr shi p thr so existing item lr check ml
+ * * Exist item so stock check ok yin qty increase ml
+ * * Exist ma hote yin item ko add ml cart htl
+ */
 export async function addItemToCartAction(data: CartItem) {
     try {
         //* Check for cart cookie
@@ -121,6 +130,13 @@ export async function getMyCart() {
     })
 }
 
+/**
+ * * Remove from cart moh so yin cart and remove mae product ko lo ml
+ * * Cart ko u ml so sessionCartId or user Id ko use ml
+ * * Product ko productId nae u ml
+ * * Ae product ka cart html me shi ma shi check ml
+ * * Shi yin remove ml a yin sone stock ko check 1 khn htl so remove ma hote yin qty decrease
+ */
 export async function removeItemFromCartAction(productId: string) {
     try {
         //* Check for cart cookie
