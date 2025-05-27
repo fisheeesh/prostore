@@ -14,7 +14,7 @@ export default function AddToCart({ cart, item }: { cart?: Cart, item: CartItem 
     const { toast } = useToast()
     const [isPending, startTransition] = useTransition()
 
-    const handleAddToCart = async () => {
+    const handleAddToCart = () => {
         startTransition(async () => {
             const res = await addItemToCartAction(item)
 
@@ -38,7 +38,7 @@ export default function AddToCart({ cart, item }: { cart?: Cart, item: CartItem 
         })
     }
 
-    const handleRemoveFromCart = async () => {
+    const handleRemoveFromCart = () => {
         startTransition(async () => {
             const res = await removeItemFromCartAction(item.productId)
 
@@ -54,16 +54,16 @@ export default function AddToCart({ cart, item }: { cart?: Cart, item: CartItem 
 
     return existItem ? (
         <div className="flex items-center justify-center gap-2">
-            <Button type="button" variant='outline' onClick={handleRemoveFromCart}>
+            <Button disabled={isPending} type="button" variant='outline' onClick={handleRemoveFromCart}>
                 {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Minus className="h-4 w-4" />}
             </Button>
             <span className="px-2 font-bold text-lg">{existItem.qty}</span>
-            <Button type="button" variant='outline' onClick={handleAddToCart}>
+            <Button disabled={isPending} type="button" variant='outline' onClick={handleAddToCart}>
                 {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
             </Button>
         </div>
     ) : (
-        <Button className="w-full" type="button" onClick={handleAddToCart}>
+        <Button disabled={isPending} className="w-full" type="button" onClick={handleAddToCart}>
             {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}  Add to Cart
         </Button>
     )
