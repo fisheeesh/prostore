@@ -49,7 +49,13 @@ export default function CartTable({ cart }: { cart?: Cart }) {
             <h1 className="py-4 h2-bold">Shopping Cart</h1>
             {!cart || cart.items.length === 0 ? (
                 <div>
-                    Cart is empty. <Link href='/'>Go Shopping</Link>
+                    Cart is empty. {' '}
+                    <Link
+                        href="/"
+                        className="font-bold text-yellow-500 group transition-all"
+                    >
+                        Go Shopping <span className="inline-block transform transition-transform duration-200 group-hover:translate-x-2">→</span>
+                    </Link>
                 </div>
             ) : (
                 <div className="grid md:grid-cols-4 md:gap-5">
@@ -86,12 +92,13 @@ export default function CartTable({ cart }: { cart?: Cart }) {
                             </TableBody>
                         </Table>
                     </div>
-                    <Card>
-                        <CardContent className="p-4 gap-4">
-                            <div className="pb-3 text-xl ">
+                    <Card className="h-fit">
+                        <CardContent className="p-4 gap-4 flex flex-col">
+                            <div className="text-xl ">
                                 Subtotal ({cart.items.reduce((acc, item) => acc + item.qty, 0)}):
                                 <span className="font-bold">{formatCurrency(cart.itemsPrice)}</span>
                             </div>
+                            {/* <div className="flex-1" /> */}
                             <Button
                                 className="w-full"
                                 disabled={isPending}

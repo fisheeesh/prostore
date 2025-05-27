@@ -54,7 +54,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                                 name="fullName"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'fullName'> }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>Full Name</FormLabel>
+                                        <FormLabel>Full Name <span className="text-red-600">*</span></FormLabel>
                                         <FormControl>
                                             <Input placeholder="Enter FullName" {...field} />
                                         </FormControl>
@@ -69,7 +69,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                                 name="streetAddress"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'streetAddress'> }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>Address</FormLabel>
+                                        <FormLabel>Address <span className="text-red-600">*</span></FormLabel>
                                         <FormControl>
                                             <Input placeholder="Enter Address" {...field} />
                                         </FormControl>
@@ -84,7 +84,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                                 name="city"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'city'> }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>City</FormLabel>
+                                        <FormLabel>City <span className="text-red-600">*</span></FormLabel>
                                         <FormControl>
                                             <Input placeholder="Enter City" {...field} />
                                         </FormControl>
@@ -99,7 +99,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                                 name="postalCode"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'postalCode'> }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>PostalCode</FormLabel>
+                                        <FormLabel>PostalCode <span className="text-red-600">*</span></FormLabel>
                                         <FormControl>
                                             <Input placeholder="Enter PostalCode" {...field} />
                                         </FormControl>
@@ -114,7 +114,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                                 name="country"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'country'> }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>Country</FormLabel>
+                                        <FormLabel>Country <span className="text-red-600">*</span></FormLabel>
                                         <FormControl>
                                             <Input placeholder="Enter Country" {...field} />
                                         </FormControl>
