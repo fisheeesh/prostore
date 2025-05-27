@@ -116,6 +116,23 @@ export const config = {
         //* We have to create middleeare.ts to work this function 
         // ** -----
         authorized({ request, auth }: any) {
+            //* Array of regex patterns of paths we want to protect
+            const protectedPaths = [
+                /\/shipping-address/,
+                /\/payment-method/,
+                /\/place-order/,
+                /\/user\/(.*)/,
+                /\/order\/(.*)/,
+                /\/profile/,
+                /\/admin/,
+            ]
+
+            //* Get pathname from request url obj
+            const { pathname } = request.nextUrl
+
+            //* Check if user is not authenticated and try to access protected paths
+            if (!auth && protectedPaths.some(p => p.test(pathname))) return false
+
             //* Check for session cart cookie
             if (!request.cookies.get('sessionCartId')) {
                 const sessionCartId = crypto.randomUUID()
