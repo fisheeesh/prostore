@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { formatNumberWithDecimal } from './utils'
+import { PAYMENT_METHODS } from './constants'
 
 /**
  *  * /^\d+(\.\d{2})?$/ -> regux has to write between //
@@ -78,4 +79,12 @@ export const shippingAddressSchema = z.object({
     country: z.string().min(3, { message: 'Country must be at least 3 characters.' }),
     lat: z.number().optional(),
     lng: z.number().optional(),
+})
+
+//* schema for payment method
+export const paymentMethodSchema = z.object({
+    type: z.string().min(1, { message: 'Payment method is required.' })
+}).refine((data) => PAYMENT_METHODS.includes(data.type), {
+    message: "Invalid payment method.",
+    path: ['type']
 })
