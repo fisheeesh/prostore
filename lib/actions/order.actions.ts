@@ -17,7 +17,7 @@ import { CartItem } from "@/types"
  */
 
 //* Create order and create orderItem
-export async function createOrder() {
+export async function createOrderAction() {
     try {
         const session = await auth()
         if (!session) throw new Error('User is not authenticated.')
