@@ -104,7 +104,7 @@ export function formatCurrency(amount: number | string | null) {
 //* Shorten uuid
 //* 87338752-b273-4529-8233-082f1778db0c -> ..78db0c
 export function formatId(id: string) {
-  return `..${id.substring(id.length - 6)}`
+  return `..${id.substring(id.length - 6)}`;
 }
 
 //* Format data & time
