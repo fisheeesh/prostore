@@ -25,7 +25,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
         resolver: zodResolver(shippingAddressSchema)
     })
 
-    const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (values) => {
+    const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = (values) => {
         startTransition(async () => {
             const res = await updateUserAddressAction(values)
 
@@ -34,6 +34,7 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                     variant: 'destructive',
                     description: res?.message
                 })
+
                 return
             }
 
