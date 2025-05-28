@@ -51,7 +51,7 @@ export async function createOrderAction() {
 
             //* Create order items from cart items
             for (const item of cart.items as CartItem[]) {
-                tx.orderItem.create({
+                await tx.orderItem.create({
                     data: {
                         ...item,
                         price: item.price,
