@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { getUserByIdAction } from "@/lib/actions/user.actions"
+import { getUserById } from "@/lib/actions/user.actions"
 import { Metadata } from "next"
 import PaymentMethodForm from "./payment-method-form"
 import CheckOutSteps from "@/components/shared/checkout-step"
@@ -15,7 +15,7 @@ export default async function PaymentMethodPage() {
 
     if (!userId) throw new Error('User not found. Please sign in to continue.')
 
-    const currentUser = await getUserByIdAction(userId)
+    const currentUser = await getUserById(userId)
 
     return (
         <>

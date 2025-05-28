@@ -80,7 +80,7 @@ export const signUpUserAction = async (prevState: unknown, formData: FormData) =
 }
 
 //* Get user by id
-export const getUserByIdAction = async (userId: string) => {
+export const getUserById = async (userId: string) => {
     const user = await prisma.user.findFirst({
         where: { id: userId }
     })

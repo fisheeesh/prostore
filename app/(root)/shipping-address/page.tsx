@@ -1,6 +1,6 @@
 import { auth } from '@/auth'
 import { getMyCart } from '@/lib/actions/cart.actions'
-import { getUserByIdAction } from '@/lib/actions/user.actions'
+import { getUserById } from '@/lib/actions/user.actions'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -23,7 +23,7 @@ export default async function ShippingAddressPage() {
 
     if (!userId) throw new Error('User not found. Please sign in to continue.')
 
-    const user = await getUserByIdAction(userId)
+    const user = await getUserById(userId)
 
     return (
         <>
