@@ -8716,7 +8716,7 @@ export namespace Prisma {
     isPaid: boolean
     paidAt: Date | null
     isDelivered: boolean
-    deliveredAt: Date
+    deliveredAt: Date | null
     createdAt: Date
     _count: OrderCountAggregateOutputType | null
     _avg: OrderAvgAggregateOutputType | null
@@ -8844,7 +8844,7 @@ export namespace Prisma {
       isPaid: boolean
       paidAt: Date | null
       isDelivered: boolean
-      deliveredAt: Date
+      deliveredAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["order"]>
     composites: {}
@@ -11630,7 +11630,7 @@ export namespace Prisma {
     isPaid?: BoolFilter<"Order"> | boolean
     paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     OrderItem?: OrderItemListRelationFilter
@@ -11649,7 +11649,7 @@ export namespace Prisma {
     isPaid?: SortOrder
     paidAt?: SortOrderInput | SortOrder
     isDelivered?: SortOrder
-    deliveredAt?: SortOrder
+    deliveredAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     OrderItem?: OrderItemOrderByRelationAggregateInput
@@ -11671,7 +11671,7 @@ export namespace Prisma {
     isPaid?: BoolFilter<"Order"> | boolean
     paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     OrderItem?: OrderItemListRelationFilter
@@ -11690,7 +11690,7 @@ export namespace Prisma {
     isPaid?: SortOrder
     paidAt?: SortOrderInput | SortOrder
     isDelivered?: SortOrder
-    deliveredAt?: SortOrder
+    deliveredAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OrderCountOrderByAggregateInput
     _avg?: OrderAvgOrderByAggregateInput
@@ -11715,7 +11715,7 @@ export namespace Prisma {
     isPaid?: BoolWithAggregatesFilter<"Order"> | boolean
     paidAt?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     isDelivered?: BoolWithAggregatesFilter<"Order"> | boolean
-    deliveredAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
   }
 
@@ -12330,7 +12330,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutOrderInput
     OrderItem?: OrderItemCreateNestedManyWithoutOrderInput
@@ -12349,7 +12349,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -12366,7 +12366,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrderNestedInput
     OrderItem?: OrderItemUpdateManyWithoutOrderNestedInput
@@ -12385,7 +12385,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -12403,7 +12403,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -12419,7 +12419,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12436,7 +12436,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14221,7 +14221,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     OrderItem?: OrderItemCreateNestedManyWithoutOrderInput
   }
@@ -14238,7 +14238,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -14378,7 +14378,7 @@ export namespace Prisma {
     isPaid?: BoolFilter<"Order"> | boolean
     paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
   }
 
@@ -14774,7 +14774,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutOrderInput
   }
@@ -14792,7 +14792,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -14863,7 +14863,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrderNestedInput
   }
@@ -14881,7 +14881,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15011,7 +15011,7 @@ export namespace Prisma {
     isPaid?: boolean
     paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -15126,7 +15126,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     OrderItem?: OrderItemUpdateManyWithoutOrderNestedInput
   }
@@ -15143,7 +15143,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     OrderItem?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -15160,7 +15160,7 @@ export namespace Prisma {
     isPaid?: BoolFieldUpdateOperationsInput | boolean
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
