@@ -1,5 +1,6 @@
 "use client"
 
+import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -7,8 +8,11 @@ import { formatCurrency, formatDateTime, formatId } from "@/lib/utils"
 import { Order } from "@/types"
 import Image from "next/image"
 import Link from "next/link"
+import { approvePayPalOrderAction, createPayPalOrderAction } from "@/lib/actions/order.actions";
+import { useToast } from "@/hooks/use-toast";
+import { Loader } from "lucide-react";
 
-export default function OrderDetailsTable({ order }: { order: Order }) {
+export default function OrderDetailsTable({ order, paypalClientId }: { order: Order, paypalClientId: string }) {
     const {
         id,
         shippingAddress,
@@ -24,6 +28,38 @@ export default function OrderDetailsTable({ order }: { order: Order }) {
         deliveredAt
     } = order
 
+    const { toast } = useToast()
+
+    const PrintLoadingState = () => {
+        const [{ isPending, isRejected }] = usePayPalScriptReducer()
+
+        if (isPending) return <p className="text-center justify-center flex items-center gap-2 my-4"><Loader className="w-4 h-4 animate-spin" /> Loading PayPal...</p>
+        if (isRejected) return <p className="text-center justify-center flex items-center gap-2 my-4"><Loader className="w-4 h-4 animate-spin" />Error loading PayPal.</p>
+        return null
+    }
+
+    const handleCreatePaypalOrder = async () => {
+        const res = await createPayPalOrderAction(order.id)
+
+        if (!res?.success) {
+            toast({
+                variant: 'destructive',
+                description: res?.message
+            })
+        }
+
+        return res.data
+    }
+
+    const handleApprovePaypalOrder = async (data: { orderId: string }) => {
+        const res = await approvePayPalOrderAction(order.id, data)
+
+        toast({
+            variant: res.success ? 'default' : 'destructive',
+            description: res.message
+        })
+    }
+
     return (
         <>
             <h1 className="py-4 h2-bold text-2xl">Order {formatId(id)}</h1>
@@ -34,7 +70,7 @@ export default function OrderDetailsTable({ order }: { order: Order }) {
                             <h2 className="text-xl pb-4 font-bold">Payment Method</h2>
                             <p className="mb-2">{paymentMethod}</p>
                             {isPaid ? (
-                                <Badge variant='secondary'>Paid at {formatDateTime(paidAt!).dateTime}</Badge>
+                                <Badge className="bg-green-600 hover:bg-green-500">Paid at {formatDateTime(paidAt!).dateTime}</Badge>
                             ) : (
                                 <Badge variant='destructive'>Not Paid</Badge>
                             )}
@@ -107,6 +143,20 @@ export default function OrderDetailsTable({ order }: { order: Order }) {
                                 <div>Total</div>
                                 <div className="font-bold">{formatCurrency(totalPrice)}</div>
                             </div>
+                            {/* Paypal payment */}
+                            {(!isPaid && paymentMethod === 'Paypal') && (
+                                <div>
+                                    <PayPalScriptProvider options={{ clientId: paypalClientId, currency: "USD" }}>
+                                        <PrintLoadingState />
+                                        <PayPalButtons
+                                            createOrder={handleCreatePaypalOrder}
+                                            onApprove={async (data, actions) => {
+                                                await handleApprovePaypalOrder({ orderId: data.orderID })
+                                            }}
+                                        />
+                                    </PayPalScriptProvider>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
