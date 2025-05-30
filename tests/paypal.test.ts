@@ -1,4 +1,4 @@
-import { generateAccessToken } from "../lib/paypal";
+import { generateAccessToken } from "@/lib/paypal";
 
 //* Test to generate access token from paypal
 test('generates token from paypal', async () => {
