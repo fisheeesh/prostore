@@ -19,67 +19,51 @@ import { cartItemSchema, insertCartSchema } from "../validator"
  */
 export async function addItemToCartAction(data: CartItem) {
     try {
-        //* Check for cart cookie
         const sessionCartId = (await cookies()).get('sessionCartId')?.value
         if (!sessionCartId) throw new Error('Cart session not found.')
 
-        //* Get session and user Id
         const session = await auth()
         const userId = session?.user?.id ? (session.user.id as string) : undefined
 
-        //* Get Cart
         const cart = await getMyCart()
 
-        //* Parse invalid item
         const item = cartItemSchema.parse(data)
 
-        //* Find product in database
-        const product = await prisma.product.findFirst({
-            where: { id: item.productId }
-        })
+        const product = await prisma.product.findFirst({ where: { id: item.productId } })
 
         if (!product) throw new Error('Product not found.')
 
         if (!cart) {
-            //* Create new cart obj
             const newCart = insertCartSchema.parse({
                 userId: userId,
-                items: [item],
                 sessionCartId: sessionCartId,
+                items: [item],
                 ...calcPrice([item])
             })
 
-            // console.log(newCart)
-            //* Add to database
             await prisma.cart.create({
                 data: newCart
             })
 
-            //* Revalidate product page
             revalidatePath(`/product/${product.slug}`)
 
             return { success: true, message: `${product.name} added to cart.` }
         }
         else {
-            //* Check if item is already in cart
-            const existItem = (cart.items as CartItem[]).find(i => i.productId === item.productId)
+            const existItem = cart.items.find(i => i.productId === item.productId)
+
             if (existItem) {
-                //* Check stock
                 if (product.stock < existItem.qty + 1) {
-                    throw new Error('Not enough stock.')
+                    throw new Error('Product out of stock.')
                 }
 
-                //* Increase quantity
                 (cart.items as CartItem[]).find(i => i.productId === item.productId)!.qty = existItem.qty + 1
-            }
-            else {
-                //* If item does not exit in cart, check stock
-                if (product.stock < 1) throw new Error('Not enough stock.')
+            } else {
+                if (product.stock < 1) throw new Error('Product out of stock.')
 
-                //* Add items to cart.items
                 cart.items.push(item)
             }
-            //* Save to database
+
             await prisma.cart.update({
                 where: { id: cart.id },
                 data: {
@@ -88,14 +72,10 @@ export async function addItemToCartAction(data: CartItem) {
                 }
             })
 
-            //* Revalidate product page
             revalidatePath(`/product/${product.slug}`)
 
-            return { success: true, message: `${product.name} ${!!existItem ? 'updated in' : 'added to'} cart.` }
+            return { success: true, message: `${product.name} ${existItem ? 'was updated in' : "added to"} cart.` }
         }
-
-        //$ TESTING PURPOSES
-        // console.log({ sessionCartId: sessionCartId, userId: userId, itemsRequested: item, productFound: product })
     }
     catch (err) {
         return { success: false, message: formatErrors(err) }
