@@ -1,15 +1,16 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { convertToPlainObject, formatErrors } from "../utils"
 import { auth } from "@/auth"
-import { getMyCart } from "./cart.actions"
-import { getUserById } from "./user.actions"
-import { insertOrderSchema } from "../validator"
 import { prisma } from "@/db/prisma"
 import { CartItem, PaymentResult } from "@/types"
-import { paypal } from "../paypal"
 import { revalidatePath } from "next/cache"
+import { isRedirectError } from "next/dist/client/components/redirect-error"
+import { PAGE_SIZE } from "../constants"
+import { paypal } from "../paypal"
+import { convertToPlainObject, formatErrors } from "../utils"
+import { insertOrderSchema } from "../validator"
+import { getMyCart } from "./cart.actions"
+import { getUserById } from "./user.actions"
 
 /**
  * *A database transaction refers to a sequence of read/write operations that are guaranteed 
@@ -214,4 +215,23 @@ async function updateOrderToPay({
     })
 
     if (!updatedOrder) throw new Error('Order not found.')
+}
+
+//* Get user orders
+export async function getMyOrders({ limit = PAGE_SIZE, page }: { limit?: number, page: number }) {
+    const session = await auth()
+    if (!session) throw new Error('User not found. Please sign in to continue.')
+
+    const data = await prisma.order.findMany({
+        where: { userId: session.user?.id },
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+        skip: (page - 1) * limit,
+    })
+
+    const dataCount = await prisma.order.count({
+        where: { userId: session.user?.id }
+    })
+
+    return { data, totalPages: Math.ceil(dataCount / limit) }
 }
