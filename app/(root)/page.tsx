@@ -6,6 +6,7 @@ export default async function page() {
 
   return (
     <>
-      <ProductList data={latestProducts} title='Newest Arrrivals' limit={4} /></>
+      <ProductList data={latestProducts} title='Newest Arrrivals' limit={4} />
+    </>
   )
 }

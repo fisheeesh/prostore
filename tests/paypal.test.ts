@@ -12,7 +12,7 @@ test('generates token from paypal', async () => {
 
 //* Test to create a paypal order
 test('create a paypal order', async () => {
-    const token = await generateAccessToken()
+    // const token = await generateAccessToken()
     const price = 10.0
 
     const orderResponse = await paypal.createOrder(price)

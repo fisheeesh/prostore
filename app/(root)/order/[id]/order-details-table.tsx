@@ -51,11 +51,11 @@ export default function OrderDetailsTable({ order, paypalClientId }: { order: Or
         return res.data
     }
 
-    const handleApprovePaypalOrder = async (data: { orderId: string }) => {
+    const handleApprovePaypalOrder = async (data: { orderID: string }) => {
         const res = await approvePayPalOrderAction(order.id, data)
 
         toast({
-            variant: res.success ? 'default' : 'destructive',
+            variant: res.success ? 'success' : 'destructive',
             description: res.message
         })
     }
@@ -144,14 +144,14 @@ export default function OrderDetailsTable({ order, paypalClientId }: { order: Or
                                 <div className="font-bold">{formatCurrency(totalPrice)}</div>
                             </div>
                             {/* Paypal payment */}
-                            {(!isPaid && paymentMethod === 'Paypal') && (
+                            {(!isPaid && paymentMethod === 'PayPal') && (
                                 <div>
                                     <PayPalScriptProvider options={{ clientId: paypalClientId, currency: "USD" }}>
                                         <PrintLoadingState />
                                         <PayPalButtons
                                             createOrder={handleCreatePaypalOrder}
                                             onApprove={async (data, actions) => {
-                                                await handleApprovePaypalOrder({ orderId: data.orderID })
+                                                await handleApprovePaypalOrder({ orderID: data.orderID })
                                             }}
                                         />
                                     </PayPalScriptProvider>
