@@ -24,3 +24,9 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS ? (process.env.PAYMEN
 export const DEFAULT_PAYMENT_METHOD = process.env.DEFAULT_PAYMENT_METHOD || 'PayPal'
 
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 2
+
+// sb-unrvc43207158@personal.example.com
+// .q?lg3=X
+
+// sb-vf2fb43008178@business.example.com
+// qv-$HJ1t

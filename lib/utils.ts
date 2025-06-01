@@ -1,6 +1,7 @@
 import { CartItem } from "@/types"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import qs from "query-string"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -152,3 +153,17 @@ export const formatDateTime = (dateString: Date) => {
 // console.log('DateTime', formatted.dateTime)
 // console.log('Date', formatted.dateOnly)
 // console.log('Time', formatted.timeOnly)
+
+//* Form the pagination links
+export function formURLQurey({ params, key, value }: { params: string, key: string, value: string | null }) {
+  const query = qs.parse(params)
+
+  query[key] = value
+
+  return qs.stringifyUrl({
+    url: window.location.pathname,
+    query
+  }, {
+    skipNull: true
+  })
+}
