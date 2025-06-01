@@ -156,10 +156,13 @@ export const formatDateTime = (dateString: Date) => {
 
 //* Form the pagination links
 export function formURLQurey({ params, key, value }: { params: string, key: string, value: string | null }) {
+  //* Turns current params into obj
   const query = qs.parse(params)
 
+  //* Turns the obj with the page we wanna go to
   query[key] = value
 
+  //* Build the url
   return qs.stringifyUrl({
     url: window.location.pathname,
     query

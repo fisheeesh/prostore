@@ -22,7 +22,9 @@ export default function Pagination({ page, totalPages, urlParamName }: Paginatio
     //     const params = new URLSearchParams(searchParams.toString())
     //     params.set('page', pageValue.toString())
     //     router.replace(`${pathName}?${params.toString()}`, { scroll: false })
+
     // }
+
     const handleClick = (btnType: string) => {
         const pageValue = btnType === 'next' ? Number(page) + 1 : Number(page) - 1
         const newURL = formURLQurey({
