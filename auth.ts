@@ -78,13 +78,13 @@ export const config = {
                 //* If user has not name, use email
                 if (user.name === 'NO_NAME') {
                     token.name = user.email.split('@')
-                }
 
-                //* Update the database to reflect the token name
-                await prisma.user.update({
-                    where: { id: user.id },
-                    data: { name: token.name }
-                })
+                    //* Update the database to reflect the token name
+                    await prisma.user.update({
+                        where: { id: user.id },
+                        data: { name: token.name }
+                    })
+                }
 
                 if (trigger === 'signIn' || trigger === 'signUp') {
                     const cookiesObj = await cookies()
@@ -109,6 +109,11 @@ export const config = {
                         }
                     }
                 }
+            }
+
+            //* Handle session update
+            if (session?.user.name && trigger === 'update') {
+                token.name = session.user.name
             }
 
             return token
