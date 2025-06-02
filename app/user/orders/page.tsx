@@ -21,22 +21,22 @@ export default async function OrdersPage(props: { searchParams: Promise<{ page: 
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>ORDER ID</TableHead>
-                            <TableHead>DATE</TableHead>
-                            <TableHead>TOTAL</TableHead>
-                            <TableHead>PAID</TableHead>
-                            <TableHead>DELIVERED</TableHead>
-                            <TableHead>ACTION</TableHead>
+                            <TableHead className='whitespace-nowrap'>ORDER ID</TableHead>
+                            <TableHead className='whitespace-nowrap'>DATE</TableHead>
+                            <TableHead className='whitespace-nowrap'>TOTAL</TableHead>
+                            <TableHead className='whitespace-nowrap'>PAID</TableHead>
+                            <TableHead className='whitespace-nowrap'>DELIVERED</TableHead>
+                            <TableHead className='whitespace-nowrap'>ACTION</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {orders.data.map((order) => (
                             <TableRow key={order.id}>
-                                <TableCell>{formatId(order.id)}</TableCell>
-                                <TableCell>{formatDateTime(order.createdAt).dateTime}</TableCell>
-                                <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
-                                <TableCell>{order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : 'Not Paid'}</TableCell>
-                                <TableCell>{order.isDelivered && order.deliveredAt ? formatDateTime(order.deliveredAt).dateTime : 'Not Delivered'}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{formatId(order.id)}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{formatDateTime(order.createdAt).dateTime}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{formatCurrency(order.totalPrice)}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : 'Not Paid'}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{order.isDelivered && order.deliveredAt ? formatDateTime(order.deliveredAt).dateTime : 'Not Delivered'}</TableCell>
                                 <TableCell>
                                     <Link href={`/order/${order.id}`}>
                                         <span className='px-2'>Details</span>
