@@ -23,7 +23,7 @@ export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS ? (process.env.PAYMENT_METHODS.split(', ')) : ['PayPal', 'Stripe', 'CashOnDelivery']
 export const DEFAULT_PAYMENT_METHOD = process.env.DEFAULT_PAYMENT_METHOD || 'PayPal'
 
-export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 2
+export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 12
 
 // sb-unrvc43207158@personal.example.com
 // .q?lg3=X
