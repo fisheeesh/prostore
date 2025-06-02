@@ -3,6 +3,7 @@
 import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
 import { CartItem, PaymentResult } from "@/types"
+import { Decimal } from "@prisma/client/runtime/library"
 import { revalidatePath } from "next/cache"
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { PAGE_SIZE } from "../constants"
@@ -234,4 +235,49 @@ export async function getMyOrders({ limit = PAGE_SIZE, page }: { limit?: number,
     })
 
     return { data, totalPages: Math.ceil(dataCount / limit) }
+}
+
+type SalesDataType = {
+    month: string,
+    totalSales: number
+}[]
+
+//* Get sales data & order summary
+export async function getOrderSummary() {
+    //* Get counts for each resource (products, orders, users)
+    const ordersCount = await prisma.order.count()
+    const productsCount = await prisma.product.count()
+    const usersCount = await prisma.user.count()
+
+    //* Calculate total sales
+    const totalSales = await prisma.order.aggregate({
+        _sum: { totalPrice: true }
+    })
+
+    //* Get monthly sales
+    //* When this get retun from db, the totalSales will be the format of Prisma's Decimal and we dun want that
+    const salesDataRaw = await prisma.$queryRaw <Array<{ month: string, totalSales: Decimal }
+    >>`SELECT to_char("createdAt", 'MM/YY") as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
+
+    //* Get that sales data(raw), put it in vari and map through it and convert Decimal to number
+    const salesData: SalesDataType = salesDataRaw.map(entry => ({
+        month: entry.month,
+        totalSales: Number(entry.totalSales)
+    }))
+
+    //* Get lastest orders
+    const latestSales = await prisma.order.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: { user: { select: { name: true } } },
+        take: 6
+    })
+
+    return {
+        ordersCount,
+        productsCount,
+        usersCount,
+        totalSales,
+        latestSales,
+        salesData
+    }
 }
