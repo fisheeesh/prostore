@@ -8,11 +8,13 @@ import { formatCurrency, formatDateTime, formatId } from "@/lib/utils"
 import { Order } from "@/types"
 import Image from "next/image"
 import Link from "next/link"
-import { approvePayPalOrderAction, createPayPalOrderAction } from "@/lib/actions/order.actions";
+import { approvePayPalOrderAction, createPayPalOrderAction, deliverOrder, updateOrderToPaidCOD } from "@/lib/actions/order.actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader } from "lucide-react";
+import { useTransition } from "react";
+import { Button } from "@/components/ui/button";
 
-export default function OrderDetailsTable({ order, paypalClientId }: { order: Order, paypalClientId: string }) {
+export default function OrderDetailsTable({ order, paypalClientId, isAdmin }: { order: Order, paypalClientId: string, isAdmin: boolean }) {
     const {
         id,
         shippingAddress,
@@ -58,6 +60,42 @@ export default function OrderDetailsTable({ order, paypalClientId }: { order: Or
             variant: res.success ? 'success' : 'destructive',
             description: res.message
         })
+    }
+
+    const MarkAsPaidButton = () => {
+        const [isPending, startTransition] = useTransition()
+
+        return (
+            <Button type="button" disabled={isPending} onClick={() => startTransition(async () => {
+                const res = await updateOrderToPaidCOD(id)
+
+                toast({
+                    variant: res?.success ? 'default' : 'destructive',
+                    description: res?.message
+                })
+            })}>
+                {isPending ? <><Loader className="w-4 h-4 animate-spin" /> Processing...</> : <>Mark as Paid</>}
+            </Button>
+        )
+
+    }
+
+    const MarkAsDeliveredButton = () => {
+        const [isPending, startTransition] = useTransition()
+
+        return (
+            <Button type="button" disabled={isPending} onClick={() => startTransition(async () => {
+                const res = await deliverOrder(id)
+
+                toast({
+                    variant: res?.success ? 'default' : 'destructive',
+                    description: res?.message
+                })
+            })}>
+                {isPending ? <><Loader className="w-4 h-4 animate-spin" /> Processing...</> : <>Mark as Delivered</>}
+            </Button>
+        )
+
     }
 
     return (
@@ -157,6 +195,18 @@ export default function OrderDetailsTable({ order, paypalClientId }: { order: Or
                                     </PayPalScriptProvider>
                                 </div>
                             )}
+
+                            {/* Cash on Delivery */}
+                            {
+                                isAdmin && !isPaid && paymentMethod === 'CashOnDelivery' && (
+                                    <MarkAsPaidButton />
+                                )
+                            }
+                            {
+                                isAdmin && isPaid && !isDelivered && (
+                                    <MarkAsDeliveredButton />
+                                )
+                            }
                         </CardContent>
                     </Card>
                 </div>
