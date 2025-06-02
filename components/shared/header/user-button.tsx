@@ -45,6 +45,12 @@ export default async function UserButton() {
                     <DropdownMenuItem>
                         <Link href={'/user/orders'} className='w-full'>Order History</Link>
                     </DropdownMenuItem>
+                    {/* Check next.auth.d.ts */}
+                    {session?.user?.role === 'admin' && (
+                        <DropdownMenuItem>
+                            <Link href='/admin/overview' className='w-full'>Admin</Link>
+                        </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem className='p-0 mb-1'>
                         <form action={signOutUserAction} className='w-full'>
                             <Button variant='ghost' className='w-full py-4 px-2 h-4 justify-start'>Sign Out</Button>

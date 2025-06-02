@@ -2,7 +2,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
-import parser from "@typescript-eslint/parser"; // ✅ Explicitly import parser
+import parser from "@typescript-eslint/parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,17 +12,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // Use Next.js recommended rules with TypeScript support
+  //* Use Next.js recommended rules with TypeScript support
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 
-  // TypeScript-specific config
+  //* TypeScript-specific config
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
-      parser, // ✅ Set TypeScript parser
+      parser,
       parserOptions: {
-        project: "./tsconfig.json", // ✅ Point to tsconfig.json
-        tsconfigRootDir: __dirname, // ✅ Ensure it resolves correctly
+        project: "./tsconfig.json",
+        tsconfigRootDir: __dirname, 
       },
     },
     rules: {
