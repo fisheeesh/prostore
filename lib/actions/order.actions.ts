@@ -257,7 +257,7 @@ export async function getOrderSummary() {
     //* Get monthly sales
     //* When this get retun from db, the totalSales will be the format of Prisma's Decimal and we dun want that
     const salesDataRaw = await prisma.$queryRaw <Array<{ month: string, totalSales: Decimal }
-    >>`SELECT to_char("createdAt", 'MM/YY") as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
+    >>`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
 
     //* Get that sales data(raw), put it in vari and map through it and convert Decimal to number
     const salesData: SalesDataType = salesDataRaw.map(entry => ({

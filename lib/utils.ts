@@ -102,6 +102,13 @@ export function formatCurrency(amount: number | string | null) {
   }
 }
 
+//* Format number
+const NUMBER_FOMATTER = new Intl.NumberFormat('en-US')
+
+export function formatNumber(number: number) {
+  return NUMBER_FOMATTER.format(number)
+}
+
 //* Shorten uuid
 //* 87338752-b273-4529-8233-082f1778db0c -> ..78db0c
 export function formatId(id: string) {
