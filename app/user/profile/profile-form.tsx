@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { updateProfileAction } from "@/lib/actions/user.actions"
 import { updateProfileSchema } from "@/lib/validator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
@@ -24,9 +25,29 @@ export default function ProfileForm() {
 
     const { toast } = useToast()
 
-
     const onSubmit: SubmitHandler<z.infer<typeof updateProfileSchema>> = async (values) => {
+        const res = await updateProfileAction(values)
 
+        if (!res?.success) {
+            return toast({
+                variant: 'destructive',
+                description: res?.message
+            })
+        }
+
+        const newSession = {
+            ...session,
+            user: {
+                ...session?.user,
+                name: values.name
+            }
+        }
+
+        await update(newSession)
+
+        toast({
+            description: res?.message
+        })
     }
 
     return (
