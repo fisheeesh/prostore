@@ -2,7 +2,8 @@
 
 import { LATEST_PRODUCTS_LIMIT, PAGE_SIZE } from "../constants"
 import { prisma } from '@/db/prisma'
-import { convertToPlainObject } from "../utils"
+import { convertToPlainObject, formatErrors } from "../utils"
+import { revalidatePath } from "next/cache"
 
 export const getLatestProductsAction = async () => {
     const data = await prisma.product.findMany({
@@ -50,5 +51,26 @@ export async function getAllProductsAction({
     return {
         data,
         totalPages: Math.ceil(dataCount / limit)
+    }
+}
+
+//* Delete a product
+export async function deleteProductAction(id: string) {
+    try {
+        const productExists = await prisma.product.findFirst({
+            where: { id }
+        })
+        if (!productExists) throw new Error('Product not found.')
+
+        await prisma.product.delete({
+            where: { id }
+        })
+
+        revalidatePath('/admin/products')
+
+        return { success: true, message: 'Product deleted successfully.' }
+
+    } catch (error) {
+        return { success: false, message: formatErrors(error) }
     }
 }

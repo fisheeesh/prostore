@@ -1,7 +1,8 @@
+import DeleteDialog from '@/components/shared/delete-dialog'
 import Pagination from '@/components/shared/pagination'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { getAllProductsAction } from '@/lib/actions/product.actions'
+import { getAllProductsAction, deleteProductAction } from '@/lib/actions/product.actions'
 import { formatCurrency, formatId } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
@@ -52,6 +53,7 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                                     <Link href={`/admin/products/${product.id}`}>Edit</Link>
                                 </Button>
                                 {/* Delete  Button*/}
+                                <DeleteDialog id={product.id} action={deleteProductAction} />
                             </TableCell>
                         </TableRow>
                     ))}
