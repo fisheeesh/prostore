@@ -31,6 +31,15 @@ export const getProductBySlugAction = async (slug: string) => {
     })
 }
 
+//* Get single product by it's id
+export const getProductByIdAction = async (productId: string) => {
+    const data = await prisma.product.findFirst({
+        where: { id: productId }
+    })
+
+    return convertToPlainObject(data)
+}
+
 //* Get All products
 export async function getAllProductsAction({
     query,

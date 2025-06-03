@@ -214,9 +214,9 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                         )}
                     />
                 </div>
-                <div className="upload-field">
+                <div className="upload-field space-y-2">
                     {/* isFetured */}
-                    Featured Product
+                    <FormLabel>Featured Product <span className="text-red-600">*</span></FormLabel>
                     <Card>
                         <CardContent className="space-y-2 mt-2">
                             <FormField
