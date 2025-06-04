@@ -4,8 +4,13 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getAllProductsAction, deleteProductAction } from '@/lib/actions/product.actions'
 import { formatCurrency, formatId } from '@/lib/utils'
+import { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
+
+export const metadata: Metadata = {
+    title: "Admin Products"
+}
 
 export default async function AdminProductsPage(props: { searchParams: Promise<{ page: string, query: string, category: string }> }) {
     const searchParams = await props.searchParams

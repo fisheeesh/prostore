@@ -8,7 +8,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import Charts from "./charts"
 
-export const medatdata: Metadata = {
+export const metadata: Metadata = {
     title: 'Admin Dashboard'
 }
 
