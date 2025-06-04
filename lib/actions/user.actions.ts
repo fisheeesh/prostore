@@ -9,6 +9,7 @@ import { formatErrors } from "../utils"
 import { ShippingAddress } from "@/types"
 import { z } from "zod"
 import { PAGE_SIZE } from "../constants"
+import { revalidatePath } from "next/cache"
 
 //* sign in user with credentials
 //? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
@@ -183,5 +184,27 @@ export async function getAllUsersAction({
     return {
         data,
         totalPages: Math.ceil(dataCount / limit)
+    }
+}
+
+//* Delete user by id
+export async function deleteUserByIdAction(id: string) {
+    try {
+        const userExists = await prisma.user.findFirst({
+            where: { id }
+        })
+
+        if (!userExists) throw new Error('User not found.')
+
+        await prisma.user.delete({
+            where: { id }
+        })
+
+        revalidatePath('/admin/users')
+
+        return { success: true, message: 'User deleted successfully.' }
+    }
+    catch (error) {
+        return { success: false, message: formatErrors(error) }
     }
 }

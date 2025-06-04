@@ -3,7 +3,7 @@ import Pagination from "@/components/shared/pagination"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { getAllUsersAction } from "@/lib/actions/user.actions"
+import { deleteUserByIdAction, getAllUsersAction } from "@/lib/actions/user.actions"
 import { formatId } from '@/lib/utils'
 import { Metadata } from "next"
 import Link from "next/link"
@@ -54,7 +54,7 @@ export default async function AdminUsersPage(props: { searchParams: Promise<{ pa
                                         </Link>
                                     </Button>
                                     {/* DELETE */}
-                                    {/* <DeleteDialog id={user.id} action={ } /> */}
+                                    <DeleteDialog id={user.id} action={deleteUserByIdAction} />
                                 </TableCell>
                             </TableRow>
                         ))}
