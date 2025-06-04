@@ -44,6 +44,7 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                     description: res?.message
                 })
 
+                form.reset()
                 router.push('/admin/products')
             }
         }
@@ -67,6 +68,7 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                     description: res?.message
                 })
 
+                form.reset()
                 router.push('/admin/products')
             }
         }
