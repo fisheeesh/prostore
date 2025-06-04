@@ -49,7 +49,7 @@ export default async function AdminUsersPage(props: { searchParams: Promise<{ pa
                                 </TableCell>
                                 <TableCell className='flex items-center gap-2'>
                                     <Button asChild variant='outline' size='sm'>
-                                        <Link href={`/user/${user.id}`}>
+                                        <Link href={`/admin/users/${user.id}`}>
                                             Edit
                                         </Link>
                                     </Button>
