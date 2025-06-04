@@ -12,21 +12,34 @@ export const metadata: Metadata = {
     title: 'Admin Orders'
 }
 
-export default async function AdminOrdersPage(props: { searchParams: Promise<{ page: string }> }) {
+export default async function AdminOrdersPage(props: { searchParams: Promise<{ page: string, query: string }> }) {
     await requireAdmin()
-    const { page = '1' } = await props.searchParams
+    const { page = '1', query: searchText } = await props.searchParams
 
-    const orders = await getAllOrders({ page: Number(page) })
+    const orders = await getAllOrders({ page: Number(page), query: searchText })
 
     return (
         <div className='space-y-2'>
-            <h2 className="h2-bold">Orders</h2>
+            <div className="flex items-center gap-3">
+                <h1 className="h2-bold">Orders</h1>
+                {
+                    searchText && (
+                        <div>
+                            Filtered by: <i>&quot;{searchText}&quot;</i>{' '}
+                            <Link href='/admin/orders'>
+                                <Button variant='outline' size='sm'>Remove Filter</Button>
+                            </Link>
+                        </div>
+                    )
+                }
+            </div>
             <div className="overflow-x-auto">
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead className='whitespace-nowrap'>ORDER ID</TableHead>
                             <TableHead className='whitespace-nowrap'>DATE</TableHead>
+                            <TableHead className='whitespace-nowrap'>BUYER</TableHead>
                             <TableHead className='whitespace-nowrap'>TOTAL</TableHead>
                             <TableHead className='whitespace-nowrap'>PAID</TableHead>
                             <TableHead className='whitespace-nowrap'>DELIVERED</TableHead>
@@ -38,6 +51,7 @@ export default async function AdminOrdersPage(props: { searchParams: Promise<{ p
                             <TableRow key={order.id}>
                                 <TableCell className='whitespace-nowrap'>{formatId(order.id)}</TableCell>
                                 <TableCell className='whitespace-nowrap'>{formatDateTime(order.createdAt).dateTime}</TableCell>
+                                <TableCell className='whitespace-nowrap'>{order.user.name}</TableCell>
                                 <TableCell className='whitespace-nowrap'>{formatCurrency(order.totalPrice)}</TableCell>
                                 <TableCell className='whitespace-nowrap'>{order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : 'Not Paid'}</TableCell>
                                 <TableCell className='whitespace-nowrap'>{order.isDelivered && order.deliveredAt ? formatDateTime(order.deliveredAt).dateTime : 'Not Delivered'}</TableCell>

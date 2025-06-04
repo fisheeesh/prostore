@@ -12,6 +12,7 @@ import { convertToPlainObject, formatErrors } from "../utils"
 import { insertOrderSchema } from "../validator"
 import { getMyCart } from "./cart.actions"
 import { getUserById } from "./user.actions"
+import { Prisma } from "@prisma/client"
 
 /**
  * *A database transaction refers to a sequence of read/write operations that are guaranteed 
@@ -283,15 +284,24 @@ export async function getOrderSummary() {
 }
 
 //* Get all orders
-export async function getAllOrders({ limit = PAGE_SIZE, page }: { limit?: number, page: number }) {
+export async function getAllOrders({ limit = PAGE_SIZE, page, query }: { limit?: number, page: number, query: string }) {
+    const queryFilter = query && query !== 'all' ? {
+        user: {
+            name: { contains: query, mode: 'insensitive' as const }
+        }
+    } : {}
+
     const data = await prisma.order.findMany({
+        where: { ...queryFilter },
         orderBy: { createdAt: 'desc' },
         take: limit,
         skip: (page - 1) * limit,
         include: { user: { select: { name: true } } }
     })
 
-    const dataCount = await prisma.order.count()
+    const dataCount = await prisma.order.count({
+        where: { ...queryFilter }
+    })
 
     return { data, totalPages: Math.ceil(dataCount / limit) }
 }
