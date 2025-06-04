@@ -5,13 +5,12 @@ import Link from 'next/link'
 import ModeToggle from './mode-toggle'
 import UserButton from './user-button'
 import { Input } from '@/components/ui/input'
+import AdminSearch from '@/components/admin/admin-search'
 
 export default function Menu() {
     return (
         <div className='flex justify-end gap-3'>
-            <div>
-                <Input type="search" placeholder="Search..." className="md:w-[100px] lg:w-[300px]" />
-            </div>
+            <AdminSearch />
             <nav className='hidden md:flex w-full max-w-xs gap-1'>
                 <ModeToggle />
                 <Button asChild variant='ghost'>

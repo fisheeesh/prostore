@@ -1,10 +1,10 @@
 "use server"
 
-import { LATEST_PRODUCTS_LIMIT, PAGE_SIZE } from "../constants"
 import { prisma } from '@/db/prisma'
-import { convertToPlainObject, formatErrors } from "../utils"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
+import { LATEST_PRODUCTS_LIMIT, PAGE_SIZE } from "../constants"
+import { convertToPlainObject, formatErrors } from "../utils"
 import { insertProductSchema, updateProductSchema } from "../validator"
 
 export const getLatestProductsAction = async () => {
@@ -53,6 +53,13 @@ export async function getAllProductsAction({
     category?: string
 }) {
     const data = await prisma.product.findMany({
+        where: {
+            OR: [
+                {
+                    name: { contains: query, mode: 'insensitive' }
+                }
+            ]
+        },
         orderBy: { createdAt: 'desc' },
         skip: (page - 1) * limit,
         take: limit
