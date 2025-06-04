@@ -5,9 +5,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
+import { updateUserAction } from "@/lib/actions/user.actions"
 import { USER_ROLES } from "@/lib/constants"
 import { updateUserSchema } from "@/lib/validator"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { getRandomValues } from "crypto"
 import { Loader } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ControllerRenderProps, SubmitHandler, useForm } from "react-hook-form"
@@ -22,8 +24,32 @@ export default function UpdateUserForm({ user }: { user: z.infer<typeof updateUs
         defaultValues: user
     })
 
-    const onSubmit: SubmitHandler<z.infer<typeof updateUserSchema>> = async (data) => {
+    const onSubmit: SubmitHandler<z.infer<typeof updateUserSchema>> = async (values) => {
+        try {
+            const res = await updateUserAction({
+                ...values,
+                id: user.id
+            })
 
+            if (!res?.success) {
+                return toast({
+                    variant: 'destructive',
+                    description: res?.message
+                })
+            }
+
+            toast({
+                description: res?.message
+            })
+
+            form.reset()
+            router.push('/admin/users')
+        } catch (error) {
+            toast({
+                variant: 'destructive',
+                description: (error as Error).message
+            })
+        }
     }
 
     return (

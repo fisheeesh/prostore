@@ -1,7 +1,7 @@
 "use server"
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUPFormSchema } from "../validator"
+import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUPFormSchema, updateUserSchema } from "../validator"
 import { auth, signIn, signOut } from '@/auth'
 import { hashSync } from "bcrypt-ts-edge"
 import { prisma } from "@/db/prisma"
@@ -10,6 +10,7 @@ import { ShippingAddress } from "@/types"
 import { z } from "zod"
 import { PAGE_SIZE } from "../constants"
 import { revalidatePath } from "next/cache"
+import { use } from "react"
 
 //* sign in user with credentials
 //? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
@@ -203,6 +204,26 @@ export async function deleteUserByIdAction(id: string) {
         revalidatePath('/admin/users')
 
         return { success: true, message: 'User deleted successfully.' }
+    }
+    catch (error) {
+        return { success: false, message: formatErrors(error) }
+    }
+}
+
+//* Update user
+export async function updateUserAction(user: z.infer<typeof updateUserSchema>) {
+    try {
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                name: user.name,
+                role: user.role
+            }
+        })
+
+        revalidatePath('/admin/users')
+
+        return { success: true, message: 'User updated successfully.' }
     }
     catch (error) {
         return { success: false, message: formatErrors(error) }
