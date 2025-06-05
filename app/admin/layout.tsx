@@ -3,6 +3,7 @@ import { APP_NAME } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import MainNav from "./main-nav";
+import AdminSearch from "@/components/admin/admin-search";
 
 export default function UserLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
     return (
@@ -16,7 +17,10 @@ export default function UserLayout({ children, }: Readonly<{ children: React.Rea
                         </Link>
                         <MainNav className="mx-6" />
                     </div>
-                    <Menu />
+                    <div className='flex items-center justify-end gap-3'>
+                        <AdminSearch />
+                        <Menu />
+                    </div>
                 </div>
             </header>
             <div className="flex-1 wrapper">{children}</div>
