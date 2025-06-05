@@ -1,16 +1,14 @@
+import AdminSearch from '@/components/admin/admin-search'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { EllipsisVertical, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import ModeToggle from './mode-toggle'
 import UserButton from './user-button'
-import { Input } from '@/components/ui/input'
-import AdminSearch from '@/components/admin/admin-search'
 
 export default function Menu() {
     return (
-        <div className='flex justify-end gap-3'>
-            <AdminSearch />
+        <div className='flex items-center justify-end gap-3'>
             <nav className='hidden md:flex w-full max-w-xs gap-1'>
                 <ModeToggle />
                 <Button asChild variant='ghost'>
