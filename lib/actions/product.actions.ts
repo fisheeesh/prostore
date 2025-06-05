@@ -133,7 +133,7 @@ export async function updateProductAction(data: z.infer<typeof updateProductSche
     }
 }
 
-//* Get All categories
+//* Get all categories
 export async function getAllCategoriesAction() {
     const data = await prisma.product.groupBy({
         by: ['category'],
@@ -141,4 +141,15 @@ export async function getAllCategoriesAction() {
     })
 
     return data
+}
+
+//* Get featured product
+export async function getFeaturedProductsAction() {
+    const data = await prisma.product.findMany({
+        where: { isFeatured: true },
+        orderBy: { createdAt: 'desc' },
+        take: 4
+    })
+
+    return convertToPlainObject(data)
 }
