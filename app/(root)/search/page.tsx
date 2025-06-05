@@ -1,4 +1,5 @@
 import ProductCard from '@/components/shared/product/product-card'
+import { Button } from '@/components/ui/button'
 import { getAllCategoriesAction, getAllProductsAction } from '@/lib/actions/product.actions'
 import Link from 'next/link'
 import React from 'react'
@@ -25,6 +26,8 @@ const prices = [
         value: '501-1000'
     },
 ]
+
+const ratings = [4, 3, 2, 1]
 
 export default async function SearchPage(props:
     { searchParams: Promise<{ q?: string, category?: string, price?: string, rating?: string, sort?: string, page?: string }> }
@@ -105,8 +108,47 @@ export default async function SearchPage(props:
                         }
                     </ul>
                 </div>
+                {/* Ratings Links */}
+                <div className='text-xl mb-2 mt-8'>Customer Ratings</div>
+                <div>
+                    <ul className="space-y-1">
+                        <li>
+                            <Link href={getFilterUrl({ r: 'all' })} className={`${rating === 'all' && 'font-bold'}`}>
+                                Any
+                            </Link>
+                        </li>
+                        {
+                            ratings.map(r => (
+                                <li key={r}>
+                                    <Link href={getFilterUrl({ r: `${r}` })} className={`${rating === r.toString() && 'font-bold'}`} >
+                                        {`${r} stars & up`}
+                                    </Link>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
             <div className="space-y-4 md:col-span-4">
+                <div className="flex-between flex-col my-4 md:flex-row">
+                    <div className="flex items-center">
+                        {q !== 'all' && q !== '' && 'Query: ' + q}{' '}
+                        {category !== 'all' && category !== '' && 'Category: ' + category}{' '}
+                        {price !== 'all' && 'Price: ' + price}{' '}
+                        {rating !== 'all' && 'Rating: ' + rating + ' stars & up'}{' '}
+                        &nbsp;
+                        {
+                            (q !== 'all' && q !== '') ||
+                                (category !== 'all' && category !== '') ||
+                                (rating !== 'all') ||
+                                (price !== 'all') ? (
+                                <Button variant='link' asChild>
+                                    <Link href='/search'>Clear</Link>
+                                </Button>
+                            ) : null
+                        }
+                    </div>
+                </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     {products.data.length === 0 && (
                         <div>No products found.</div>
