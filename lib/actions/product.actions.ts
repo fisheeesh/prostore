@@ -45,12 +45,18 @@ export async function getAllProductsAction({
     query,
     limit = PAGE_SIZE,
     page,
-    category
+    category,
+    price,
+    rating,
+    sort
 }: {
     query: string,
     limit?: number,
     page: number,
-    category?: string
+    category?: string,
+    price?: string,
+    rating?: string,
+    sort?: string
 }) {
     const queryFilter = query && query !== 'all' ? {
         name: { contains: query, mode: 'insensitive' as const }
