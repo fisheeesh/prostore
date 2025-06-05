@@ -14,6 +14,19 @@ export default async function SearchPage(props:
         page = '1'
     } = await props.searchParams
 
+    //* Construct filter url
+    const getFilteredUrl = ({ c, s, p, r, pg }: { c?: string, s?: string, p?: string, r?: string, pg?: string }) => {
+        const params = { q, category, price, rating, sort, page }
+
+        if (c) params.category = c
+        if (p) params.price = p
+        if (s) params.sort = s
+        if (r) params.rating = r
+        if (pg) params.page = pg
+
+        return `/search?${new URLSearchParams(params).toString()}`
+    }
+
     const products = await getAllProductsAction({
         query: q,
         category,
@@ -26,7 +39,8 @@ export default async function SearchPage(props:
     return (
         <div className='grid md:grid-cols-5 md:gap-5'>
             <div className="filter-links">
-                {/* Filter */}
+                
+                URL : {getFilteredUrl({c: 'Mens Sweet Shirt'})}
             </div>
             <div className="space-y-4 md:col-span-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
