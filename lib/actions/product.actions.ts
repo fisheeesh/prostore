@@ -90,7 +90,15 @@ export async function getAllProductsAction({
             ...priceFilter,
             ...ratingFilter
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy: sort === 'lowest' ? {
+            price: 'asc'
+        } : sort === 'highes' ? {
+            price: 'desc'
+        } : sort === 'rating' ? {
+            rating: 'desc'
+        } : {
+            createdAt: 'desc'
+        },
         skip: (page - 1) * limit,
         take: limit
     })

@@ -29,6 +29,8 @@ const prices = [
 
 const ratings = [4, 3, 2, 1]
 
+const sortOrders = ['newest', 'lowest', 'highest', 'rating']
+
 export default async function SearchPage(props:
     { searchParams: Promise<{ q?: string, category?: string, price?: string, rating?: string, sort?: string, page?: string }> }
 ) {
@@ -131,6 +133,7 @@ export default async function SearchPage(props:
             </div>
             <div className="space-y-4 md:col-span-4">
                 <div className="flex-between flex-col my-4 md:flex-row">
+                    {/* Filters value display */}
                     <div className="flex items-center">
                         {q !== 'all' && q !== '' && 'Query: ' + q}{' '}
                         {category !== 'all' && category !== '' && 'Category: ' + category}{' '}
@@ -147,6 +150,13 @@ export default async function SearchPage(props:
                                 </Button>
                             ) : null
                         }
+                    </div>
+                    {/* Sort */}
+                    <div>
+                        Sort by {' '}
+                        {sortOrders.map(s => (
+                            <Link href={getFilterUrl({ s })} key={s} className={`mx-2 ${sort === s && 'font-bold'}`}>{s}</Link>
+                        ))}
                     </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
