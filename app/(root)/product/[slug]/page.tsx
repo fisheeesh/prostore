@@ -8,6 +8,7 @@ import { getMyCart } from "@/lib/actions/cart.actions"
 import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/product.actions"
 import { notFound } from "next/navigation"
 import ReviewList from "./review-list"
+import Rating from "@/components/shared/product/rating"
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
@@ -49,7 +50,8 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                         <div className="flex flex-col gap-6">
                             <p>{product.brand} {product.category}</p>
                             <h3 className="h3-bold">{product.name}</h3>
-                            <p>{product.rating} of {product.numReviews} Reviews.</p>
+                            <Rating value={Number(product.rating)} />
+                            <p>{product.numReviews} Reviews</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                                 <ProductPrice value={Number(product.price)} className="w-24 rounded-full bg-green-100 text-green-700 px-5 py-2" />
                             </div>
