@@ -160,7 +160,7 @@ export default async function SearchPage(props:
                             ratings.map(r => (
                                 <li key={r}>
                                     <Link href={getFilterUrl({ r: `${r}` })} className={`${rating === r.toString() && 'font-bold'}`} >
-                                        {`${r} stars & up`}
+                                        {`${r} star${r > 1 ? 's' : ''} & up`}
                                     </Link>
                                 </li>
                             ))
@@ -172,10 +172,28 @@ export default async function SearchPage(props:
                 <div className="flex-between flex-col my-4 md:flex-row">
                     {/* Filters value display */}
                     <div className="flex items-center">
-                        {q !== 'all' && q !== '' && 'Query: ' + q}{' '}
-                        {category !== 'all' && category !== '' && 'Category: ' + category}{' '}
-                        {price !== 'all' && 'Price: ' + price}{' '}
-                        {rating !== 'all' && 'Rating: ' + rating + ' stars & up'}{' '}
+                        {q !== 'all' && q !== '' &&
+                            <>
+                                <strong>Query: </strong> <span className='pr-2'>{q}</span>
+                            </>
+                        }
+                        {category !== 'all' && category !== '' &&
+                            <>
+                                <strong>Category: </strong> <span className='pr-2'>{category}</span>
+                            </>
+                        }
+                        {
+                            price !== 'all' &&
+                            <>
+                                <strong>Price: </strong> <span className='pr-2'>{price}</span>
+                            </>
+                        }
+                        {
+                            rating !== 'all' &&
+                            <>
+                                <strong>Rating: </strong> <span className='pr-2'>{rating} star{Number(rating) > 1 ? 's' : ''} & up</span>
+                            </>
+                        }
                         &nbsp;
                         {
                             (q !== 'all' && q !== '') ||
@@ -207,6 +225,6 @@ export default async function SearchPage(props:
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
