@@ -3,6 +3,7 @@
 import { Review } from "@/types"
 import Link from "next/link"
 import { useState } from "react"
+import ReviewForm from "./review-form"
 
 export default function ReviewList({ userId, productId, productSlug }: { userId: string, productId: string, productSlug: string }) {
     const [reviews, setReviews] = useState<Review[]>([])
@@ -16,8 +17,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
             }
             {
                 userId ? (
-                    <>
-                    </>
+                    <ReviewForm userId={userId} productId={productId} />
                 ) : (
                     <div>
                         Please <Link className="text-yellow-500 px-1" href={`/sign-in?callbackUrl=/product/${productSlug}`}>Sign In</Link>
