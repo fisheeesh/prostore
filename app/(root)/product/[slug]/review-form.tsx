@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { createUpdateReviewAction } from "@/lib/actions/review.actions"
+import { createUpdateReviewAction, getReviewByProductIdAction } from "@/lib/actions/review.actions"
 import { REVIEW_FORM_DEFAULT_VALUES } from "@/lib/constants"
 import { insertReviewSchema } from "@/lib/validator"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -28,13 +28,21 @@ export default function ReviewForm({ userId, productId, onReviewSubmitted }:
     })
 
     //* Open form handler
-    const handleOpenForm = () => {
+    const handleOpenForm = async () => {
         /**
          * * Without this, the action will not be validated with insertReviewSchema
          * * We are not submitting productId and userId which is part of insertReviewSchema
          */
         form.setValue('userId', userId)
         form.setValue('productId', productId)
+
+        const review = await getReviewByProductIdAction({ productId })
+
+        if (review) {
+            form.setValue('title', review.title)
+            form.setValue('description', review.description)
+            form.setValue('rating', review.rating)
+        }
 
         setOpen(true)
     }
@@ -116,7 +124,7 @@ export default function ReviewForm({ userId, productId, onReviewSubmitted }:
                                                     Array.from({ length: 5 }).map((_, index) => (
                                                         <SelectItem key={index} value={(index + 1).toString()}>
                                                             {Array.from({ length: index + 1 }).map((_, i) => (
-                                                                <StarIcon key={i} className="inline w-4 h-4 mr-1" />
+                                                                <StarIcon key={i} className="inline w-4 h-4 mr-1" fill="#FFD700" stroke="#FFD700" />
                                                             ))}
                                                         </SelectItem>
                                                     ))

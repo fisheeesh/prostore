@@ -39,7 +39,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
 
     return (
         <>
-            <section>
+            <section className="pb-3 border-b">
                 <div className="grid grid-cols-1 md:grid-cols-5">
                     {/* Images Column */}
                     <div className="col-span-2">
@@ -102,7 +102,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                     </div>
                 </div>
             </section>
-            <section className="mt-10">
+            <section className="mt-5 space-y-4">
                 <h2 className="h2-bold">Customer Reviews</h2>
                 <ReviewList userId={userId || ''} productId={product.id} productSlug={slug} />
             </section>
