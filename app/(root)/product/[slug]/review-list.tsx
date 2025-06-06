@@ -8,6 +8,10 @@ import ReviewForm from "./review-form"
 export default function ReviewList({ userId, productId, productSlug }: { userId: string, productId: string, productSlug: string }) {
     const [reviews, setReviews] = useState<Review[]>([])
 
+    const reload = () => {
+        console.log('reload')
+    }
+
     return (
         <div className="space-y-4">
             {
@@ -17,7 +21,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
             }
             {
                 userId ? (
-                    <ReviewForm userId={userId} productId={productId} />
+                    <ReviewForm userId={userId} productId={productId} onReviewSubmitted={reload} />
                 ) : (
                     <div>
                         Please <Link className="text-yellow-500 px-1" href={`/sign-in?callbackUrl=/product/${productSlug}`}>Sign In</Link>
