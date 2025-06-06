@@ -78,3 +78,29 @@ export async function createUpdateReviewAction(data: z.infer<typeof insertReview
         return { success: false, message: formatErrors(error) }
     }
 }
+
+//* Get all reviews for a product
+export async function getAllReviewsAction({ productId }: { productId: string }) {
+    const data = await prisma.review.findMany({
+        where: { productId, },
+        include: {
+            user: { select: { name: true } }
+        },
+        orderBy: { createdAt: 'desc' }
+    })
+
+    return { data }
+}
+
+//* Get a review written by current user
+export async function getReviewByProductIdAction({ productId }: { productId: string }) {
+    const session = await auth()
+    if (!session) throw new Error('User not found. Please sign in to continue.')
+
+    return await prisma.review.findFirst({
+        where: {
+            productId,
+            userId: session.user?.id
+        }
+    })
+}
