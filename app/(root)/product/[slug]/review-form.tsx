@@ -33,8 +33,8 @@ export default function ReviewForm({ userId, productId, onReviewSubmitted }:
          * * Without this, the action will not be validated with insertReviewSchema
          * * We are not submitting productId and userId which is part of insertReviewSchema
          */
-        // form.setValue('userId', userId)
-        // form.setValue('productId', productId)
+        form.setValue('userId', userId)
+        form.setValue('productId', productId)
 
         setOpen(true)
     }
