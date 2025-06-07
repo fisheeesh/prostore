@@ -56,7 +56,7 @@ export default function CredentialsSignInForm() {
 
                 <div className="text-sm text-center text-muted-foreground">
                     Don&apos;t have an account? {' '}
-                    <Link href='/sign-up' target="_self" className="text-black font-bold">Sign Up</Link>
+                    <Link href='/sign-up' target="_self" className="text-black font-bold dark:text-white">Sign Up</Link>
                 </div>
             </div>
         </form>

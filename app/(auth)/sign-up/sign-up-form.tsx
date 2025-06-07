@@ -64,7 +64,7 @@ export default function SignUpForm() {
 
                 <div className="text-sm text-center text-muted-foreground">
                     Already have an account? {' '}
-                    <Link href='/sign-in' target="_self" className="text-black font-bold">Sign In</Link>
+                    <Link href='/sign-in' target="_self" className="text-black font-bold dark:text-white">Sign In</Link>
                 </div>
             </div>
         </form>
