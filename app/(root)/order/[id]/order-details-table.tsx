@@ -13,8 +13,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader } from "lucide-react";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import StripePayment from "./stripe-payment";
 
-export default function OrderDetailsTable({ order, paypalClientId, isAdmin }: { order: Order, paypalClientId: string, isAdmin: boolean }) {
+export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stripeClientSecret }: { order: Order, paypalClientId: string, isAdmin: boolean, stripeClientSecret: string | null }) {
     const {
         id,
         shippingAddress,
@@ -182,18 +183,25 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin }: { 
                                 <div className="font-bold">{formatCurrency(totalPrice)}</div>
                             </div>
                             {/* Paypal payment */}
-                            {(!isPaid && paymentMethod === 'PayPal') && (
-                                <div>
-                                    <PayPalScriptProvider options={{ clientId: paypalClientId, currency: "USD" }}>
-                                        <PrintLoadingState />
-                                        <PayPalButtons
-                                            createOrder={handleCreatePaypalOrder}
-                                            onApprove={async (data, actions) => {
-                                                await handleApprovePaypalOrder({ orderID: data.orderID })
-                                            }}
-                                        />
-                                    </PayPalScriptProvider>
-                                </div>
+                            {
+                                (!isPaid && paymentMethod === 'PayPal') && (
+                                    <div>
+                                        <PayPalScriptProvider options={{ clientId: paypalClientId, currency: "USD" }}>
+                                            <PrintLoadingState />
+                                            <PayPalButtons
+                                                createOrder={handleCreatePaypalOrder}
+                                                onApprove={async (data, actions) => {
+                                                    await handleApprovePaypalOrder({ orderID: data.orderID })
+                                                }}
+                                            />
+                                        </PayPalScriptProvider>
+                                    </div>
+                                )
+                            }
+
+                            {/* Stripe payment */}
+                            {!isPaid && paymentMethod === 'Stripe' && stripeClientSecret && (
+                                <StripePayment priceInCents={Number(order.totalPrice) * 100} orderId={order.id} clientSecret={stripeClientSecret} />
                             )}
 
                             {/* Cash on Delivery */}
