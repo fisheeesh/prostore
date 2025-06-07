@@ -42,7 +42,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
                     <ReviewForm userId={userId} productId={productId} onReviewSubmitted={reload} />
                 ) : (
                     <div>
-                        Please <Link className="text-yellow-500 px-1" href={`/sign-in?callbackUrl=/product/${productSlug}`}>Sign In</Link>
+                        Please<Link className="text-yellow-500 px-1" href={`/sign-in?callbackUrl=/product/${productSlug}`}>Sign In</Link>
                         to write a review.
                     </div >
                 )
