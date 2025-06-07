@@ -2,47 +2,35 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { updateOrderToPaid } from '@/lib/actions/order.actions';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: NextRequest) {
-    const buf = await req.arrayBuffer();
-    const body = Buffer.from(buf);
-    const sig = req.headers.get('stripe-signature') as string;
+    // Build the webhook event
+    const event = await Stripe.webhooks.constructEvent(
+        await req.text(),
+        req.headers.get('stripe-signature') as string,
+        process.env.STRIPE_WEBHOOK_SECRET as string
+    );
 
-    let event: Stripe.Event;
-
-    try {
-        event = stripe.webhooks.constructEvent(
-            body,
-            sig,
-            process.env.STRIPE_WEBHOOK_SECRET!
-        );
-    } catch (err: any) {
-        console.error('❌ Webhook signature verification failed:', err.message);
-        return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
-    }
-
-    // ⚡ If using PaymentElement, consider switching this to "payment_intent.succeeded"
+    // Check for successful payment
     if (event.type === 'charge.succeeded') {
-        const charge = event.data.object as Stripe.Charge;
+        const { object } = event.data;
 
-        try {
-            await updateOrderToPaid({
-                orderId: charge.metadata.orderId,
-                paymentResult: {
-                    id: charge.id,
-                    status: 'COMPLETED',
-                    email_address: charge.billing_details.email || '',
-                    pricePaid: (charge.amount / 100).toFixed(),
-                },
-            });
+        // Update order status
+        await updateOrderToPaid({
+            orderId: object.metadata.orderId,
+            paymentResult: {
+                id: object.id,
+                status: 'COMPLETED',
+                email_address: object.billing_details.email!,
+                pricePaid: (object.amount / 100).toFixed(),
+            },
+        });
 
-            return NextResponse.json({ message: 'Order marked as paid' });
-        } catch (err: any) {
-            console.error('❌ updateOrderToPaid failed:', err.message);
-            return new NextResponse('Order update failed', { status: 500 });
-        }
+        return NextResponse.json({
+            message: 'updateOrderToPaid was successful',
+        });
     }
 
-    return NextResponse.json({ received: true });
+    return NextResponse.json({
+        message: 'event is not charge.succeeded',
+    });
 }
