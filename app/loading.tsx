@@ -1,18 +1,7 @@
-import loader from '@/assets/loader.gif'
-import Image from 'next/image'
-
 export default function LoadingPage() {
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh',
-                width: '100vw'
-            }}
-        >
-            <Image src={loader} alt='loading...' height={150} width={150}></Image>
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70 dark:bg-[#020817]/70 backdrop-blur-sm">
+            <div className="loader"></div>
         </div>
-    )
+    );
 }

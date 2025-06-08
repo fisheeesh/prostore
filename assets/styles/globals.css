@@ -10,6 +10,7 @@
   .flex-start {
     @apply flex justify-start items-center;
   }
+
   .flex-center {
     @apply flex justify-center items-center;
   }
@@ -59,6 +60,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -99,16 +101,44 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 /* Uploadthing button text override */
-html.dark .upload-field .text-white{
+html.dark .upload-field .text-white {
   color: #ffffff !important;
 }
 
-.upload-field .text-white{
+.upload-field .text-white {
   color: #000000 !important;
+}
+
+.loader {
+  width: 45px;
+  aspect-ratio: 0.75;
+  --c: no-repeat linear-gradient(theme(colors.yellow.500) 0 0);
+  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
+  background-size: 20% 50%;
+  animation: loading 1s infinite linear;
+}
+
+@keyframes loading {
+  20% {
+    background-position: 0% 0%, 50% 50%, 100% 50%;
+  }
+
+  40% {
+    background-position: 0% 100%, 50% 0%, 100% 50%;
+  }
+
+  60% {
+    background-position: 0% 50%, 50% 100%, 100% 0%;
+  }
+
+  80% {
+    background-position: 0% 50%, 50% 50%, 100% 100%;
+  }
 }
