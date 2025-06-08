@@ -116,10 +116,17 @@ html.dark .upload-field .text-white {
   color: #000000 !important;
 }
 
+:root {
+  --c: no-repeat linear-gradient(#020817 0 0);
+}
+
+.dark {
+  --c: no-repeat linear-gradient(#ffffff 0 0);
+}
+
 .loader {
   width: 45px;
   aspect-ratio: 0.75;
-  --c: no-repeat linear-gradient(theme(colors.yellow.500) 0 0);
   background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
   background-size: 20% 50%;
   animation: loading 1s infinite linear;
