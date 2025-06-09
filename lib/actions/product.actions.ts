@@ -167,7 +167,7 @@ export async function updateProductAction(data: z.infer<typeof updateProductSche
 
         revalidatePath('/admin/products')
 
-        return { success: true, message: 'Product created successfully.' }
+        return { success: true, message: 'Product updated successfully.' }
     } catch (error) {
         return { success: false, message: formatErrors(error) }
     }
