@@ -1,16 +1,16 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUPFormSchema, updateUserSchema } from "../validator"
 import { auth, signIn, signOut } from '@/auth'
-import { hashSync } from "bcrypt-ts-edge"
 import { prisma } from "@/db/prisma"
-import { formatErrors } from "../utils"
 import { ShippingAddress } from "@/types"
+import { hashSync } from "bcrypt-ts-edge"
+import { revalidatePath } from "next/cache"
+import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { z } from "zod"
 import { PAGE_SIZE } from "../constants"
-import { revalidatePath } from "next/cache"
-import { use } from "react"
+import { formatErrors } from "../utils"
+import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUPFormSchema, updateUserSchema } from "../validator"
+import { getMyCart } from './cart.actions'
 
 //* sign in user with credentials
 //? When we use useActionState hook and submit with that, the first value is always gonna be prevState.
@@ -36,6 +36,9 @@ export const signInWithCredentialsAction = async (prevState: unknown, formData: 
 
 //* sign user out
 export const signOutUserAction = async () => {
+    //* Get current users cart and delete it so it does not persist to next user
+    const currentCart = await getMyCart();
+    await prisma.cart.delete({ where: { id: currentCart?.id } });
     await signOut()
 }
 
