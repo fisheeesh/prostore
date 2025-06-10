@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { updateUserAddressAction } from "@/lib/actions/user.actions"
+import { SHIPPING_ADDRESS_DEFAULT_VALUES } from "@/lib/constants"
 import { shippingAddressSchema } from "@/lib/validator"
 import { ShippingAddress } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -20,7 +21,10 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
     const [isPending, startTransition] = useTransition()
 
     const form = useForm<z.infer<typeof shippingAddressSchema>>({
-        defaultValues: address,
+        defaultValues: {
+            ...SHIPPING_ADDRESS_DEFAULT_VALUES,
+            ...address,
+        },
         resolver: zodResolver(shippingAddressSchema)
     })
 

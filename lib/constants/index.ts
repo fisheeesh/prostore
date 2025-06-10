@@ -13,11 +13,11 @@ export const SIGN_UP_DEFAULT_VALUES = {
     confirmPassword: '123456'
 }
 export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
-    fullName: 'John Doe',
-    streetAddress: '123 Main St',
-    city: 'New York',
-    postalCode: '10001',
-    country: 'USA',
+    fullName: '',
+    streetAddress: '',
+    city: '',
+    postalCode: '',
+    country: '',
 }
 
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS ? (process.env.PAYMENT_METHODS.split(', ')) : ['PayPal', 'Stripe', 'CashOnDelivery']
