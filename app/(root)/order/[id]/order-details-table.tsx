@@ -15,7 +15,7 @@ import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import StripePayment from "./stripe-payment";
 
-export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stripeClientSecret }: { order: Order, paypalClientId: string, isAdmin: boolean, stripeClientSecret: string | null }) {
+export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stripeClientSecret }: { order: Omit<Order, 'paymentResult'>, paypalClientId: string, isAdmin: boolean, stripeClientSecret: string | null }) {
     const {
         id,
         shippingAddress,
