@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signUpUserAction } from "@/lib/actions/user.actions"
-import { SIGN_UP_DEFAULT_VALUES } from "@/lib/constants"
 import { Loader, OctagonAlert } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -42,7 +41,10 @@ export default function SignUpForm() {
                 </div>
                 <div>
                     <Label htmlFor="email">Email <span className="text-red-600">*</span></Label>
-                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="text" autoComplete="email"/>
+                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="text" autoComplete="email" />
+                    <span className="text-muted-foreground text-xs leading-tight">
+                        Use an existing email to ensure you receive your order confirmation.
+                    </span>
                 </div>
                 <div>
                     <Label htmlFor="password">Password <span className="text-red-600">*</span></Label>
@@ -50,7 +52,7 @@ export default function SignUpForm() {
                 </div>
                 <div>
                     <Label htmlFor="confirmPassword">Confirm Password <span className="text-red-600">*</span></Label>
-                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" autoComplete="confirmPassword"/>
+                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" autoComplete="confirmPassword" />
                 </div>
                 <div>
                     <SignUpButton />

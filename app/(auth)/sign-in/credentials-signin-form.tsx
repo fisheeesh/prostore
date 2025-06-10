@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signInWithCredentialsAction } from "@/lib/actions/user.actions"
-import { SIGN_IN_DEFAULT_VALUES } from "@/lib/constants"
 import { Loader, OctagonAlert } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -38,11 +37,11 @@ export default function CredentialsSignInForm() {
             <div className="space-y-4">
                 <div>
                     <Label htmlFor="email">Email <span className="text-red-600">*</span></Label>
-                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="email" autoComplete="email" defaultValue={SIGN_IN_DEFAULT_VALUES.email} />
+                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="email" autoComplete="email" />
                 </div>
                 <div>
                     <Label htmlFor="password">Password <span className="text-red-600">*</span></Label>
-                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" defaultValue={SIGN_IN_DEFAULT_VALUES.password} />
+                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password"/>
                 </div>
                 <div>
                     <SignInButton />
