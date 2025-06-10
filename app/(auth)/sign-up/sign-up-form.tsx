@@ -38,19 +38,19 @@ export default function SignUpForm() {
             <div className="space-y-4">
                 <div>
                     <Label htmlFor="name">Name <span className="text-red-600">*</span></Label>
-                    <Input id="name" placeholder="Name, e.g. user@prostore.com" name="name" type="text" autoComplete="name" defaultValue={SIGN_UP_DEFAULT_VALUES.name} />
+                    <Input id="name" placeholder="Name, e.g. user@prostore.com" name="name" type="text" autoComplete="name" />
                 </div>
                 <div>
                     <Label htmlFor="email">Email <span className="text-red-600">*</span></Label>
-                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="text" autoComplete="email" defaultValue={SIGN_UP_DEFAULT_VALUES.email} />
+                    <Input id="email" placeholder="Email, e.g. user@prostore.com" name="email" type="text" autoComplete="email"/>
                 </div>
                 <div>
                     <Label htmlFor="password">Password <span className="text-red-600">*</span></Label>
-                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" defaultValue={SIGN_UP_DEFAULT_VALUES.password} />
+                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" />
                 </div>
                 <div>
                     <Label htmlFor="confirmPassword">Confirm Password <span className="text-red-600">*</span></Label>
-                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" autoComplete="confirmPassword" defaultValue={SIGN_UP_DEFAULT_VALUES.confirmPassword} />
+                    <Input id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" type="password" autoComplete="confirmPassword"/>
                 </div>
                 <div>
                     <SignUpButton />
