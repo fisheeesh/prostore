@@ -1,9 +1,11 @@
 import { auth } from '@/auth'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { signOutUserAction } from '@/lib/actions/user.actions'
 import { UserIcon } from 'lucide-react'
 import Link from 'next/link'
+import SignOutDialog from '../signout-dialog'
 
 export default async function UserButton() {
     const session = await auth()
@@ -51,10 +53,8 @@ export default async function UserButton() {
                             <Link href='/admin/overview' className='w-full'>Admin</Link>
                         </DropdownMenuItem>
                     )}
-                    <DropdownMenuItem className='p-0 mb-1'>
-                        <form action={signOutUserAction} className='w-full'>
-                            <Button variant='ghost' className='w-full py-4 px-2 h-4 justify-start'>Sign Out</Button>
-                        </form>
+                    <DropdownMenuItem className='p-0 mb-1' asChild>
+                        <SignOutDialog />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
