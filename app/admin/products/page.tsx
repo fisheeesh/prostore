@@ -3,6 +3,7 @@ import Pagination from '@/components/shared/pagination'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getAllProductsAction, deleteProductAction } from '@/lib/actions/product.actions'
+import { requireAdmin } from '@/lib/auth-guard'
 import { formatCurrency, formatId } from '@/lib/utils'
 import { Metadata } from 'next'
 import Link from 'next/link'
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function AdminProductsPage(props: { searchParams: Promise<{ page: string, query: string, category: string }> }) {
+    await requireAdmin()
     const searchParams = await props.searchParams
     const page = Number(searchParams.page) || 1
     const searchText = searchParams.query || ''

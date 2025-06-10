@@ -1,5 +1,6 @@
 import ProductForm from "@/components/admin/product-form"
 import { getProductByIdAction } from "@/lib/actions/product.actions"
+import { requireAdmin } from "@/lib/auth-guard"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function AdminProductUpatePage(props: { params: Promise<{ id: string }> }) {
+    await requireAdmin()
     const { id } = await props.params
 
     const product = await getProductByIdAction(id)

@@ -2,12 +2,14 @@ import { getUserById } from "@/lib/actions/user.actions"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import UpdateUserForm from "./update-user-form"
+import { requireAdmin } from "@/lib/auth-guard"
 
 export const metadata: Metadata = {
     title: 'Update User'
 }
 
 export default async function AdminUserUpdatePage(props: { params: Promise<{ id: string }> }) {
+    await requireAdmin()
     const { id } = await props.params
 
     const user = await getUserById(id)

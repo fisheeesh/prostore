@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { deleteUserByIdAction, getAllUsersAction } from "@/lib/actions/user.actions"
+import { requireAdmin } from "@/lib/auth-guard"
 import { formatId } from '@/lib/utils'
 import { Metadata } from "next"
 import Link from "next/link"
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function AdminUsersPage(props: { searchParams: Promise<{ page: string, query: string }> }) {
+    await requireAdmin()
     const { page = '1', query: searchText } = await props.searchParams
 
     const users = await getAllUsersAction({ page: Number(page), query: searchText })
