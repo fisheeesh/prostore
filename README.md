@@ -169,6 +169,8 @@ npx tsx ./db/seed
 
 You can now play it around with it. [here](https://www.theprostore.shop)
 
+**Recommendation**: Once you are about to register to the app, I recommend you to use your existing email address. In the system, I implemented sending email purchase receipt to user feature when the product has been paid. And yeah I really want you to experience it. Please don't miss out. 🙌🏻
+
 For payments like **PayPal**, you can use your own personal account with email and password from PayPay sandbox account to purchase the products. 
 
 For **Stripe**, here is default card which is provided by Stripe -
