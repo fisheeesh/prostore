@@ -5,7 +5,7 @@ export default function Footer() {
 
     return (
         <footer className="border-t">
-            <div className="p-5 flex-center">
+            <div className="p-5 flex-center text-center">
                 Copyright © {currentYear} {APP_NAME}. All Right reserved.
             </div>
         </footer>

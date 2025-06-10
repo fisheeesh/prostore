@@ -36,7 +36,7 @@ export default async function PlaceOrderPage() {
         <>
             <CheckOutSteps current={3} />
             <h1 className="py-4 h2-bold mt-4">Place Order</h1>
-            <div className="grid md:grid-cols-3 md:gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
                 <div className="md:col-span-2 overflow-x-auto space-y-4">
                     <Card>
                         <CardContent className="p-4 gap-4">
@@ -82,13 +82,13 @@ export default async function PlaceOrderPage() {
                                                 <TableCell>
                                                     <Link className="flex items-center" href={`/product/${item.slug}`}>
                                                         <Image src={item.image} alt={item.name} width={50} height={50} />
-                                                        <span className="px-2">{item.name}</span>
+                                                        <span className="px-2 whitespace-nowrap">{item.name}</span>
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
                                                     <span className="px-2">{item.qty}</span>
                                                 </TableCell>
-                                                <TableCell className="text-right">
+                                                <TableCell className="text-right whitespace-nowrap">
                                                     <span>${item.price}</span>
                                                 </TableCell>
                                             </TableRow>

@@ -74,10 +74,10 @@ export default function CartTable({ cart }: { cart?: Cart }) {
                                         <TableCell>
                                             <Link href={`/product/${item.slug}`} className="flex items-center">
                                                 <Image src={item.image} alt={item.name} width={50} height={50} />
-                                                <span className="px-2">{item.name}</span>
+                                                <span className="px-2 whitespace-nowrap">{item.name}</span>
                                             </Link>
                                         </TableCell>
-                                        <TableCell className="flex-center gap-2">
+                                        <TableCell className="flex-center gap-2 whitespace-nowrap">
                                             <Button disabled={isPending} variant='outline' type="button" onClick={() => handleRemoveItem(item.productId)}>
                                                 {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Minus className="h-4 w-4" />}
                                             </Button>
@@ -86,7 +86,7 @@ export default function CartTable({ cart }: { cart?: Cart }) {
                                                 {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
                                             </Button>
                                         </TableCell>
-                                        <TableCell className="text-right">$ {item.price}</TableCell>
+                                        <TableCell className="text-right whitespace-nowrap">$ {item.price}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

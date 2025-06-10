@@ -40,8 +40,8 @@ export default async function SuccessPage(props: {
 
     return (
         <div className="max-w-4xl w-full mx-auto space-y-8 py-28">
-            <div className="flex flex-col gap-4 items-center">
-                <h1 className="h1-bold">Thanks for your purchase. 🙌</h1>
+            <div className="flex flex-col gap-4 items-center justify-center">
+                <h1 className="h1-bold text-center">Thanks for your purchase. 🙌</h1>
                 <div>We are processing your order.</div>
                 <Button asChild>
                     <Link href={`/order/${id}`}>View Order</Link>

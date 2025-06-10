@@ -102,7 +102,7 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
     return (
         <>
             <h1 className="py-4 h2-bold text-2xl">Order {formatId(id)}</h1>
-            <div className="grid md:grid-cols-3 md:gap-3">
+            <div className="grid md:grid-cols-3 gap-3">
                 <div className="col-span-2 space-y-4 overflow-x-auto">
                     <Card>
                         <CardContent className="p-4 gap-4">
@@ -146,7 +146,7 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
                                                 <TableCell>
                                                     <Link className="flex items-center" href={`/product/${item.slug}`}>
                                                         <Image src={item.image} alt={item.name} width={50} height={50} />
-                                                        <span className="px-2">{item.name}</span>
+                                                        <span className="px-2 whitespace-nowrap">{item.name}</span>
                                                     </Link>
                                                 </TableCell>
                                                 <TableCell>
@@ -163,7 +163,7 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
                         </CardContent>
                     </Card>
                 </div>
-                <div>
+                <div className="col-span-2 md:col-span-1">
                     <Card>
                         <CardContent className="p-4 gap-4 space-y-4">
                             <div className="flex justify-between">
