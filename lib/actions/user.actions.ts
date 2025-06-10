@@ -38,7 +38,7 @@ export const signInWithCredentialsAction = async (prevState: unknown, formData: 
 export const signOutUserAction = async () => {
     //* Get current users cart and delete it so it does not persist to next user
     const currentCart = await getMyCart();
-    await prisma.cart.delete({ where: { id: currentCart?.id } });
+    if (currentCart) await prisma.cart.delete({ where: { id: currentCart?.id } });
     await signOut()
 }
 
