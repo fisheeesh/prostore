@@ -9,23 +9,23 @@ import { useEffect, useState } from "react"
 const TARGET_DATE = new Date('2025-04-15T00:00:00')
 
 //* Function to calculate the time remaining
-// const calculateTimeRemaining = (targetDate: Date) => {
-//     const currentTime = new Date()
-//     const timeDifferent = Math.max(Number(targetDate) - Number(currentTime), 0)
+const calculateTimeRemaining = (targetDate: Date) => {
+    const currentTime = new Date()
+    const timeDifferent = Math.max(Number(targetDate) - Number(currentTime), 0)
 
-//     return {
-//         days: Math.floor(timeDifferent / (1000 * 60 * 60 * 24)),
-//         hours: Math.floor(
-//             (timeDifferent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-//         ),
-//         minutes: Math.floor(
-//             (timeDifferent % (1000 * 60 * 60)) / (1000 * 60)
-//         ),
-//         seconds: Math.floor(
-//             (timeDifferent % (1000 * 60)) / (1000)
-//         ),
-//     }
-// }
+    return {
+        days: Math.floor(timeDifferent / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(
+            (timeDifferent % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        ),
+        minutes: Math.floor(
+            (timeDifferent % (1000 * 60 * 60)) / (1000 * 60)
+        ),
+        seconds: Math.floor(
+            (timeDifferent % (1000 * 60)) / (1000)
+        ),
+    }
+}
 
 export default function DealCountdown() {
     const [time, setTime] = useState<ReturnType<typeof calculateTimeRemaining>>()
