@@ -48,7 +48,7 @@ export const REVIEW_FORM_DEFAULT_VALUES = {
     rating: 0
 }
 
-export const SENDER_EMAIL = process.env.SENDER_EMAIL || 'onboarding@resend.dev'
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || 'noreply@theprostore.shop'
 
 // sb-unrvc43207158@personal.example.com
 // .q?lg3=X
