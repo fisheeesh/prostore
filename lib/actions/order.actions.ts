@@ -220,7 +220,7 @@ export async function updateOrderToPaid({
     if (!updatedOrder) throw new Error('Order not found.')
 
     //* Send user to order confirmation email after order is purchased
-    sendPurchaseReceipt({
+    await sendPurchaseReceipt({
         order: {
             ...updatedOrder,
             shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
