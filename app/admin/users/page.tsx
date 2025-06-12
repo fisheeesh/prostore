@@ -21,13 +21,13 @@ export default async function AdminUsersPage(props: { searchParams: Promise<{ pa
 
     return (
         <div className='space-y-2'>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <h1 className="h2-bold">Users</h1>
                 {
                     searchText && (
                         <div>
                             Filtered by: <i>&quot;{searchText}&quot;</i>{' '}
-                            <Link href='/admin/products'>
+                            <Link href='/admin/users' className='ml-2'>
                                 <Button variant='outline' size='sm'>Remove Filter</Button>
                             </Link>
                         </div>
@@ -45,34 +45,43 @@ export default async function AdminUsersPage(props: { searchParams: Promise<{ pa
                             <TableHead className='whitespace-nowrap'>ACTION</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
-                        {users.data.map((user) => (
-                            <TableRow key={user.id}>
-                                <TableCell className='whitespace-nowrap'>{formatId(user.id)}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{user.name}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{user.email}</TableCell>
-                                <TableCell className='whitespace-nowrap'>
-                                    {user.role === 'user' ?
-                                        (
-                                            <Badge variant='secondary'>User</Badge>
-                                        ) :
-                                        (
-                                            <Badge variant='default'>Admin</Badge>
-                                        )
-                                    }
-                                </TableCell>
-                                <TableCell className='flex items-center gap-2'>
-                                    <Button asChild variant='outline' size='sm'>
-                                        <Link href={`/admin/users/${user.id}`}>
-                                            Edit
-                                        </Link>
-                                    </Button>
-                                    {/* DELETE */}
-                                    <DeleteDialog id={user.id} action={deleteUserByIdAction} />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                    {
+                        users.data.length === 0 ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={7} className='py-32 font-bold text-xl md:text-2xl text-center'>Oops. No Users Found.</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        ) :
+                            <TableBody>
+                                {users.data.map((user) => (
+                                    <TableRow key={user.id}>
+                                        <TableCell className='whitespace-nowrap'>{formatId(user.id)}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{user.name}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{user.email}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>
+                                            {user.role === 'user' ?
+                                                (
+                                                    <Badge variant='secondary'>User</Badge>
+                                                ) :
+                                                (
+                                                    <Badge variant='default'>Admin</Badge>
+                                                )
+                                            }
+                                        </TableCell>
+                                        <TableCell className='flex items-center gap-2'>
+                                            <Button asChild variant='outline' size='sm'>
+                                                <Link href={`/admin/users/${user.id}`}>
+                                                    Edit
+                                                </Link>
+                                            </Button>
+                                            {/* DELETE */}
+                                            <DeleteDialog id={user.id} action={deleteUserByIdAction} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                    }
                 </Table>
                 {
                     users.totalPages > 1 && (

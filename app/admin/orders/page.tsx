@@ -20,13 +20,13 @@ export default async function AdminOrdersPage(props: { searchParams: Promise<{ p
 
     return (
         <div className='space-y-2'>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <h1 className="h2-bold">Orders</h1>
                 {
                     searchText && (
                         <div>
                             Filtered by: <i>&quot;{searchText}&quot;</i>{' '}
-                            <Link href='/admin/orders'>
+                            <Link href='/admin/orders' className='ml-2'>
                                 <Button variant='outline' size='sm'>Remove Filter</Button>
                             </Link>
                         </div>
@@ -46,27 +46,36 @@ export default async function AdminOrdersPage(props: { searchParams: Promise<{ p
                             <TableHead className='whitespace-nowrap'>ACTION</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
-                        {orders.data.map((order) => (
-                            <TableRow key={order.id}>
-                                <TableCell className='whitespace-nowrap'>{formatId(order.id)}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{formatDateTime(order.createdAt).dateTime}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{order.user.name}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{formatCurrency(order.totalPrice)}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : 'Not Paid'}</TableCell>
-                                <TableCell className='whitespace-nowrap'>{order.isDelivered && order.deliveredAt ? formatDateTime(order.deliveredAt).dateTime : 'Not Delivered'}</TableCell>
-                                <TableCell className='flex items-center gap-2'>
-                                    <Button asChild variant='outline' size='sm'>
-                                        <Link href={`/order/${order.id}`}>
-                                            Details
-                                        </Link>
-                                    </Button>
-                                    {/* DELETE */}
-                                    <DeleteDialog id={order.id} action={deleteOrder} />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                    {
+                        orders.data.length === 0 ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={7} className='py-32 font-bold text-xl md:text-2xl text-center'>Oops. No Orders Found.</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        ) :
+                            <TableBody>
+                                {orders.data.map((order) => (
+                                    <TableRow key={order.id}>
+                                        <TableCell className='whitespace-nowrap'>{formatId(order.id)}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{formatDateTime(order.createdAt).dateTime}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{order.user.name}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{formatCurrency(order.totalPrice)}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{order.isPaid && order.paidAt ? formatDateTime(order.paidAt).dateTime : 'Not Paid'}</TableCell>
+                                        <TableCell className='whitespace-nowrap'>{order.isDelivered && order.deliveredAt ? formatDateTime(order.deliveredAt).dateTime : 'Not Delivered'}</TableCell>
+                                        <TableCell className='flex items-center gap-2'>
+                                            <Button asChild variant='outline' size='sm'>
+                                                <Link href={`/order/${order.id}`}>
+                                                    Details
+                                                </Link>
+                                            </Button>
+                                            {/* DELETE */}
+                                            <DeleteDialog id={order.id} action={deleteOrder} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                    }
                 </Table>
                 {
                     orders.totalPages > 1 && (

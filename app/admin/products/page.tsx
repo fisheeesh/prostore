@@ -28,8 +28,8 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
 
     return (
         <div className='space-y-2'>
-            <div className="flex-between">
-                <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+                <div className="flex flex-col md:flex-row md:items-center md:gap-3">
                     <h1 className="h2-bold">Products</h1>
                     {
                         searchText && (
@@ -43,7 +43,7 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                     }
                 </div>
                 <Button asChild variant='default'>
-                    <Link href='/admin/products/create'>Create Product</Link>
+                    <Link href='/admin/products/create' className='w-fit'>Create Product</Link>
                 </Button>
             </div>
             <Table>
@@ -58,25 +58,34 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                         <TableHead className='w-[100px] whitespace-nowrap'>ACTIONS</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
-                    {products.data.map((product) => (
-                        <TableRow key={product.id}>
-                            <TableCell className='whitespace-nowrap'>{formatId(product.id)}</TableCell>
-                            <TableCell className='whitespace-nowrap'>{product.name}</TableCell>
-                            <TableCell className='text-right whitespace-nowrap'>{formatCurrency(product.price)}</TableCell>
-                            <TableCell className='whitespace-nowrap'>{product.category}</TableCell>
-                            <TableCell className='whitespace-nowrap'>{product.stock}</TableCell>
-                            <TableCell className='whitespace-nowrap'>{product.rating}</TableCell>
-                            <TableCell className='flex items-center gap-1'>
-                                <Button asChild variant='outline' size='sm'>
-                                    <Link href={`/admin/products/${product.id}`}>Edit</Link>
-                                </Button>
-                                {/* Delete  Button*/}
-                                <DeleteDialog id={product.id} action={deleteProductAction} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
+                {
+                    products.data.length === 0 ? (
+                        <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={7} className='py-32 font-bold text-xl md:text-2xl text-center'>Oops. No products Found.</TableCell>
+                            </TableRow>
+                        </TableBody>
+                    ) :
+                        <TableBody>
+                            {products.data.map((product) => (
+                                <TableRow key={product.id}>
+                                    <TableCell className='whitespace-nowrap'>{formatId(product.id)}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>{product.name}</TableCell>
+                                    <TableCell className='text-right whitespace-nowrap'>{formatCurrency(product.price)}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>{product.category}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>{product.stock}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>{product.rating}</TableCell>
+                                    <TableCell className='flex items-center gap-1'>
+                                        <Button asChild variant='outline' size='sm'>
+                                            <Link href={`/admin/products/${product.id}`}>Edit</Link>
+                                        </Button>
+                                        {/* Delete  Button*/}
+                                        <DeleteDialog id={product.id} action={deleteProductAction} />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                }
             </Table>
             {!!products.totalPages && products.totalPages > 1 && <Pagination page={page} totalPages={products.totalPages} />}
         </div>

@@ -14,7 +14,7 @@ export default async function CategoryDrawer() {
                     <MenuIcon />
                 </Button>
             </DrawerTrigger>
-            <DrawerContent className='h-full max-w-sm'>
+            <DrawerContent className="h-full max-w-sm rounded-none">
                 <DrawerHeader>
                     <DrawerTitle>Select Category</DrawerTitle>
                     <div className="space-y-1 mt-4">
