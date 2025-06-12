@@ -70,23 +70,23 @@ export default async function PlaceOrderPage() {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Item</TableHead>
-                                        <TableHead>Quantity</TableHead>
-                                        <TableHead className="text-right">Price</TableHead>
+                                        <TableHead className="w-[60%]">Item</TableHead>
+                                        <TableHead className="w-[20%] text-center">Quantity</TableHead>
+                                        <TableHead className="w-[20%] text-right">Price</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {
                                         cart.items.map(item => (
                                             <TableRow key={item.slug}>
-                                                <TableCell>
+                                                <TableCell className="pr-6">
                                                     <Link className="flex items-center" href={`/product/${item.slug}`}>
                                                         <Image src={item.image} alt={item.name} width={50} height={50} />
-                                                        <span className="px-2 whitespace-nowrap">{item.name}</span>
+                                                        <span className="ml-3 whitespace-nowrap">{item.name}</span>
                                                     </Link>
                                                 </TableCell>
-                                                <TableCell>
-                                                    <span className="px-2">{item.qty}</span>
+                                                <TableCell className="text-center">
+                                                    <span>{item.qty}</span>
                                                 </TableCell>
                                                 <TableCell className="text-right whitespace-nowrap">
                                                     <span>${item.price}</span>

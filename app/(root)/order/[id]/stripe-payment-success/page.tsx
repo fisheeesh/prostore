@@ -42,7 +42,7 @@ export default async function SuccessPage(props: {
         <div className="max-w-4xl w-full mx-auto space-y-8 py-28">
             <div className="flex flex-col gap-6 items-center justify-center">
                 <h1 className="h1-bold text-center">Thanks for your purchase. 🙌</h1>
-                <div className="text-sm text-muted-foreground max-w-md mx-auto text-center">
+                <div className="text-sm text-muted-foreground max-w-xs md:max-w-lg mx-auto text-center">
                     <span className="font-medium text-base text-black dark:text-white">We are processing your order.</span> <br />
                     We’ve emailed your receipt. Check spam if it’s not in your inbox.
                 </div>

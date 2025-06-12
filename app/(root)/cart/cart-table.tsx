@@ -63,30 +63,54 @@ export default function CartTable({ cart }: { cart?: Cart }) {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Item</TableHead>
-                                    <TableHead className="text-center">Quantity</TableHead>
-                                    <TableHead className="text-right">Price</TableHead>
+                                    <TableHead className="w-[50%] min-w-[300px]">Item</TableHead>
+                                    <TableHead className="text-center w-[30%] min-w-[180px]">Quantity</TableHead>
+                                    <TableHead className="text-right w-[20%] min-w-[100px]">Price</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {cart.items.map((item) => (
                                     <TableRow key={item.slug}>
-                                        <TableCell>
-                                            <Link href={`/product/${item.slug}`} className="flex items-center">
-                                                <Image src={item.image} alt={item.name} width={50} height={50} />
-                                                <span className="px-2 whitespace-nowrap">{item.name}</span>
+                                        <TableCell className="py-4">
+                                            <Link href={`/product/${item.slug}`} className="flex items-center gap-3">
+                                                <Image
+                                                    src={item.image}
+                                                    alt={item.name}
+                                                    width={50}
+                                                    height={50}
+                                                    className="rounded-md flex-shrink-0"
+                                                />
+                                                <span className="font-medium truncate">{item.name}</span>
                                             </Link>
                                         </TableCell>
-                                        <TableCell className="flex-center gap-2 whitespace-nowrap">
-                                            <Button disabled={isPending} variant='outline' type="button" onClick={() => handleRemoveItem(item.productId)}>
-                                                {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Minus className="h-4 w-4" />}
-                                            </Button>
-                                            <span>{item.qty}</span>
-                                            <Button disabled={isPending} type="button" variant='outline' onClick={() => handleAddToCart(item)}>
-                                                {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-                                            </Button>
+                                        <TableCell className="py-4">
+                                            <div className="flex items-center justify-center gap-3">
+                                                <Button
+                                                    disabled={isPending}
+                                                    variant='outline'
+                                                    size="sm"
+                                                    type="button"
+                                                    onClick={() => handleRemoveItem(item.productId)}
+                                                    className="h-8 w-8 p-0"
+                                                >
+                                                    {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Minus className="h-4 w-4" />}
+                                                </Button>
+                                                <span className="font-medium text-center min-w-[20px]">{item.qty}</span>
+                                                <Button
+                                                    disabled={isPending}
+                                                    type="button"
+                                                    variant='outline'
+                                                    size="sm"
+                                                    onClick={() => handleAddToCart(item)}
+                                                    className="h-8 w-8 p-0"
+                                                >
+                                                    {isPending ? <Loader className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+                                                </Button>
+                                            </div>
                                         </TableCell>
-                                        <TableCell className="text-right whitespace-nowrap">$ {item.price}</TableCell>
+                                        <TableCell className="text-right font-medium py-4">
+                                            ${item.price}
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -98,7 +122,6 @@ export default function CartTable({ cart }: { cart?: Cart }) {
                                 Subtotal ({cart.items.reduce((acc, item) => acc + item.qty, 0)}):
                                 <span className="font-bold">{formatCurrency(cart.itemsPrice)}</span>
                             </div>
-                            {/* <div className="flex-1" /> */}
                             <Button
                                 className="w-full"
                                 disabled={isPending}
