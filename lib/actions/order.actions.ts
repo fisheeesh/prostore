@@ -265,18 +265,36 @@ export async function getOrderSummary() {
         _sum: { totalPrice: true }
     })
 
-    //* Get monthly sales
-    //* When this get retun from db, the totalSales will be the format of Prisma's Decimal and we dun want that
-    const salesDataRaw = await prisma.$queryRaw <Array<{ month: string, totalSales: Decimal }
-    >>`SELECT to_char("createdAt", 'MM/YY') as "month", sum("totalPrice") as "totalSales" FROM "Order" GROUP BY to_char("createdAt", 'MM/YY')`
+    //* Get monthly sales with proper ordering
+    //* When this get return from db, the totalSales will be the format of Prisma's Decimal and we don't want that
+    const salesDataRaw = await prisma.$queryRaw<Array<{
+        month: string,
+        totalSales: Decimal,
+        year: number,
+        monthNumber: number
+    }>>`
+        SELECT 
+            to_char("createdAt", 'MM/YY') as "month", 
+            sum("totalPrice") as "totalSales",
+            EXTRACT(YEAR FROM "createdAt") as "year",
+            EXTRACT(MONTH FROM "createdAt") as "monthNumber"
+        FROM "Order" 
+        GROUP BY 
+            to_char("createdAt", 'MM/YY'),
+            EXTRACT(YEAR FROM "createdAt"),
+            EXTRACT(MONTH FROM "createdAt")
+        ORDER BY 
+            EXTRACT(YEAR FROM "createdAt") ASC,
+            EXTRACT(MONTH FROM "createdAt") ASC
+    `
 
-    //* Get that sales data(raw), put it in vari and map through it and convert Decimal to number
+    //* Get that sales data(raw), put it in variable and map through it and convert Decimal to number
     const salesData: SalesDataType = salesDataRaw.map(entry => ({
         month: entry.month,
         totalSales: Number(entry.totalSales)
     }))
 
-    //* Get lastest orders
+    //* Get latest orders
     const latestSales = await prisma.order.findMany({
         orderBy: { createdAt: 'desc' },
         include: { user: { select: { name: true } } },

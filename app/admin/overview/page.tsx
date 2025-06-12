@@ -18,8 +18,8 @@ export default async function AdminOverviewPage() {
     const summary = await getOrderSummary()
 
     return (
-        <div className="space-y-2">
-            <h2 className="h2-bold">Dashbboard</h2>
+        <div className="space-y-2 w-full">
+            <h2 className="h2-bold">Dashboard</h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -66,27 +66,29 @@ export default async function AdminOverviewPage() {
                     </CardContent>
                 </Card>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4 w-full overflow-hidden">
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+                <Card className="lg:col-span-4 w-full min-w-0">
                     <CardHeader>
                         <CardTitle>Overview</CardTitle>
                     </CardHeader>
-                    <CardContent className="overflow-x-hidden">
-                        <Charts data={{ salesData: summary.salesData }} />
+                    <CardContent className="overflow-x-auto p-0">
+                        <div className="min-w-[400px] p-6">
+                            <Charts data={{ salesData: summary.salesData }} />
+                        </div>
                     </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card className="lg:col-span-3 min-w-0">
                     <CardHeader>
                         <CardTitle>Recent Sales</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="overflow-x-auto p-0">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>BUYERS</TableHead>
-                                    <TableHead>DATE</TableHead>
-                                    <TableHead>TOTAL</TableHead>
-                                    <TableHead>ACTIONS</TableHead>
+                                    <TableHead className="whitespace-nowrap">BUYERS</TableHead>
+                                    <TableHead className="whitespace-nowrap">DATE</TableHead>
+                                    <TableHead className="whitespace-nowrap">TOTAL</TableHead>
+                                    <TableHead className="whitespace-nowrap">ACTIONS</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
