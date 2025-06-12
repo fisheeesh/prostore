@@ -18,7 +18,9 @@ export default function UserLayout({ children, }: Readonly<{ children: React.Rea
                         <MainNav className="mx-6" />
                     </div>
                     <div className='flex items-center justify-end gap-3'>
-                        <AdminSearch />
+                        <div className="hidden md:block">
+                            <AdminSearch />
+                        </div>
                         <Menu />
                     </div>
                 </div>

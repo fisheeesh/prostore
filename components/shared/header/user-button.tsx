@@ -1,8 +1,6 @@
 import { auth } from '@/auth'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
-import { signOutUserAction } from '@/lib/actions/user.actions'
 import { UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import SignOutDialog from '../signout-dialog'

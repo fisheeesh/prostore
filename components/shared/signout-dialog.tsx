@@ -22,7 +22,7 @@ export default function SignOutDialog() {
                     Sign Out
                 </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="max-w-sm w-[90%] mx-auto rounded-xl px-4">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Sign Out Confirmation.</AlertDialogTitle>
                     <AlertDialogDescription>
@@ -32,7 +32,7 @@ export default function SignOutDialog() {
                 <AlertDialogFooter>
                     <AlertDialogCancel>No</AlertDialogCancel>
                     <form action={handleSignOut}>
-                        <Button disabled={isPending} type="submit" size='default'>
+                        <Button disabled={isPending} type="submit" size='default' className='w-full'>
                             {
                                 isPending
                                     ?

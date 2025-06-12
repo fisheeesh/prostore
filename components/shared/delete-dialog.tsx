@@ -34,7 +34,7 @@ export default function DeleteDialog({ id, action }: { id: string, action: (id: 
             <AlertDialogTrigger asChild>
                 <Button size='sm' variant='destructive'>Delete</Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="max-w-sm w-[90%] mx-auto rounded-xl px-4">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>

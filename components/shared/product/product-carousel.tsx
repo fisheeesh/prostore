@@ -39,8 +39,8 @@ export default function ProductCarousel({ data }: { data: Product[] }) {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden min-[1400px]:flex min-[1400px]:items-center min-[1400px]:justify-center" />
+            <CarouselNext className="hidden min-[1400px]:flex min-[1400px]:items-center min-[1400px]:justify-center" />
         </Carousel>
     )
 }

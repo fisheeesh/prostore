@@ -67,11 +67,11 @@ export default async function AdminOverviewPage() {
                 </Card>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+                <Card className="col-span-4 w-full overflow-hidden">
                     <CardHeader>
                         <CardTitle>Overview</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="overflow-x-hidden">
                         <Charts data={{ salesData: summary.salesData }} />
                     </CardContent>
                 </Card>
@@ -93,16 +93,16 @@ export default async function AdminOverviewPage() {
                                 {
                                     summary.latestSales.map((order) => (
                                         <TableRow key={order.id}>
-                                            <TableCell>
+                                            <TableCell className="whitespace-nowrap">
                                                 {order?.user?.name ? order.user.name : 'Deleted User'}
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell className="whitespace-nowrap">
                                                 {formatDateTime(order.createdAt).dateOnly}
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell className="whitespace-nowrap">
                                                 {formatCurrency(order.totalPrice)}
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell className="whitespace-nowrap">
                                                 <Link href={`/order/${order.id}`}>
                                                     <span className="px-2">Details</span>
                                                 </Link>

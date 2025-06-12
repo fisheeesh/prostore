@@ -10,9 +10,9 @@ export default async function Search() {
 
     return (
         <form action='/search' method='GET'>
-            <div className='flex items-center w-full max-w-sm space-x-2'>
+            <div className='flex flex-col md:flex-row md:items-center w-full max-w-sm md:space-x-2 space-y-2 md:space-y-0'>
                 <Select name='category'>
-                    <SelectTrigger className='w-[180px]'>
+                    <SelectTrigger className='lg:w-[180px]'>
                         <SelectValue placeholder='All' />
                     </SelectTrigger>
                     <SelectContent>
@@ -24,15 +24,17 @@ export default async function Search() {
                         }
                     </SelectContent>
                 </Select>
-                <Input
-                    placeholder='Search...'
-                    name='q'
-                    type='text'
-                    className='md:w-[100px] lg:w-[300px]'
-                />
-                <Button>
-                    <SearchIcon />
-                </Button>
+                <div className='flex items-center space-x-2'>
+                    <Input
+                        placeholder='Search...'
+                        name='q'
+                        type='text'
+                        className='md:w-[100px] lg:w-[200px]'
+                    />
+                    <Button>
+                        <SearchIcon />
+                    </Button>
+                </div>
             </div>
         </form>
     )
