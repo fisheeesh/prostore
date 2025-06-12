@@ -86,10 +86,10 @@ export default function DealCountdown() {
             <div className="flex flex-col gap-2 justify-center">
                 <h3 className="text-3xl font-bold">Deal of The Month</h3>
                 <p>
-                    Get ready for shopping experience like never befor with our
-                    <strong>Deals of The Month!</strong> Every purchase comes with
+                    Get ready for shopping experience like never befor with our 
+                    <strong> Deals of The Month!</strong> Every purchase comes with
                     exclusive perks offers, making this month a celebration of savy choices
-                    and amazing deals Don&apos;t miss out! 🎁 🛒
+                    and amazing deals Don&apos;t miss out! 🎁
 
                 </p>
                 <ul className="grid grid-cols-4">
