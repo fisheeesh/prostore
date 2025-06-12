@@ -18,7 +18,7 @@ export default async function AdminOverviewPage() {
     const summary = await getOrderSummary()
 
     return (
-        <div className="space-y-2 w-full">
+        <div className="space-y-4 w-full">
             <h2 className="h2-bold">Dashboard</h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>

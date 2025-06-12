@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { getAllProductsAction, deleteProductAction } from '@/lib/actions/product.actions'
 import { requireAdmin } from '@/lib/auth-guard'
 import { formatCurrency, formatId } from '@/lib/utils'
+import { Plus } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
@@ -43,7 +44,10 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                     }
                 </div>
                 <Button asChild variant='default'>
-                    <Link href='/admin/products/create' className='w-fit'>Create Product</Link>
+                    <Link href='/admin/products/create' className='w-fit'>
+                        <Plus />
+                        Create Product
+                    </Link>
                 </Button>
             </div>
             <Table>
