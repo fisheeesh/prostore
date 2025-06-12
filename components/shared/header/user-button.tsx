@@ -33,10 +33,8 @@ export default async function UserButton() {
                 <DropdownMenuContent className='w-56' align='end' forceMount>
                     <DropdownMenuLabel className='font-normal'>
                         <div className="flex flex-col space-y-1">
-                            <div className="text-sm font-medium leading-none">{session.user?.name}</div>
-                        </div>
-                        <div className="flex flex-col space-y-1">
-                            <div className="text-sm text-muted-foreground leading-none">{session.user?.email}</div>
+                            <div className="text-sm font-medium leading-none truncate">{session.user?.name}</div>
+                            <div className="text-xs text-muted-foreground leading-none truncate">{session.user?.email}</div>
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuItem>
