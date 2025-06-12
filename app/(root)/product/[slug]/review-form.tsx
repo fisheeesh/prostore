@@ -75,7 +75,7 @@ export default function ReviewForm({ userId, productId, onReviewSubmitted }:
             <Button onClick={handleOpenForm} variant='default'>
                 Write a review
             </Button>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] w-[90%] mx-auto rounded-xl">
                 <Form {...form}>
                     <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
                         <DialogHeader>
