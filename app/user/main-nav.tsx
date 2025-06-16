@@ -14,6 +14,10 @@ const navLinks = [
         title: 'Orders',
         href: '/user/orders'
     },
+    {
+        title: 'Favorites',
+        href: '/user/favorites'
+    }
 ]
 
 export default function MainNav({ className, ...props }: React.HtmlHTMLAttributes<HTMLElement>) {

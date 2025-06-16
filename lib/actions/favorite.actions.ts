@@ -69,6 +69,33 @@ export async function toggleFavoriteAction(data: FavoriteItem) {
   }
 }
 
+export async function removeFromFavoritesAction(id: string) {
+  try {
+    const session = await auth()
+    if (!session) throw new Error('User not found. Please sign in to continue.')
+
+    const favorites = await getMyFavorites()
+
+    if (!favorites) throw new Error('Favorites not found.')
+
+    const newFavorites = insertFavoriteSchema.parse({
+      userId: session.user?.id,
+      items: favorites.items.filter(i => i.productId !== id)
+    })
+
+    await prisma.favorite.update({
+      where: { id: favorites.id },
+      data: newFavorites
+    })
+
+    revalidatePath(`/user/favorites`)
+
+    return { success: true, message: 'Removed from favorites.' }
+  } catch (error) {
+    return { succcess: false, message: formatErrors(error) };
+  }
+}
+
 export async function getMyFavorites() {
   const session = await auth()
   if (!session) throw new Error('User not found. Please sign in to continue.')

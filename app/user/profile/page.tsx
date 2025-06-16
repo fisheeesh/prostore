@@ -4,7 +4,7 @@ import { SessionProvider } from 'next-auth/react'
 import ProfileForm from './profile-form'
 
 /**
- * * In client component, we can simply say const session = await auth()
+ * * In client component, we cannot simply say const session = await auth()
  * * Instead we have to use a hook called useSession()
  * * In order to use that wherever that form is embedded, that component -- it has to be wrapped in SessionProvider
  */
