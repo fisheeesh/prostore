@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
-import { Cart, CartItem } from "@/types"
+import { CartItem } from "@/types"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { calcPrice, convertToPlainObject, formatErrors } from "../utils"

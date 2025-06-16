@@ -9,6 +9,8 @@ import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/p
 import { notFound } from "next/navigation"
 import ReviewList from "./review-list"
 import Rating from "@/components/shared/product/rating"
+import FavoriteButton from "./favorite-button"
+import { getMyFavorites } from "@/lib/actions/favorite.actions"
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
@@ -37,6 +39,10 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
 
     const cart = await getMyCart()
 
+    const favorites = await getMyFavorites()
+
+    console.log(favorites)
+
     return (
         <>
             <section className="pb-3 border-b">
@@ -50,7 +56,18 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                         <div className="flex flex-col gap-6">
                             <p>{product.brand} {product.category}</p>
                             <h3 className="h3-bold">{product.name}</h3>
-                            <Rating value={Number(product.rating)} />
+                            <div className="flex items-center gap-2 justify-between">
+                                <Rating value={Number(product.rating)} />
+                                <FavoriteButton
+                                    favorites={favorites}
+                                    item={{
+                                        productId: product.id,
+                                        slug,
+                                        image: product.images![0],
+                                        name: product.name,
+                                        price: product.price
+                                    }} />
+                            </div>
                             <p>{product.numReviews} Reviews</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                                 <ProductPrice value={Number(product.price)} className="w-24 rounded-full bg-green-100 text-green-700 px-5 py-2" />

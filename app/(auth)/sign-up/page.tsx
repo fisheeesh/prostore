@@ -22,7 +22,7 @@ export default async function SignUpPage(props: {
     }
 
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full max-w-lg mx-auto p-4">
             <Card>
                 <CardHeader className="space-y-4">
                     <Link href={'/'} className="flex-center">
