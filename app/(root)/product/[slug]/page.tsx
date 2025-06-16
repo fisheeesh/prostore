@@ -2,15 +2,18 @@ import { auth } from "@/auth"
 import AddToCart from "@/components/shared/product/add-to-cart"
 import ProductImages from "@/components/shared/product/product-images"
 import ProductPrice from "@/components/shared/product/product-price"
+import Rating from "@/components/shared/product/rating"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getMyCart } from "@/lib/actions/cart.actions"
-import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/product.actions"
-import { notFound } from "next/navigation"
-import ReviewList from "./review-list"
-import Rating from "@/components/shared/product/rating"
-import FavoriteButton from "./favorite-button"
 import { getMyFavorites } from "@/lib/actions/favorite.actions"
+import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/product.actions"
+import { Heart } from "lucide-react"
+import { notFound } from "next/navigation"
+import FavoriteButton from "./favorite-button"
+import ReviewList from "./review-list"
+import Link from "next/link"
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
@@ -41,8 +44,6 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
 
     const favorites = await getMyFavorites()
 
-    console.log(favorites)
-
     return (
         <>
             <section className="pb-3 border-b">
@@ -56,17 +57,22 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                         <div className="flex flex-col gap-6">
                             <p>{product.brand} {product.category}</p>
                             <h3 className="h3-bold">{product.name}</h3>
-                            <div className="flex items-center gap-2 justify-between">
+                            <div className="flex items-center justify-between gap-2">
                                 <Rating value={Number(product.rating)} />
-                                <FavoriteButton
-                                    favorites={favorites}
-                                    item={{
-                                        productId: product.id,
-                                        slug,
-                                        image: product.images![0],
-                                        name: product.name,
-                                        price: product.price
-                                    }} />
+                                {userId ?
+                                    <FavoriteButton
+                                        favorites={favorites}
+                                        item={{
+                                            productId: product.id,
+                                            slug,
+                                            image: product.images![0],
+                                            name: product.name,
+                                            price: product.price
+                                        }} /> :
+                                    <Link href={`/sign-in?callbackUrl=/product/${slug}`} type="button" className="border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-3 px-4">
+                                        <Heart className="w-4 h-4" />
+                                    </Link>
+                                }
                             </div>
                             <p>{product.numReviews} Reviews</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

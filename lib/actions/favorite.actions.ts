@@ -10,7 +10,6 @@ import { favoriteItemSchema, insertFavoriteSchema } from "../validator";
 export async function toggleFavoriteAction(data: FavoriteItem) {
   try {
     const session = await auth()
-    if (!session) throw new Error('User not found. Please sign in to continue.')
 
     const item = favoriteItemSchema.parse(data)
 
@@ -23,7 +22,7 @@ export async function toggleFavoriteAction(data: FavoriteItem) {
 
     if (!favorites) {
       const newFavorites = insertFavoriteSchema.parse({
-        userId: session.user?.id,
+        userId: session?.user?.id,
         items: [item]
       })
 
@@ -39,7 +38,7 @@ export async function toggleFavoriteAction(data: FavoriteItem) {
 
       if (exist) {
         const newFavorites = insertFavoriteSchema.parse({
-          userId: session.user?.id,
+          userId: session?.user?.id,
           items: favorites.items.filter(i => i.productId !== item.productId)
         })
 
@@ -50,7 +49,7 @@ export async function toggleFavoriteAction(data: FavoriteItem) {
       }
       else {
         const newFavorites = insertFavoriteSchema.parse({
-          userId: session.user?.id,
+          userId: session?.user?.id,
           items: [...favorites.items, item]
         })
 
@@ -72,14 +71,13 @@ export async function toggleFavoriteAction(data: FavoriteItem) {
 export async function removeFromFavoritesAction(id: string) {
   try {
     const session = await auth()
-    if (!session) throw new Error('User not found. Please sign in to continue.')
 
     const favorites = await getMyFavorites()
 
     if (!favorites) throw new Error('Favorites not found.')
 
     const newFavorites = insertFavoriteSchema.parse({
-      userId: session.user?.id,
+      userId: session?.user?.id,
       items: favorites.items.filter(i => i.productId !== id)
     })
 
@@ -98,10 +96,9 @@ export async function removeFromFavoritesAction(id: string) {
 
 export async function getMyFavorites() {
   const session = await auth()
-  if (!session) throw new Error('User not found. Please sign in to continue.')
 
   const favorites = await prisma.favorite.findFirst({
-    where: { userId: session.user?.id }
+    where: { userId: session?.user?.id }
   })
 
   if (!favorites) return undefined
