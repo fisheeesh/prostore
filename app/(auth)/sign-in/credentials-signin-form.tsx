@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { toast, useToast } from "@/hooks/use-toast"
 import { signInWithCredentialsAction } from "@/lib/actions/user.actions"
 import { Loader, OctagonAlert } from "lucide-react"
+import { signIn } from "next-auth/react"
+import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useActionState } from "react"
@@ -16,7 +19,24 @@ export default function CredentialsSignInForm() {
         message: ''
     })
     const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get('callbacUrl') || '/'
+    const callbackUrl = searchParams.get('callbackUrl') || '/'
+    const { toast } = useToast()
+
+    const handleSignIn = async (provider: "google") => {
+        try {
+            await signIn(provider, {
+                redirectTo: callbackUrl,
+                redirect: true
+            })
+        } catch (error) {
+            console.log(error)
+
+            toast({
+                variant: 'destructive',
+                description: error instanceof Error ? error.message : 'An erorr occured during sign-in'
+            })
+        }
+    }
 
     const SignInButton = () => {
         const { pending } = useFormStatus()
@@ -41,10 +61,14 @@ export default function CredentialsSignInForm() {
                 </div>
                 <div>
                     <Label htmlFor="password">Password <span className="text-red-600">*</span></Label>
-                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password"/>
+                    <Input id="password" placeholder="Password" name="password" type="password" autoComplete="password" />
                 </div>
-                <div>
+                <div className="space-y-3">
                     <SignInButton />
+                    <Button className="w-full flex items-center gap-3" type="button" variant='outline' onClick={() => handleSignIn('google')}>
+                        <Image src='/images/google.png' alt="google" width={17} height={17} />
+                        Continue with Google
+                    </Button>
                 </div>
 
                 {(data && !data.success && data.message) && (

@@ -55,3 +55,9 @@ export const SENDER_EMAIL = process.env.SENDER_EMAIL || 'noreply@theprostore.sho
 
 // sb-vf2fb43008178@business.example.com
 // qv-$HJ1t
+
+// client
+// 93722663352-o9l86nj3qo5k9kf181hn8rvus2f7e169.apps.googleusercontent.com
+
+// secret
+// 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

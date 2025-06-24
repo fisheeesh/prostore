@@ -3,12 +3,14 @@ import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import { NextResponse } from "next/server";
-import { prisma } from "./db/prisma";
+import { prisma, prismaAuth } from "./db/prisma";
 import { cookies } from "next/headers";
 
 export const config = {
     secret: process.env.NEXT_AUTH_SECRET,
+    debug: process.env.NODE_ENV === 'development',
     pages: {
         signIn: '/sign-in',
         error: '/sign-in',
@@ -18,8 +20,9 @@ export const config = {
         //* It will last 30 days
         maxAge: 30 * 24 * 60 * 60,
     },
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prismaAuth),
     providers: [
+        Google,
         CredentialsProvider({
             credentials: {
                 email: { type: 'email' },
@@ -52,9 +55,62 @@ export const config = {
                 //* If user does not exist or the password does not match return null
                 return null
             }
-        })
+        }),
     ],
     callbacks: {
+        async signIn({ user, account, profile }) {
+            if (account?.provider === "google") {
+                try {
+                    const existingUser = await prismaAuth.user.findFirst({
+                        where: { email: user.email! }
+                    });
+
+                    if (existingUser) {
+                        // Check if this Google account is already linked
+                        const existingAccount = await prismaAuth.account.findFirst({
+                            where: {
+                                provider: account.provider,
+                                providerAccountId: account.providerAccountId,
+                            }
+                        });
+
+                        // If Google account not linked to any user, link it to existing user
+                        if (!existingAccount) {
+                            await prismaAuth.account.create({
+                                data: {
+                                    userId: existingUser.id,
+                                    type: account.type,
+                                    provider: account.provider,
+                                    providerAccountId: account.providerAccountId,
+                                    refresh_token: account.refresh_token,
+                                    access_token: account.access_token,
+                                    expires_at: account.expires_at,
+                                    token_type: account.token_type,
+                                    scope: account.scope,
+                                    id_token: account.id_token,
+                                    // session_state: account.session_stat,
+                                }
+                            });
+                        }
+                        return true;
+                    }
+
+                    // If user doesn't exist, create new user (your existing logic)
+                    await prismaAuth.user.create({
+                        data: {
+                            email: user.email!,
+                            name: user.name || user.email!.split('@')[0],
+                            role: 'user',
+                        }
+                    });
+                    return true;
+                } catch (error) {
+                    console.error("Error during Google sign-in:", error);
+                    return false;
+                }
+            }
+            return true;
+        },
         async session({ session, user, trigger, token }: any) {
             //* Set user id from token
             //? jwt token has a subject property(sub). By default that is userId
@@ -69,21 +125,34 @@ export const config = {
 
             return session
         },
-        async jwt({ token, user, trigger, session }: any) {
+        async jwt({ token, user, trigger, session, account }: any) {
             //* Assign user fields to token
             if (user) {
-                token.id = user.id
-                token.role = user.role
+                //* For Google sign-in, get user data from database
+                if (account?.provider === "google") {
+                    const dbUser = await prisma.user.findFirst({
+                        where: { email: user.email }
+                    });
+                    if (dbUser) {
+                        token.id = dbUser.id;
+                        token.role = dbUser.role;
+                        token.name = dbUser.name;
+                    }
+                } else {
+                    //* For credentials sign-in
+                    token.id = user.id
+                    token.role = user.role
 
-                //* If user has not name, use email
-                if (user.name === 'NO_NAME') {
-                    token.name = user.email.split('@')
+                    //* If user has not name, use email
+                    if (user.name === 'NO_NAME') {
+                        token.name = user.email.split('@')[0]
 
-                    //* Update the database to reflect the token name
-                    await prisma.user.update({
-                        where: { id: user.id },
-                        data: { name: token.name }
-                    })
+                        //* Update the database to reflect the token name
+                        await prisma.user.update({
+                            where: { id: user.id },
+                            data: { name: token.name }
+                        })
+                    }
                 }
 
                 if (trigger === 'signIn' || trigger === 'signUp') {

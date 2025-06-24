@@ -18,7 +18,17 @@ export default async function OrdersPage(props: { searchParams: Promise<{ page: 
         <div className='space-y-2'>
             <h2 className="h2-bold">Orders</h2>
             <div className="overflow-x-auto">
-                <Table>
+                {!orders.data || orders.data.length === 0 ? (
+                    <div>
+                        You haven&apos;t placed any orders. {' '}
+                        <Link
+                            href="/"
+                            className="font-bold text-yellow-500 group transition-all"
+                        >
+                            Let&apos; go shopping. <span className="inline-block transform transition-transform duration-200 group-hover:translate-x-2">→</span>
+                        </Link>
+                    </div>
+                ) : <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead className='whitespace-nowrap'>ORDER ID</TableHead>
@@ -45,7 +55,7 @@ export default async function OrdersPage(props: { searchParams: Promise<{ page: 
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>
+                </Table>}
                 {
                     orders.totalPages > 1 && (
                         <Pagination page={Number(page) || 1} totalPages={orders?.totalPages} />

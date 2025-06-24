@@ -7,13 +7,13 @@ import ws from 'ws';
 neonConfig.webSocketConstructor = ws;
 const connectionString = `${process.env.DATABASE_URL}`;
 
-//* Creates a new connection pool using the provided connection string, allowing multiple concurrent connections.
-// const pool = new Pool({ connectionString });
-
 //* Instantiates the Prisma adapter using the Neon connection pool to handle the connection between Prisma and Neon.
 const adapter = new PrismaNeon({ connectionString });
 
-//* Extends the PrismaClient with a custom result transformer to convert the price and rating fields to strings.
+//* Standard Prisma client for NextAuth (without extensions)
+export const prismaAuth = new PrismaClient({ adapter });
+
+//* Extended PrismaClient with custom result transformers for your application
 export const prisma = new PrismaClient({ adapter }).$extends({
   result: {
     product: {
