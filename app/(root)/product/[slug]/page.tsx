@@ -4,16 +4,15 @@ import ProductImages from "@/components/shared/product/product-images"
 import ProductPrice from "@/components/shared/product/product-price"
 import Rating from "@/components/shared/product/rating"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getMyCart } from "@/lib/actions/cart.actions"
 import { getMyFavorites } from "@/lib/actions/favorite.actions"
 import { getLatestProductsAction, getProductBySlugAction } from "@/lib/actions/product.actions"
 import { Heart } from "lucide-react"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import FavoriteButton from "./favorite-button"
 import ReviewList from "./review-list"
-import Link from "next/link"
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params

@@ -260,6 +260,17 @@ export async function getOrderSummary() {
     const productsCount = await prisma.product.count()
     const usersCount = await prisma.user.count()
 
+    //* paymentCounts
+    const payPalCount = await prisma.order.count({
+        where: { paymentMethod: 'PayPal' }
+    })
+    const stripeCount = await prisma.order.count({
+        where: { paymentMethod: 'Stripe' }
+    })
+    const codCount = await prisma.order.count({
+        where: { paymentMethod: 'CashOnDelivery' }
+    })
+
     //* Calculate total sales
     const totalSales = await prisma.order.aggregate({
         _sum: { totalPrice: true }
@@ -307,7 +318,12 @@ export async function getOrderSummary() {
         usersCount,
         totalSales,
         latestSales,
-        salesData
+        salesData,
+        payments: [
+            { method: 'PayPal', count: payPalCount, color: '#009CDE' },
+            { method: 'Stripe', count: stripeCount, color: '#635BFF' },
+            { method: 'CashOnDelivery', count: codCount, color: '#00C48C' },
+        ]
     }
 }
 

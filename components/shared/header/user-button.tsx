@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { UserIcon } from 'lucide-react'
+import { Cog, CogIcon, History, LayoutDashboard, UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import SignOutDialog from '../signout-dialog'
 
@@ -38,15 +38,24 @@ export default async function UserButton() {
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuItem>
-                        <Link href={'/user/profile'} className='w-full'>My Profile</Link>
+                        <Link href={'/user/profile'} className='w-full flex items-center gap-3'>
+                            <CogIcon />
+                            My Profile
+                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <Link href={'/user/orders'} className='w-full'>Order History</Link>
+                        <Link href={'/user/orders'} className='w-full flex items-center gap-3'>
+                            <History />
+                            Order History
+                        </Link>
                     </DropdownMenuItem>
                     {/* Check next.auth.d.ts */}
                     {session?.user?.role === 'admin' && (
                         <DropdownMenuItem>
-                            <Link href='/admin/overview' className='w-full'>Admin</Link>
+                            <Link href='/admin/overview' className='w-full flex items-center gap-3'>
+                                <LayoutDashboard />
+                                Admin
+                            </Link>
                         </DropdownMenuItem>
                     )}
                     <DropdownMenuItem className='p-0 mb-1' asChild>

@@ -4,7 +4,7 @@ import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescript
 import { signOutUserAction } from '@/lib/actions/user.actions'
 import { Button } from '../ui/button'
 import { useTransition } from 'react'
-import { Loader } from 'lucide-react'
+import { Loader, LogOut } from 'lucide-react'
 
 export default function SignOutDialog() {
     const [isPending, startTransition] = useTransition()
@@ -18,7 +18,8 @@ export default function SignOutDialog() {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant='ghost' className='w-full py-4 px-2 h-4 justify-start'>
+                <Button variant='ghost' className='w-full py-4 px-2 h-4 justify-start flex items-center gap-3'>
+                    <LogOut />
                     Sign Out
                 </Button>
             </AlertDialogTrigger>

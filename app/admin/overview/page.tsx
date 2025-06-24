@@ -6,7 +6,8 @@ import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils"
 import { BadgeDollarSign, Barcode, CreditCard, Users } from "lucide-react"
 import { Metadata } from "next"
 import Link from "next/link"
-import Charts from "./charts"
+import OverviewChart from "./over-chart"
+import PaymentMethodsChart from "./payment-methods-chart"
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard'
@@ -67,17 +68,7 @@ export default async function AdminOverviewPage() {
                 </Card>
             </div>
             <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
-                <Card className="lg:col-span-4 w-full min-w-0">
-                    <CardHeader>
-                        <CardTitle>Overview</CardTitle>
-                    </CardHeader>
-                    <CardContent className="overflow-x-auto p-0">
-                        <div className="min-w-[400px] p-6">
-                            <Charts data={{ salesData: summary.salesData }} />
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card className="lg:col-span-3 min-w-0">
+                <Card className="lg:col-span-4 min-w-0">
                     <CardHeader>
                         <CardTitle>Recent Sales</CardTitle>
                     </CardHeader>
@@ -116,7 +107,41 @@ export default async function AdminOverviewPage() {
                         </Table>
                     </CardContent>
                 </Card>
+                <Card className="lg:col-span-3 w-full min-w-0">
+                    <CardHeader>
+                        <CardTitle>Payment Methods</CardTitle>
+                    </CardHeader>
+                    <CardContent className="overflow-x-auto p-0">
+                        <div className="flex flex-wrap gap-3 justify-center pt-8">
+                            {summary.payments.map((entry) => (
+                                <div
+                                    key={entry.method}
+                                    className="flex items-center gap-2 text-sm"
+                                >
+                                    <div
+                                        className="w-3 h-3 rounded-full"
+                                        style={{ backgroundColor: entry.color }}
+                                    ></div>
+                                    <span className="">{entry.method}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="min-w-[400px]">
+                            <PaymentMethodsChart data={summary.payments} />
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
+            <Card className="w-full min-w-0">
+                <CardHeader>
+                    <CardTitle>Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="overflow-x-auto p-0">
+                    <div className="p-6">
+                        <OverviewChart data={{ salesData: summary.salesData }} />
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     )
 }

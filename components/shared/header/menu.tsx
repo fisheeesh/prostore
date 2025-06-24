@@ -7,17 +7,26 @@ import Search from './search'
 import UserButton from './user-button'
 import { auth } from '@/auth'
 import AdminSearch from '@/components/admin/admin-search'
+import { Badge } from '@/components/ui/badge'
+import { getMyCart } from '@/lib/actions/cart.actions'
 
 export default async function Menu() {
     const session = await auth()
+    const myCart = await getMyCart()
 
     return (
         <div className='flex items-center justify-end gap-3'>
-            <nav className='hidden md:flex w-full max-w-xs gap-1'>
+            <nav className='hidden md:flex w-full max-w-xs gap-2.5'>
                 <ModeToggle />
-                <Button asChild variant='ghost'>
-                    <Link href='/cart'>
-                        <ShoppingCart /> Cart
+                <Button variant='outline' size='icon' className='relative' asChild>
+                    <Link href='/cart' className='relative'>
+                        {
+                            !!myCart?.items.length &&
+                            <Badge variant='destructive' className="absolute z-30 -right-2 -top-2 h-5 w-5 rounded-full text-xs p-1 flex items-center justify-center">
+                                {myCart?.items.length}
+                            </Badge>
+                        }
+                        <ShoppingCart />
                     </Link>
                 </Button>
                 <UserButton />

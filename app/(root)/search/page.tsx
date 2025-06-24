@@ -1,6 +1,7 @@
 import ProductCard from '@/components/shared/product/product-card'
 import { Button } from '@/components/ui/button'
 import { getAllCategoriesAction, getAllProductsAction } from '@/lib/actions/product.actions'
+import { Frown } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -216,7 +217,10 @@ export default async function SearchPage(props:
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     {products.data.length === 0 && (
-                        <div>No products found.</div>
+                        <div className='flex flex-col items-center justify-center col-span-3 my-36 gap-3'>
+                            <Frown className='size-12' />
+                            <span className="text-muted-foreground font-medium">No products found.</span>
+                        </div>
                     )}
                     {
                         products.data.map((product) => (

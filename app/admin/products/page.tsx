@@ -2,13 +2,12 @@ import DeleteDialog from '@/components/shared/delete-dialog'
 import Pagination from '@/components/shared/pagination'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { getAllProductsAction, deleteProductAction } from '@/lib/actions/product.actions'
+import { deleteProductAction, getAllProductsAction } from '@/lib/actions/product.actions'
 import { requireAdmin } from '@/lib/auth-guard'
 import { formatCurrency, formatId } from '@/lib/utils'
 import { Plus } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import React from 'react'
 
 export const metadata: Metadata = {
     title: "Admin Products"
@@ -66,7 +65,9 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                     products.data.length === 0 ? (
                         <TableBody>
                             <TableRow>
-                                <TableCell colSpan={7} className='py-32 font-bold text-xl md:text-2xl text-center'>Oops. No products Found.</TableCell>
+                                <TableCell colSpan={7} className='py-36 font-bold text-xl md:text-2xl text-center'>
+                                    Oops. No products Found.
+                                </TableCell>
                             </TableRow>
                         </TableBody>
                     ) :
