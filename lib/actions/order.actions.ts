@@ -193,7 +193,10 @@ export async function updateOrderToPaid({
         for (const item of order.orderitems) {
             await tx.product.update({
                 where: { id: item.productId },
-                data: { stock: { increment: -item.qty } }
+                data: {
+                    stock: { increment: -item.qty },
+                    sold: { increment: +item.qty }
+                }
             })
         }
 

@@ -33,6 +33,8 @@ export const PRODUCT_DEFAULT_VALUES = {
     brand: '',
     description: '',
     price: '0',
+    discount: '0',
+    sold: '0',
     stock: 0,
     rating: '0',
     numReviews: '0',

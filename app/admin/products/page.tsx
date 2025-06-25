@@ -54,9 +54,11 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                     <TableRow>
                         <TableHead className='whitespace-nowrap'>ID</TableHead>
                         <TableHead className='whitespace-nowrap'>NAME</TableHead>
-                        <TableHead className='text-right whitespace-nowrap'>PRICE</TableHead>
                         <TableHead className='whitespace-nowrap'>CATEGORY</TableHead>
+                        <TableHead className='text-right whitespace-nowrap'>PRICE</TableHead>
+                        <TableHead className='text-right whitespace-nowrap'>DISCOUNT</TableHead>
                         <TableHead className='whitespace-nowrap'>STOCK</TableHead>
+                        <TableHead className='whitespace-nowrap'>SOLD</TableHead>
                         <TableHead className='whitespace-nowrap'>RATING</TableHead>
                         <TableHead className='w-[100px] whitespace-nowrap'>ACTIONS</TableHead>
                     </TableRow>
@@ -76,9 +78,11 @@ export default async function AdminProductsPage(props: { searchParams: Promise<{
                                 <TableRow key={product.id}>
                                     <TableCell className='whitespace-nowrap'>{formatId(product.id)}</TableCell>
                                     <TableCell className='whitespace-nowrap'>{product.name}</TableCell>
-                                    <TableCell className='text-right whitespace-nowrap'>{formatCurrency(product.price)}</TableCell>
                                     <TableCell className='whitespace-nowrap'>{product.category}</TableCell>
+                                    <TableCell className='text-right whitespace-nowrap'>{formatCurrency(product.price)}</TableCell>
+                                    <TableCell className='text-right whitespace-nowrap'>{formatCurrency(product.discount)}</TableCell>
                                     <TableCell className='whitespace-nowrap'>{product.stock}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>{product.sold}</TableCell>
                                     <TableCell className='whitespace-nowrap'>{product.rating}</TableCell>
                                     <TableCell className='flex items-center gap-1'>
                                         <Button asChild variant='outline' size='sm'>

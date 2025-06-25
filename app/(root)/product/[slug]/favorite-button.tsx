@@ -25,7 +25,7 @@ export default function FavoriteButton({ favorites, item }: { favorites?: Favori
   }
 
   return (
-    <Button onClick={handleToogleFavorite} disabled={isPending} type="button" variant='outline' className="rounded-full flex items-center gap-2">
+    <Button onClick={handleToogleFavorite} disabled={isPending} type="button" size='icon' variant='outline' className="rounded-full flex items-center gap-2">
       {isPending ? <Loader className="w-4 h-4 animate-spin" /> : isFavorited ? <Heart className="w-4 h-4" fill='red' stroke='red' /> : <Heart className="w-4 h-4" />}
       {/* <span>1</span> */}
     </Button>

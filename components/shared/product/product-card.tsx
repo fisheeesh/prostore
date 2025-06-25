@@ -22,9 +22,9 @@ export default function ProductCard({ product }: { product: Product }) {
                     <Rating value={Number(product.rating)} />
                     {
                         product.stock > 0 ? (
-                            <ProductPrice value={Number(product.price)} className="" />
+                            <ProductPrice discount={Number(product.discount)} value={Number(product.price)} className="" />
                         ) : (
-                            <p className="text-destructive">Out of Stock</p>
+                            <p className="text-destructive line-clamp-1">Out of Stock</p>
                         )
                     }
                 </div>

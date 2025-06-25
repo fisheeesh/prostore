@@ -1,5 +1,6 @@
 "use client"
 
+import GoogleButton from "@/components/shared/google-button"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -9,9 +10,6 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useActionState } from "react"
 import { useFormStatus } from "react-dom"
-import Image from "next/image"
-import { signIn } from "next-auth/react"
-import { useToast } from "@/hooks/use-toast"
 
 export default function SignUpForm() {
     const [data, action] = useActionState(signUpUserAction, {
@@ -20,23 +18,6 @@ export default function SignUpForm() {
     })
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl') || '/'
-    const { toast } = useToast()
-
-    const handleSignIn = async (provider: "google") => {
-        try {
-            await signIn(provider, {
-                redirectTo: callbackUrl,
-                redirect: true
-            })
-        } catch (error) {
-            console.log(error)
-
-            toast({
-                variant: 'destructive',
-                description: error instanceof Error ? error.message : 'An erorr occured during sign-in'
-            })
-        }
-    }
 
     const SignUpButton = () => {
         const { pending } = useFormStatus()
@@ -76,10 +57,7 @@ export default function SignUpForm() {
                 </div>
                 <div className="space-y-3">
                     <SignUpButton />
-                    <Button type="button" className="w-full flex items-center gap-3" variant='outline' onClick={() => handleSignIn('google')}>
-                        <Image src='/images/google.png' alt="google" width={17} height={17} />
-                        Continue with Google
-                    </Button>
+                    <GoogleButton callbackUrl={callbackUrl} />
                 </div>
 
                 {(data && !data.success && data.message) && (

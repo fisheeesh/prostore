@@ -148,34 +148,52 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                     />
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row">
-                    {/* price */}
-                    <FormField
-                        control={form.control}
-                        name='price'
-                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'price'> }) => (
-                            <FormItem className="w-full">
-                                <FormLabel>Price <span className="text-red-600">*</span></FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Enter product price" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="flex flex-col md:w-1/2 w-full md:flex-row gap-5">
+                        {/* price */}
+                        <FormField
+                            control={form.control}
+                            name='price'
+                            render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'price'> }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Price <span className="text-red-600">*</span></FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter product price" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='discount'
+                            render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'discount'> }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Discount <span className="text-red-600">*</span></FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter product discount" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
                     {/* stock */}
-                    <FormField
-                        control={form.control}
-                        name='stock'
-                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'stock'> }) => (
-                            <FormItem className="w-full">
-                                <FormLabel>Stock <span className="text-red-600">*</span></FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Enter stock" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="w-full md:w-1/2">
+                        <FormField
+                            control={form.control}
+                            name='stock'
+                            render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'stock'> }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Stock <span className="text-red-600">*</span></FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter stock" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className="upload-field flex flex-col gap-5 md:flex-row">
                     {/* images */}

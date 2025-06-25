@@ -40,9 +40,15 @@ export default async function Menu() {
                         <SheetTitle>Menu</SheetTitle>
                         <div className='flex items-center space-x-2'>
                             <ModeToggle />
-                            <Button asChild variant='ghost'>
-                                <Link href='/cart'>
-                                    <ShoppingCart /> Cart
+                            <Button variant='outline' size='icon' className='relative' asChild>
+                                <Link href='/cart' className='relative'>
+                                    {
+                                        !!myCart?.items.length &&
+                                        <Badge variant='destructive' className="absolute z-30 -right-2 -top-2 h-5 w-5 rounded-full text-xs p-1 flex items-center justify-center">
+                                            {myCart?.items.length}
+                                        </Badge>
+                                    }
+                                    <ShoppingCart />
                                 </Link>
                             </Button>
                             <UserButton />
