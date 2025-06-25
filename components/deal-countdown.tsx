@@ -82,11 +82,11 @@ export default function DealCountdown() {
         )
     }
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 my-20">
-            <div className="flex flex-col gap-2 justify-center">
+        <section className="grid grid-cols-1 gap-8 md:grid-cols-2 my-20">
+            <div className="flex flex-col gap-4 justify-center">
                 <h3 className="text-3xl font-bold">Deal of The Month</h3>
                 <p>
-                    Get ready for shopping experience like never befor with our 
+                    Get ready for shopping experience like never befor with our
                     <strong> Deals of The Month!</strong> Every purchase comes with
                     exclusive perks offers, making this month a celebration of savy choices
                     and amazing deals Don&apos;t miss out! 🎁

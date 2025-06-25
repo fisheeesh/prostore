@@ -85,22 +85,24 @@ export default async function AdminOverviewPage() {
                         <CardTitle>Payment Methods</CardTitle>
                     </CardHeader>
                     <CardContent className="overflow-x-auto p-0">
-                        <div className="flex flex-wrap gap-3 justify-center pt-8">
-                            {summary.payments.map((entry) => (
-                                <div
-                                    key={entry.method}
-                                    className="flex items-center gap-2 text-sm"
-                                >
+                        <div className="flex flex-col items-center justify-center gap-6 p-6">
+                            <div className="flex flex-wrap justify-center gap-3">
+                                {summary.payments.map((entry) => (
                                     <div
-                                        className="w-3 h-3 rounded-full"
-                                        style={{ backgroundColor: entry.color }}
-                                    ></div>
-                                    <span className="">{entry.method}</span>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="min-w-[400px]">
-                            <PaymentMethodsChart data={summary.payments} />
+                                        key={entry.method}
+                                        className="flex items-center gap-2 text-sm"
+                                    >
+                                        <div
+                                            className="w-3 h-3 rounded-full"
+                                            style={{ backgroundColor: entry.color }}
+                                        ></div>
+                                        <span>{entry.method}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="w-full max-w-xs">
+                                <PaymentMethodsChart data={summary.payments} />
+                            </div>
                         </div>
                     </CardContent>
                 </Card>
