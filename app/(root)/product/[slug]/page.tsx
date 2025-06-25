@@ -58,20 +58,23 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                             <h3 className="h3-bold">{product.name}</h3>
                             <div className="flex items-center justify-between gap-2">
                                 <Rating value={Number(product.rating)} />
-                                {userId ?
-                                    <FavoriteButton
-                                        favorites={favorites}
-                                        item={{
-                                            productId: product.id,
-                                            slug,
-                                            image: product.images![0],
-                                            name: product.name,
-                                            price: product.price
-                                        }} /> :
-                                    <Link href={`/sign-in?callbackUrl=/product/${slug}`} type="button" className="border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-3 px-4">
-                                        <Heart className="w-4 h-4" />
-                                    </Link>
-                                }
+                                <div className="flex items-center gap-3">
+                                    <span>{product.sold > 0 && `${product.sold} sold`}</span>
+                                    {userId ?
+                                        <FavoriteButton
+                                            favorites={favorites}
+                                            item={{
+                                                productId: product.id,
+                                                slug,
+                                                image: product.images![0],
+                                                name: product.name,
+                                                price: product.price
+                                            }} /> :
+                                        <Link href={`/sign-in?callbackUrl=/product/${slug}`} type="button" className="border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-3 px-4">
+                                            <Heart className="w-4 h-4" />
+                                        </Link>
+                                    }
+                                </div>
                             </div>
                             <p>{product.numReviews} Reviews</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
