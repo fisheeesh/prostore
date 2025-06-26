@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
+import { sendDeliveredNotification, sendPurchaseReceipt } from "@/email"
 import { CartItem, PaymentResult, ShippingAddress } from "@/types"
 import { Decimal } from "@prisma/client/runtime/library"
 import { revalidatePath } from "next/cache"
@@ -12,9 +13,6 @@ import { convertToPlainObject, formatErrors } from "../utils"
 import { insertOrderSchema } from "../validator"
 import { getMyCart } from "./cart.actions"
 import { getUserById } from "./user.actions"
-import { Prisma } from "@prisma/client"
-import { sendPurchaseReceipt } from "@/email"
-import page from "@/app/(root)/page"
 
 /**
  * *A database transaction refers to a sequence of read/write operations that are guaranteed 
@@ -453,11 +451,26 @@ export async function deliverOrder(orderId: string) {
 
         if (!order.isPaid) throw new Error('Order is not paid.')
 
-        await prisma.order.update({
+        const updatedOrder = await prisma.order.update({
             where: { id: orderId },
             data: {
                 isDelivered: true,
                 deliveredAt: new Date()
+            },
+            include: {
+                orderitems: true,
+                user: { select: { name: true, email: true } }
+            },
+        })
+
+        if (!updatedOrder) throw new Error('Order not found.')
+
+        //* Send user to order confirmation email after order is purchased
+        await sendDeliveredNotification({
+            order: {
+                ...updatedOrder,
+                shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
+                paymentResult: updatedOrder.paymentResult as PaymentResult,
             }
         })
 
