@@ -10104,11 +10104,13 @@ export namespace Prisma {
   export type OrderItemAvgAggregateOutputType = {
     qty: number | null
     price: Decimal | null
+    discount: Decimal | null
   }
 
   export type OrderItemSumAggregateOutputType = {
     qty: number | null
     price: Decimal | null
+    discount: Decimal | null
   }
 
   export type OrderItemMinAggregateOutputType = {
@@ -10116,6 +10118,7 @@ export namespace Prisma {
     productId: string | null
     qty: number | null
     price: Decimal | null
+    discount: Decimal | null
     name: string | null
     slug: string | null
     image: string | null
@@ -10126,6 +10129,7 @@ export namespace Prisma {
     productId: string | null
     qty: number | null
     price: Decimal | null
+    discount: Decimal | null
     name: string | null
     slug: string | null
     image: string | null
@@ -10136,6 +10140,7 @@ export namespace Prisma {
     productId: number
     qty: number
     price: number
+    discount: number
     name: number
     slug: number
     image: number
@@ -10146,11 +10151,13 @@ export namespace Prisma {
   export type OrderItemAvgAggregateInputType = {
     qty?: true
     price?: true
+    discount?: true
   }
 
   export type OrderItemSumAggregateInputType = {
     qty?: true
     price?: true
+    discount?: true
   }
 
   export type OrderItemMinAggregateInputType = {
@@ -10158,6 +10165,7 @@ export namespace Prisma {
     productId?: true
     qty?: true
     price?: true
+    discount?: true
     name?: true
     slug?: true
     image?: true
@@ -10168,6 +10176,7 @@ export namespace Prisma {
     productId?: true
     qty?: true
     price?: true
+    discount?: true
     name?: true
     slug?: true
     image?: true
@@ -10178,6 +10187,7 @@ export namespace Prisma {
     productId?: true
     qty?: true
     price?: true
+    discount?: true
     name?: true
     slug?: true
     image?: true
@@ -10275,6 +10285,7 @@ export namespace Prisma {
     productId: string
     qty: number
     price: Decimal
+    discount: Decimal
     name: string
     slug: string
     image: string
@@ -10304,6 +10315,7 @@ export namespace Prisma {
     productId?: boolean
     qty?: boolean
     price?: boolean
+    discount?: boolean
     name?: boolean
     slug?: boolean
     image?: boolean
@@ -10316,6 +10328,7 @@ export namespace Prisma {
     productId?: boolean
     qty?: boolean
     price?: boolean
+    discount?: boolean
     name?: boolean
     slug?: boolean
     image?: boolean
@@ -10328,6 +10341,7 @@ export namespace Prisma {
     productId?: boolean
     qty?: boolean
     price?: boolean
+    discount?: boolean
     name?: boolean
     slug?: boolean
     image?: boolean
@@ -10340,12 +10354,13 @@ export namespace Prisma {
     productId?: boolean
     qty?: boolean
     price?: boolean
+    discount?: boolean
     name?: boolean
     slug?: boolean
     image?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"orderId" | "productId" | "qty" | "price" | "name" | "slug" | "image", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"orderId" | "productId" | "qty" | "price" | "discount" | "name" | "slug" | "image", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -10370,6 +10385,7 @@ export namespace Prisma {
       productId: string
       qty: number
       price: Prisma.Decimal
+      discount: Prisma.Decimal
       name: string
       slug: string
       image: string
@@ -10802,6 +10818,7 @@ export namespace Prisma {
     readonly productId: FieldRef<"OrderItem", 'String'>
     readonly qty: FieldRef<"OrderItem", 'Int'>
     readonly price: FieldRef<"OrderItem", 'Decimal'>
+    readonly discount: FieldRef<"OrderItem", 'Decimal'>
     readonly name: FieldRef<"OrderItem", 'String'>
     readonly slug: FieldRef<"OrderItem", 'String'>
     readonly image: FieldRef<"OrderItem", 'String'>
@@ -13534,6 +13551,7 @@ export namespace Prisma {
     productId: 'productId',
     qty: 'qty',
     price: 'price',
+    discount: 'discount',
     name: 'name',
     slug: 'slug',
     image: 'image'
@@ -14336,6 +14354,7 @@ export namespace Prisma {
     productId?: UuidFilter<"OrderItem"> | string
     qty?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     name?: StringFilter<"OrderItem"> | string
     slug?: StringFilter<"OrderItem"> | string
     image?: StringFilter<"OrderItem"> | string
@@ -14348,6 +14367,7 @@ export namespace Prisma {
     productId?: SortOrder
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     image?: SortOrder
@@ -14364,6 +14384,7 @@ export namespace Prisma {
     productId?: UuidFilter<"OrderItem"> | string
     qty?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     name?: StringFilter<"OrderItem"> | string
     slug?: StringFilter<"OrderItem"> | string
     image?: StringFilter<"OrderItem"> | string
@@ -14376,6 +14397,7 @@ export namespace Prisma {
     productId?: SortOrder
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     image?: SortOrder
@@ -14394,6 +14416,7 @@ export namespace Prisma {
     productId?: UuidWithAggregatesFilter<"OrderItem"> | string
     qty?: IntWithAggregatesFilter<"OrderItem"> | number
     price?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     name?: StringWithAggregatesFilter<"OrderItem"> | string
     slug?: StringWithAggregatesFilter<"OrderItem"> | string
     image?: StringWithAggregatesFilter<"OrderItem"> | string
@@ -15224,6 +15247,7 @@ export namespace Prisma {
   export type OrderItemCreateInput = {
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -15236,6 +15260,7 @@ export namespace Prisma {
     productId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -15244,6 +15269,7 @@ export namespace Prisma {
   export type OrderItemUpdateInput = {
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -15256,6 +15282,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -15266,6 +15293,7 @@ export namespace Prisma {
     productId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -15274,6 +15302,7 @@ export namespace Prisma {
   export type OrderItemUpdateManyMutationInput = {
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -15284,6 +15313,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -16240,6 +16270,7 @@ export namespace Prisma {
     productId?: SortOrder
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     image?: SortOrder
@@ -16248,6 +16279,7 @@ export namespace Prisma {
   export type OrderItemAvgOrderByAggregateInput = {
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
   }
 
   export type OrderItemMaxOrderByAggregateInput = {
@@ -16255,6 +16287,7 @@ export namespace Prisma {
     productId?: SortOrder
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     image?: SortOrder
@@ -16265,6 +16298,7 @@ export namespace Prisma {
     productId?: SortOrder
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
     name?: SortOrder
     slug?: SortOrder
     image?: SortOrder
@@ -16273,6 +16307,7 @@ export namespace Prisma {
   export type OrderItemSumOrderByAggregateInput = {
     qty?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
   }
 
   export type ReviewCountOrderByAggregateInput = {
@@ -17239,6 +17274,7 @@ export namespace Prisma {
   export type OrderItemCreateWithoutProductInput = {
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -17249,6 +17285,7 @@ export namespace Prisma {
     orderId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -17318,6 +17355,7 @@ export namespace Prisma {
     productId?: UuidFilter<"OrderItem"> | string
     qty?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     name?: StringFilter<"OrderItem"> | string
     slug?: StringFilter<"OrderItem"> | string
     image?: StringFilter<"OrderItem"> | string
@@ -18038,6 +18076,7 @@ export namespace Prisma {
   export type OrderItemCreateWithoutOrderInput = {
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -18048,6 +18087,7 @@ export namespace Prisma {
     productId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -18616,6 +18656,7 @@ export namespace Prisma {
     orderId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -18634,6 +18675,7 @@ export namespace Prisma {
   export type OrderItemUpdateWithoutProductInput = {
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -18644,6 +18686,7 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -18653,6 +18696,7 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -18954,6 +18998,7 @@ export namespace Prisma {
     productId: string
     qty: number
     price: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
     name: string
     slug: string
     image: string
@@ -18962,6 +19007,7 @@ export namespace Prisma {
   export type OrderItemUpdateWithoutOrderInput = {
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -18972,6 +19018,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -18981,6 +19028,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     qty?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     name?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string

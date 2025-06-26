@@ -26,7 +26,7 @@ export default function BestSellerChart({
             const { productName, totalSold } = payload[0].payload
             return (
                 <div className="rounded bg-white p-2 text-sm shadow text-black">
-                    <p className="font-medium">{`${productName}: ${totalSold} sold${totalSold === 1 ? '' : 's'}`}</p>
+                    <p className="font-medium">{`${productName}: ${totalSold} sold${totalSold <= 1 ? '' : 's'}`}</p>
                 </div>
             )
         }

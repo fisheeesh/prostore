@@ -47,7 +47,8 @@ DeliveryNotification.PreviewProps = {
             slug: x.slug,
             qty: x.stock,
             image: x.images[0],
-            price: x.price.toString()
+            price: x.price.toString(),
+            discount: '10'
         })),
         isDelivered: true,
         deliveredAt: new Date(),

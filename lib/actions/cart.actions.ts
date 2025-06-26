@@ -28,6 +28,7 @@ export async function addItemToCartAction(data: CartItem) {
         const cart = await getMyCart()
 
         const item = cartItemSchema.parse(data)
+        item.price = item.discount ? String(Number(item.price) - Number(item.discount)) : String(Number(item.price))
 
         const product = await prisma.product.findFirst({ where: { id: item.productId } })
 

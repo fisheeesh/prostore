@@ -43,6 +43,7 @@ PurchaseReceiptEmail.PreviewProps = {
             name: x.name,
             orderId: '123',
             productId: '123',
+            discount: '10',
             slug: x.slug,
             qty: x.stock,
             image: x.images[0],

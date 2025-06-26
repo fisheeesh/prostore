@@ -153,7 +153,7 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
                                                     <span>{item.qty}</span>
                                                 </TableCell>
                                                 <TableCell className="text-right">
-                                                    <span>${item.price}</span>
+                                                    <span>${item.discount ? Number(item.price) - Number(item.discount) : item.price}</span>
                                                 </TableCell>
                                             </TableRow>
                                         ))

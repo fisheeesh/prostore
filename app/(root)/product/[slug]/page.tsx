@@ -57,7 +57,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
     return (
         <>
             <section className="pb-3 border-b">
-                <div className="grid grid-cols-1 md:grid-cols-5">
+                <div className="grid grid-cols-1 lg:grid-cols-5">
                     {/* Images Column */}
                     <div className="col-span-2">
                         <ProductImages images={product.images} />
@@ -117,7 +117,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                                 <div className="mb-2 flex justify-between items-center">
                                     <div>Price</div>
                                     <div>
-                                        <ProductPrice value={Number(product.price)} />
+                                        <ProductPrice discount={Number(product.discount)} value={Number(product.price)} />
                                     </div>
                                 </div>
                                 <div className="mb-2 flex justify-between items-center">
@@ -141,7 +141,8 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                                                     slug: product.slug,
                                                     qty: 1,
                                                     image: product.images![0],
-                                                    price: product.price
+                                                    price: product.price,
+                                                    discount: product.discount
                                                 }} />
                                         </div>
                                     )

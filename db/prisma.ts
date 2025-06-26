@@ -90,7 +90,12 @@ export const prisma = new PrismaClient({ adapter }).$extends({
         compute(orderItem) {
           return orderItem.price.toString()
         }
-      }
+      },
+      discount: {
+        compute(orderItem) {
+          return orderItem.discount.toString()
+        }
+      },
     }
   },
 });

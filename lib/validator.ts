@@ -16,33 +16,42 @@ const currency = z
         "Price must have exactly 2 decimal places."
     );
 
-export const insertProductSchema = z.object({
+const baseInsertSchema = z.object({
     name: z.string().min(3, { message: "Name must be at least 3 characters." }),
     slug: z.string().min(3, { message: "Slug must be at least 3 characters." }),
-    category: z
-        .string()
-        .min(3, { message: "Category must be at least 3 characters." }),
+    category: z.string().min(3, { message: "Category must be at least 3 characters." }),
     brand: z.string().min(3, { message: "Brand must be at least 3 characters." }),
-    description: z
-        .string()
-        .min(3, { message: "Description must be at least 3 characters." }),
+    description: z.string().min(3, { message: "Description must be at least 3 characters." }),
     stock: z.coerce.number(),
-    images: z
-        .array(z.string())
-        .min(1, { message: "Product must have at leat 1 image." }),
+    images: z.array(z.string()).min(1, { message: "Product must have at least 1 image." }),
     isFeatured: z.boolean(),
     banner: z.string().nullable(),
     isDeal: z.boolean(),
     dealDescription: z.string().nullable(),
     endDate: z.string().nullable(),
     price: currency,
-    discount: currency
+    discount: currency,
 });
 
-//* schema for updating a product
-export const updateProductSchema = insertProductSchema.extend({
-    id: z.string().min(1, { message: "Product ID is required." }),
-});
+export const insertProductSchema = baseInsertSchema.refine(
+    data => Number(data.discount) <= Number(data.price),
+    {
+        message: "Discount must be less than or equal to the price.",
+        path: ["discount"],
+    }
+);
+
+export const updateProductSchema = baseInsertSchema
+    .extend({
+        id: z.string().min(1, { message: "Product ID is required." }),
+    })
+    .refine(
+        data => Number(data.discount) <= Number(data.price),
+        {
+            message: "Discount must be less than or equal to the price.",
+            path: ["discount"],
+        }
+    );
 
 //* schema for signing users in
 export const signInFormSchema = z.object({
@@ -79,6 +88,7 @@ export const cartItemSchema = z.object({
         .int()
         .nonnegative({ message: "Quantity must be a positive integer." }),
     image: z.string().min(1, { message: "Image is required." }),
+    discount: currency,
     price: currency,
 });
 
@@ -141,6 +151,7 @@ export const insertOrderItemSchema = z.object({
     image: z.string(),
     name: z.string(),
     price: currency,
+    discount: currency,
     qty: z.number(),
 });
 
