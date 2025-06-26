@@ -26,7 +26,7 @@ const baseInsertSchema = z.object({
     images: z.array(z.string()).min(1, { message: "Product must have at least 1 image." }),
     isFeatured: z.boolean(),
     banner: z.string().nullable().optional(),
-    isDeal: z.boolean(),
+    isDeal: z.boolean().optional(),
     dealDescription: z.string().nullable().optional(),
     endDate: z.string().nullable().optional(),
     price: currency,
