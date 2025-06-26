@@ -34,30 +34,34 @@ export default function BestSellerChart({
     }
 
     return (
-        <ResponsiveContainer width="100%" height={350}>
-            <BarChart data={bestSellersData}>
-                <CartesianGrid horizontal={true} vertical={false} strokeDasharray="3 3" />
-                <XAxis
-                    dataKey="month"
-                    stroke="#888888"
-                    fontSize={12}
-                    tickLine={true}
-                    axisLine={true}
-                />
-                <YAxis
-                    stroke="#888888"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                />
-                <Tooltip content={<CustomTooltip />} />
-                <Bar
-                    dataKey="totalSold"
-                    fill="currentColor"
-                    radius={[4, 4, 0, 0]}
-                    className="fill-primary"
-                />
-            </BarChart>
-        </ResponsiveContainer>
+        <div className="w-full overflow-x-auto">
+            <div style={{ minWidth: `${bestSellersData.length * 80}px`, height: 350 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={bestSellersData}>
+                        <CartesianGrid horizontal={true} vertical={false} strokeDasharray="3 3" />
+                        <XAxis
+                            dataKey="month"
+                            stroke="#888888"
+                            fontSize={12}
+                            tickLine={true}
+                            axisLine={true}
+                        />
+                        <YAxis
+                            stroke="#888888"
+                            fontSize={12}
+                            tickLine={false}
+                            axisLine={false}
+                        />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Bar
+                            dataKey="totalSold"
+                            fill="currentColor"
+                            radius={[4, 4, 0, 0]}
+                            className="fill-primary"
+                        />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
     )
 }
