@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
 import { createOrderAction } from "@/lib/actions/order.actions"
 import { Check, Loader } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -9,11 +10,19 @@ import { useFormStatus } from "react-dom"
 
 export default function PlaceOrderForm() {
     const router = useRouter()
+    const { toast } = useToast()
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
 
         const res = await createOrderAction()
+
+        if (!res.success) {
+            toast({
+                variant: 'destructive',
+                description: res.message
+            })
+        }
 
         if (res.redirectTo) {
             router.push(res.redirectTo)
