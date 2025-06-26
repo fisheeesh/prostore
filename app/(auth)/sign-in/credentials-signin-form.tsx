@@ -7,17 +7,14 @@ import { Label } from "@/components/ui/label"
 import { signInWithCredentialsAction } from "@/lib/actions/user.actions"
 import { Loader, OctagonAlert } from "lucide-react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 import { useActionState } from "react"
 import { useFormStatus } from "react-dom"
 
-export default function CredentialsSignInForm() {
+export default function CredentialsSignInForm({ callbackUrl }: { callbackUrl: string }) {
     const [data, action] = useActionState(signInWithCredentialsAction, {
         success: false,
         message: ''
     })
-    const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get('callbackUrl') || '/'
 
     const SignInButton = () => {
         const { pending } = useFormStatus()

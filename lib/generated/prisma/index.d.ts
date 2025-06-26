@@ -1882,6 +1882,9 @@ export namespace Prisma {
     numReviews: number | null
     isFeatured: boolean | null
     banner: string | null
+    isDeal: boolean | null
+    dealDescription: string | null
+    endDate: string | null
     createdAt: Date | null
     rating: Decimal | null
   }
@@ -1900,6 +1903,9 @@ export namespace Prisma {
     numReviews: number | null
     isFeatured: boolean | null
     banner: string | null
+    isDeal: boolean | null
+    dealDescription: string | null
+    endDate: string | null
     createdAt: Date | null
     rating: Decimal | null
   }
@@ -1919,6 +1925,9 @@ export namespace Prisma {
     numReviews: number
     isFeatured: number
     banner: number
+    isDeal: number
+    dealDescription: number
+    endDate: number
     createdAt: number
     rating: number
     _all: number
@@ -1957,6 +1966,9 @@ export namespace Prisma {
     numReviews?: true
     isFeatured?: true
     banner?: true
+    isDeal?: true
+    dealDescription?: true
+    endDate?: true
     createdAt?: true
     rating?: true
   }
@@ -1975,6 +1987,9 @@ export namespace Prisma {
     numReviews?: true
     isFeatured?: true
     banner?: true
+    isDeal?: true
+    dealDescription?: true
+    endDate?: true
     createdAt?: true
     rating?: true
   }
@@ -1994,6 +2009,9 @@ export namespace Prisma {
     numReviews?: true
     isFeatured?: true
     banner?: true
+    isDeal?: true
+    dealDescription?: true
+    endDate?: true
     createdAt?: true
     rating?: true
     _all?: true
@@ -2100,6 +2118,9 @@ export namespace Prisma {
     numReviews: number
     isFeatured: boolean
     banner: string | null
+    isDeal: boolean
+    dealDescription: string | null
+    endDate: string | null
     createdAt: Date
     rating: Decimal
     _count: ProductCountAggregateOutputType | null
@@ -2138,6 +2159,9 @@ export namespace Prisma {
     numReviews?: boolean
     isFeatured?: boolean
     banner?: boolean
+    isDeal?: boolean
+    dealDescription?: boolean
+    endDate?: boolean
     createdAt?: boolean
     rating?: boolean
     OrderItem?: boolean | Product$OrderItemArgs<ExtArgs>
@@ -2160,6 +2184,9 @@ export namespace Prisma {
     numReviews?: boolean
     isFeatured?: boolean
     banner?: boolean
+    isDeal?: boolean
+    dealDescription?: boolean
+    endDate?: boolean
     createdAt?: boolean
     rating?: boolean
   }, ExtArgs["result"]["product"]>
@@ -2179,6 +2206,9 @@ export namespace Prisma {
     numReviews?: boolean
     isFeatured?: boolean
     banner?: boolean
+    isDeal?: boolean
+    dealDescription?: boolean
+    endDate?: boolean
     createdAt?: boolean
     rating?: boolean
   }, ExtArgs["result"]["product"]>
@@ -2198,11 +2228,14 @@ export namespace Prisma {
     numReviews?: boolean
     isFeatured?: boolean
     banner?: boolean
+    isDeal?: boolean
+    dealDescription?: boolean
+    endDate?: boolean
     createdAt?: boolean
     rating?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "category" | "images" | "brand" | "description" | "stock" | "sold" | "discount" | "price" | "numReviews" | "isFeatured" | "banner" | "createdAt" | "rating", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "category" | "images" | "brand" | "description" | "stock" | "sold" | "discount" | "price" | "numReviews" | "isFeatured" | "banner" | "isDeal" | "dealDescription" | "endDate" | "createdAt" | "rating", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     OrderItem?: boolean | Product$OrderItemArgs<ExtArgs>
     Review?: boolean | Product$ReviewArgs<ExtArgs>
@@ -2232,6 +2265,9 @@ export namespace Prisma {
       numReviews: number
       isFeatured: boolean
       banner: string | null
+      isDeal: boolean
+      dealDescription: string | null
+      endDate: string | null
       createdAt: Date
       rating: Prisma.Decimal
     }, ExtArgs["result"]["product"]>
@@ -2673,6 +2709,9 @@ export namespace Prisma {
     readonly numReviews: FieldRef<"Product", 'Int'>
     readonly isFeatured: FieldRef<"Product", 'Boolean'>
     readonly banner: FieldRef<"Product", 'String'>
+    readonly isDeal: FieldRef<"Product", 'Boolean'>
+    readonly dealDescription: FieldRef<"Product", 'String'>
+    readonly endDate: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly rating: FieldRef<"Product", 'Decimal'>
   }
@@ -13389,6 +13428,9 @@ export namespace Prisma {
     numReviews: 'numReviews',
     isFeatured: 'isFeatured',
     banner: 'banner',
+    isDeal: 'isDeal',
+    dealDescription: 'dealDescription',
+    endDate: 'endDate',
     createdAt: 'createdAt',
     rating: 'rating'
   };
@@ -13696,6 +13738,9 @@ export namespace Prisma {
     numReviews?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
     banner?: StringNullableFilter<"Product"> | string | null
+    isDeal?: BoolFilter<"Product"> | boolean
+    dealDescription?: StringNullableFilter<"Product"> | string | null
+    endDate?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemListRelationFilter
@@ -13717,6 +13762,9 @@ export namespace Prisma {
     numReviews?: SortOrder
     isFeatured?: SortOrder
     banner?: SortOrderInput | SortOrder
+    isDeal?: SortOrder
+    dealDescription?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     rating?: SortOrder
     OrderItem?: OrderItemOrderByRelationAggregateInput
@@ -13741,6 +13789,9 @@ export namespace Prisma {
     numReviews?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
     banner?: StringNullableFilter<"Product"> | string | null
+    isDeal?: BoolFilter<"Product"> | boolean
+    dealDescription?: StringNullableFilter<"Product"> | string | null
+    endDate?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemListRelationFilter
@@ -13762,6 +13813,9 @@ export namespace Prisma {
     numReviews?: SortOrder
     isFeatured?: SortOrder
     banner?: SortOrderInput | SortOrder
+    isDeal?: SortOrder
+    dealDescription?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     rating?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -13789,6 +13843,9 @@ export namespace Prisma {
     numReviews?: IntWithAggregatesFilter<"Product"> | number
     isFeatured?: BoolWithAggregatesFilter<"Product"> | boolean
     banner?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    isDeal?: BoolWithAggregatesFilter<"Product"> | boolean
+    dealDescription?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    endDate?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     rating?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
   }
@@ -14482,6 +14539,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemCreateNestedManyWithoutProductInput
@@ -14503,6 +14563,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -14524,6 +14587,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUpdateManyWithoutProductNestedInput
@@ -14545,6 +14611,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -14566,6 +14635,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
   }
@@ -14585,6 +14657,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -14604,6 +14679,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -15462,6 +15540,9 @@ export namespace Prisma {
     numReviews?: SortOrder
     isFeatured?: SortOrder
     banner?: SortOrder
+    isDeal?: SortOrder
+    dealDescription?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     rating?: SortOrder
   }
@@ -15489,6 +15570,9 @@ export namespace Prisma {
     numReviews?: SortOrder
     isFeatured?: SortOrder
     banner?: SortOrder
+    isDeal?: SortOrder
+    dealDescription?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     rating?: SortOrder
   }
@@ -15507,6 +15591,9 @@ export namespace Prisma {
     numReviews?: SortOrder
     isFeatured?: SortOrder
     banner?: SortOrder
+    isDeal?: SortOrder
+    dealDescription?: SortOrder
+    endDate?: SortOrder
     createdAt?: SortOrder
     rating?: SortOrder
   }
@@ -18095,6 +18182,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     Review?: ReviewCreateNestedManyWithoutProductInput
@@ -18115,6 +18205,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     Review?: ReviewUncheckedCreateNestedManyWithoutProductInput
@@ -18196,6 +18289,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     Review?: ReviewUpdateManyWithoutProductNestedInput
@@ -18216,6 +18312,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     Review?: ReviewUncheckedUpdateManyWithoutProductNestedInput
@@ -18236,6 +18335,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemCreateNestedManyWithoutProductInput
@@ -18256,6 +18358,9 @@ export namespace Prisma {
     numReviews?: number
     isFeatured?: boolean
     banner?: string | null
+    isDeal?: boolean
+    dealDescription?: string | null
+    endDate?: string | null
     createdAt?: Date | string
     rating?: Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -18335,6 +18440,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUpdateManyWithoutProductNestedInput
@@ -18355,6 +18463,9 @@ export namespace Prisma {
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
     banner?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeal?: BoolFieldUpdateOperationsInput | boolean
+    dealDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     OrderItem?: OrderItemUncheckedUpdateManyWithoutProductNestedInput

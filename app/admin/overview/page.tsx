@@ -10,6 +10,13 @@ import { Metadata } from "next"
 import Link from "next/link"
 import OverviewChart from "./over-chart"
 import PaymentMethodsChart from "./payment-methods-chart"
+import BestSellerChart from "./best-sellers-chart"
+
+type BestSeller = {
+    month: string
+    productName: string
+    totalSold: bigint | number
+}
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard'
@@ -179,6 +186,58 @@ export default async function AdminOverviewPage() {
                     </Table>
                 </CardContent>
             </Card>
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-6">
+                <Card className="lg:col-span-3 min-w-0">
+                    <CardHeader>
+                        <CardTitle>Best Sellers</CardTitle>
+                    </CardHeader>
+                    <CardContent className="overflow-x-auto p-0">
+                        <div className="p-6">
+                            <BestSellerChart data={{
+                                bestSellersData: summary.bestSellers.map(entry => {
+                                    return {
+                                        ...entry,
+                                        totalSold: Number(entry.totalSold),
+                                    }
+                                })
+                            }} />
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="lg:col-span-3 w-full min-w-0">
+                    <CardHeader>
+                        <CardTitle>Loyal Customers</CardTitle>
+                    </CardHeader>
+                    <CardContent className="overflow-x-auto p-0">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="whitespace-nowrap">CUSTOMERS</TableHead>
+                                    <TableHead className="whitespace-nowrap text-center">TOTAL ORDERS</TableHead>
+                                    <TableHead className="whitespace-nowrap text-right">TOTAL SPENT</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {
+                                    summary.loyalCustomers.map((cus) => {
+                                        return (<TableRow key={cus.id}>
+                                            <TableCell className="whitespace-nowrap">
+                                                {cus.name}
+                                            </TableCell>
+                                            <TableCell className="whitespace-nowrap text-center">
+                                                {formatNumber(cus.totalOrders)} order{cus.totalOrders > 1 && 's'}
+                                            </TableCell>
+                                            <TableCell className="whitespace-nowrap text-right">
+                                                {formatCurrency(cus.totalSpent)}
+                                            </TableCell>
+                                        </TableRow>)
+                                    })
+                                }
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     )
 }

@@ -32,7 +32,7 @@ export default async function SignInPage(props: {
                     <CardDescription className="text-center">Nice to see you again.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <CredentialsSignInForm />
+                    <CredentialsSignInForm callbackUrl={callbackUrl} />
                 </CardContent>
             </Card>
         </div>

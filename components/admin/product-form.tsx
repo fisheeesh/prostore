@@ -78,6 +78,7 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
     const images = form.watch('images')
     const isFeatured = form.watch('isFeatured')
     const banner = form.watch('banner')
+    const isDeal = form.watch('isDeal')
 
     return (
         <Form {...form}>
@@ -148,38 +149,22 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                     />
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row">
-                    <div className="flex flex-col md:w-1/2 w-full md:flex-row gap-5">
-                        {/* price */}
-                        <FormField
-                            control={form.control}
-                            name='price'
-                            render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'price'> }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Price <span className="text-red-600">*</span></FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Enter product price" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name='discount'
-                            render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'discount'> }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Discount <span className="text-red-600">*</span></FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Enter product discount" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
+                    <FormField
+                        control={form.control}
+                        name='price'
+                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'price'> }) => (
+                            <FormItem className="w-full">
+                                <FormLabel>Price <span className="text-red-600">*</span></FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Enter product price" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
                     {/* stock */}
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full">
                         <FormField
                             control={form.control}
                             name='stock'
@@ -275,6 +260,71 @@ export default function ProductForm({ type, product, productId }: { type: 'Creat
                                         }
                                     }
                                 />
+                            }
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="upload-field space-y-2">
+                    {/* isFetured */}
+                    <FormLabel>Deal of the month</FormLabel>
+                    <Card>
+                        <CardContent className="space-y-2 mt-2">
+                            <FormField
+                                control={form.control}
+                                name="isDeal"
+                                render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'isDeal'> }) => (
+                                    <FormItem className="space-x-2 items-center">
+                                        <FormControl>
+                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                        </FormControl>
+                                        <FormLabel>Is deal of the month</FormLabel>
+                                    </FormItem>
+                                )}
+                            />
+
+                            {
+                                isDeal &&
+                                <>
+                                    <FormField
+                                        control={form.control}
+                                        name='discount'
+                                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'discount'> }) => (
+                                            <FormItem className="w-full">
+                                                <FormLabel>Discount <span className="text-red-600">*</span></FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Enter product discount" {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name='dealDescription'
+                                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'dealDescription'> }) => (
+                                            <FormItem className="w-full">
+                                                <FormLabel>Deal description <span className="text-red-600">*</span></FormLabel>
+                                                <FormControl>
+                                                    <Textarea placeholder="Enter deal description" {...field} value={field.value ?? ""} className="resize-none" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name='endDate'
+                                        render={({ field }: { field: ControllerRenderProps<z.infer<typeof insertProductSchema>, 'endDate'> }) => (
+                                            <FormItem className="w-full">
+                                                <FormLabel>End date <span className="text-red-600">*</span></FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Enter end date" className="w-fit" {...field} value={field.value ?? ""} type="date" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </>
                             }
                         </CardContent>
                     </Card>

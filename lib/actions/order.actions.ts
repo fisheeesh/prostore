@@ -14,6 +14,7 @@ import { getMyCart } from "./cart.actions"
 import { getUserById } from "./user.actions"
 import { Prisma } from "@prisma/client"
 import { sendPurchaseReceipt } from "@/email"
+import page from "@/app/(root)/page"
 
 /**
  * *A database transaction refers to a sequence of read/write operations that are guaranteed 
@@ -232,6 +233,20 @@ export async function updateOrderToPaid({
     })
 }
 
+export async function getOrdersById() {
+    const session = await auth()
+    if (!session) throw new Error('User not found. Please sign in to continue.')
+
+    const data = await prisma.order.findMany({
+        where: {
+            userId: session.user?.id,
+        },
+        include: { orderitems: true }
+    })
+
+    return data
+}
+
 //* Get user orders
 export async function getMyOrders({ limit = PAGE_SIZE, page }: { limit?: number, page: number }) {
     const session = await auth()
@@ -255,6 +270,13 @@ type SalesDataType = {
     month: string,
     totalSales: number
 }[]
+
+type BestSeller = {
+    month: string
+    productName: string
+    totalSold: bigint
+}
+
 
 //* Get sales data & order summary
 export async function getOrderSummary() {
@@ -315,6 +337,43 @@ export async function getOrderSummary() {
         take: 6
     })
 
+    const users = await prisma.user.findMany({
+        include: {
+            _count: {
+                select: {
+                    Order: true,
+                },
+            },
+            Order: {
+                select: {
+                    totalPrice: true,
+                },
+            },
+        },
+        take: 6
+    });
+
+    const result = users.map(user => {
+        const totalSpent = user.Order.reduce((sum, order) => sum + Number(order.totalPrice), 0);
+
+        return {
+            ...user,
+            totalOrders: user._count.Order,
+            totalSpent,
+        };
+    }).sort((a, b) => b.totalOrders - a.totalOrders);
+
+    const bestSellers = await prisma.$queryRawUnsafe<BestSeller[]>(`
+    SELECT DISTINCT ON (month) 
+        to_char(o."createdAt", 'MM/YY') AS month,
+        oi.name AS "productName",
+        SUM(oi.qty) AS "totalSold"
+    FROM "OrderItem" oi
+    JOIN "Order" o ON o.id = oi."orderId"
+    GROUP BY month, oi.name
+    ORDER BY month, "totalSold" DESC
+`)
+
     return {
         ordersCount,
         productsCount,
@@ -326,7 +385,9 @@ export async function getOrderSummary() {
             { method: 'PayPal', count: payPalCount, color: '#009CDE' },
             { method: 'Stripe', count: stripeCount, color: '#635BFF' },
             { method: 'CashOnDelivery', count: codCount, color: '#00C48C' },
-        ]
+        ],
+        loyalCustomers: result,
+        bestSellers
     }
 }
 

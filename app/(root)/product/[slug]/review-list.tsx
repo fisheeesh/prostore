@@ -10,7 +10,7 @@ import ReviewForm from "./review-form"
 import { formatDateTime } from "@/lib/utils"
 import Rating from "@/components/shared/product/rating"
 
-export default function ReviewList({ userId, productId, productSlug }: { userId: string, productId: string, productSlug: string }) {
+export default function ReviewList({ enableReview, userId, productId, productSlug }: { enableReview: boolean, userId: string, productId: string, productSlug: string }) {
     const [reviews, setReviews] = useState<Review[]>([])
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
     }, [productId])
 
     //* Reload reviews after either updated or created
-    const reload = async() => {
+    const reload = async () => {
         const res = await getAllReviewsAction({ productId })
         setReviews([...res.data])
     }
@@ -39,7 +39,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
             }
             {
                 userId ? (
-                    <ReviewForm userId={userId} productId={productId} onReviewSubmitted={reload} />
+                    <ReviewForm enableReview={enableReview} userId={userId} productId={productId} onReviewSubmitted={reload} />
                 ) : (
                     <div>
                         Please<Link className="text-yellow-500 px-1" href={`/sign-in?callbackUrl=/product/${productSlug}`}>Sign In</Link>
@@ -60,7 +60,7 @@ export default function ReviewList({ userId, productId, productSlug }: { userId:
                             <CardContent>
                                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-sm text-muted-foreground">
                                     {/* Ratings */}
-                                    <Rating value={review.rating}/>
+                                    <Rating value={review.rating} />
                                     <div className="flex items-center">
                                         <User className="md:mr-1 h-3 w-3" />
                                         {review.user ? review.user.name : 'User'}

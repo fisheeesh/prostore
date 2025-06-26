@@ -32,6 +32,9 @@ export const insertProductSchema = z.object({
         .min(1, { message: "Product must have at leat 1 image." }),
     isFeatured: z.boolean(),
     banner: z.string().nullable(),
+    isDeal: z.boolean(),
+    dealDescription: z.string().nullable(),
+    endDate: z.string().nullable(),
     price: currency,
     discount: currency
 });

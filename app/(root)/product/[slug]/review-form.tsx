@@ -16,8 +16,8 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 
-export default function ReviewForm({ userId, productId, onReviewSubmitted }:
-    { userId: string, productId: string, onReviewSubmitted: () => void }
+export default function ReviewForm({ enableReview, userId, productId, onReviewSubmitted }:
+    { enableReview: boolean, userId: string, productId: string, onReviewSubmitted: () => void }
 ) {
     const [open, setOpen] = useState(false)
     const { toast } = useToast()
@@ -29,6 +29,13 @@ export default function ReviewForm({ userId, productId, onReviewSubmitted }:
 
     //* Open form handler
     const handleOpenForm = async () => {
+        if (!enableReview) {
+            toast({
+                variant: 'destructive',
+                description: 'You must buy this item to write a review. Sorry for the inconvenience.'
+            })
+            return
+        }
         /**
          * * Without this, the action will not be validated with insertReviewSchema
          * * We are not submitting productId and userId which is part of insertReviewSchema

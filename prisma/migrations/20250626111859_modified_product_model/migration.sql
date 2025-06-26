@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Product" ALTER COLUMN "dealDescription" DROP NOT NULL,
+ALTER COLUMN "dealDescription" DROP DEFAULT,
+ALTER COLUMN "endDate" DROP NOT NULL,
+ALTER COLUMN "endDate" DROP DEFAULT;

@@ -13,6 +13,13 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import FavoriteButton from "./favorite-button"
 import ReviewList from "./review-list"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+import { getOrdersById } from "@/lib/actions/order.actions"
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params
@@ -43,6 +50,10 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
 
     const favorites = await getMyFavorites()
 
+    const userOrders = userId ? await getOrdersById() : []
+
+    const isUserBought = userOrders.flatMap(order => order.orderitems).find(item => item.slug === slug) ? true : false
+
     return (
         <>
             <section className="pb-3 border-b">
@@ -70,7 +81,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                                                 name: product.name,
                                                 price: product.price
                                             }} /> :
-                                        <Link href={`/sign-in?callbackUrl=/product/${slug}`} type="button" className="border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-3 px-4">
+                                        <Link href={`/sign-in?callbackUrl=/product/${slug}`} type="button" className="border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2.5">
                                             <Heart className="w-4 h-4" />
                                         </Link>
                                     }
@@ -78,12 +89,25 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                             </div>
                             <p>{product.numReviews} Reviews</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                                <ProductPrice value={Number(product.price)} className="w-24 rounded-full bg-green-100 text-green-700 px-5 py-2" />
+                                <ProductPrice discount={Number(product.discount)} value={Number(product.price)} className="w-fit rounded-full bg-green-100 text-green-700 px-5 py-2" />
                             </div>
                         </div>
                         <div className="mt-10">
-                            <p className="font-semibold">Description</p>
-                            <p>{product.description}</p>
+                            <Accordion
+                                type="single"
+                                collapsible
+                                className="w-full"
+                                defaultValue="item-1"
+                            >
+                                <AccordionItem value="item-1" className="border-0">
+                                    <AccordionTrigger>Description</AccordionTrigger>
+                                    <AccordionContent className="flex flex-col gap-4 text-balance">
+                                        <p>
+                                            {product.description}
+                                        </p>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                     </div>
                     {/* Action Column */}
@@ -129,7 +153,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
             </section>
             <section className="mt-5 space-y-4">
                 <h2 className="h2-bold">Customer Reviews</h2>
-                <ReviewList userId={userId || ''} productId={product.id} productSlug={slug} />
+                <ReviewList enableReview={isUserBought} userId={userId || ''} productId={product.id} productSlug={slug} />
             </section>
         </>
     )

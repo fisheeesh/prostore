@@ -10,7 +10,7 @@ export default function ProductPrice({ value, discount, className }: { value: nu
         <>
             {
                 discount ?
-                    <p className={cn('text-2xl line-clamp-1', className)}>
+                    <p className={cn('text-2xl', className)}>
                         <span className="text-xs align-super">$</span>
                         <span className="font-bold">{intValue}</span>
                         <span className="text-xs align-super">.{floatValue}</span>

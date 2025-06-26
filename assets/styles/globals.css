@@ -149,3 +149,15 @@ html.dark .upload-field .text-white {
     background-position: 0% 50%, 50% 50%, 100% 100%;
   }
 }
+
+.recharts-default-tooltip {
+    @apply !rounded-lg !border !border-slate-300 !bg-slate-50 transition-colors dark:!border-slate-700 dark:!bg-slate-950;
+}
+
+.recharts-tooltip-label {
+    @apply text-base font-medium text-slate-900 dark:text-slate-50;
+}
+
+.recharts-tooltip-item {
+    @apply text-base font-medium !text-[#82ca9d];
+}

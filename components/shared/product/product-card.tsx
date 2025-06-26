@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 </Link>
                 <div className="flex-between gap-4">
                     <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-2 border px-2 py-1 border-yellow-400 bg-yellow-100 text-sm">
+                        <div className="flex items-center gap-2 border px-2 py-1 border-yellow-400/50 dark:border-yellow-400 bg-yellow-100/70 dark:bg-yellow-100 text-sm">
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 className='text-yellow-500 w-4 h-auto fill-current'

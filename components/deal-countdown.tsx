@@ -4,9 +4,7 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-
-//* Stat target date (replace with desired date)
-const TARGET_DATE = new Date('2025-07-15T00:00:00')
+import { Product } from "@/types"
 
 //* Function to calculate the time remaining
 const calculateTimeRemaining = (targetDate: Date) => {
@@ -27,24 +25,36 @@ const calculateTimeRemaining = (targetDate: Date) => {
     }
 }
 
-export default function DealCountdown() {
+export default function DealCountdown({ data }: { data: Product }) {
     const [time, setTime] = useState<ReturnType<typeof calculateTimeRemaining>>()
 
     useEffect(() => {
         //* Calculate initial time on client
-        setTime(calculateTimeRemaining(TARGET_DATE))
+        setTime(calculateTimeRemaining(new Date(data.endDate ?? "")))
 
         const timerInterval = setInterval(() => {
-            const newTime = calculateTimeRemaining(TARGET_DATE)
+            const newTime = calculateTimeRemaining(new Date(data.endDate ?? ""))
             setTime(newTime)
 
             if (newTime.days === 0 && newTime.hours === 0 && newTime.minutes === 0 && newTime.seconds === 0) {
                 clearInterval(timerInterval)
+
+                fetch("/api/set-deal-status", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ productId: data.id }),
+                }).then(res => {
+                    if (!res.ok) console.error("Failed to update deal status")
+                }).catch(err => {
+                    console.error("Error updating deal:", err)
+                })
             }
 
             return () => clearInterval(timerInterval)
         }, 1000)
-    }, [])
+    }, [data.endDate, data.id])
 
     if (!time) {
         return (
@@ -86,11 +96,7 @@ export default function DealCountdown() {
             <div className="flex flex-col gap-4 justify-center">
                 <h3 className="text-3xl font-bold">Deal of The Month</h3>
                 <p>
-                    Get ready for shopping experience like never befor with our
-                    <strong> Deals of The Month!</strong> Every purchase comes with
-                    exclusive perks offers, making this month a celebration of savy choices
-                    and amazing deals Don&apos;t miss out! 🎁
-
+                    {data.dealDescription}
                 </p>
                 <ul className="grid grid-cols-4">
                     <StatBox label='Days' value={time.days} />
@@ -100,7 +106,7 @@ export default function DealCountdown() {
                 </ul>
                 <div className="text-center">
                     <Button asChild>
-                        <Link href='/search'>View Products</Link>
+                        <Link href={`/product/${data.slug}`}>View Product</Link>
                     </Button>
                 </div>
             </div>

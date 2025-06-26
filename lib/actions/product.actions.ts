@@ -193,3 +193,11 @@ export async function getFeaturedProductsAction() {
 
     return convertToPlainObject(data)
 }
+
+export async function getDealProductAction() {
+    const data = await prisma.product.findFirst({
+        where: { isDeal: true },
+    })
+
+    return convertToPlainObject(data)
+}
