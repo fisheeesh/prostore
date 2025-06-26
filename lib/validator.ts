@@ -25,10 +25,10 @@ const baseInsertSchema = z.object({
     stock: z.coerce.number(),
     images: z.array(z.string()).min(1, { message: "Product must have at least 1 image." }),
     isFeatured: z.boolean(),
-    banner: z.string().nullable(),
+    banner: z.string().nullable().optional(),
     isDeal: z.boolean(),
-    dealDescription: z.string().nullable(),
-    endDate: z.string().nullable(),
+    dealDescription: z.string().nullable().optional(),
+    endDate: z.string().nullable().optional(),
     price: currency,
     discount: currency,
 });
@@ -41,17 +41,15 @@ export const insertProductSchema = baseInsertSchema.refine(
     }
 );
 
-export const updateProductSchema = baseInsertSchema
-    .extend({
-        id: z.string().min(1, { message: "Product ID is required." }),
-    })
-    .refine(
-        data => Number(data.discount) <= Number(data.price),
-        {
-            message: "Discount must be less than or equal to the price.",
-            path: ["discount"],
-        }
-    );
+export const updateProductSchema = baseInsertSchema.extend({
+    id: z.string().min(1, { message: "Product ID is required." }),
+}).refine(
+    data => Number(data.discount) <= Number(data.price),
+    {
+        message: "Discount must be less than or equal to the price.",
+        path: ["discount"],
+    }
+);
 
 //* schema for signing users in
 export const signInFormSchema = z.object({
