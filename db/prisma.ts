@@ -10,13 +10,30 @@ const connectionString = `${process.env.DATABASE_URL}`;
 //* Instantiates the Prisma adapter using the Neon connection pool to handle the connection between Prisma and Neon.
 const adapter = new PrismaNeon({ connectionString });
 
+/**
+ ** WHY TWO SEPARATE PRISMA CLIENTS?
+ * 
+ ** NextAuth's PrismaAdapter Requirements:
+ ** - NextAuth's PrismaAdapter needs a CLEAN, UNMODIFIED Prisma client
+ ** - It manages its own tables: User, Account, Session, VerificationToken
+ ** - Extensions can interfere with the adapter's internal operations
+ ** - Custom result transformers can cause type conflicts with NextAuth's expected data structure
+ ** - If NextAuth used extended client, it might try to transform auth-related fields that don't exist
+ ** - This could break the adapter's internal queries and cause authentication failures
+ */
+
 //* Standard Prisma client for NextAuth (without extensions)
+//* PURPOSE: Handles NextAuth's authentication tables ONLY
+//* USAGE: User creation, account linking, session management in auth callbacks
 export const prismaAuth = new PrismaClient({ adapter });
 
 //* Extended PrismaClient with custom result transformers for your application
+//* PURPOSE: Handles your business logic with price transformations, cart operations, etc.
+//* USAGE: Product queries, cart operations, order management in your app logic
 export const prisma = new PrismaClient({ adapter }).$extends({
   result: {
     product: {
+      //* Convert Decimal prices to strings for frontend consumption
       price: {
         compute(product) {
           return product.price.toString();
