@@ -66,7 +66,7 @@ export const config = {
                     });
 
                     if (existingUser) {
-                        // Check if this Google account is already linked
+                        //* Check if this Google account is already linked
                         const existingAccount = await prismaAuth.account.findFirst({
                             where: {
                                 provider: account.provider,
@@ -74,7 +74,7 @@ export const config = {
                             }
                         });
 
-                        // If Google account not linked to any user, link it to existing user
+                        //* If Google account not linked to any user, link it to existing user
                         if (!existingAccount) {
                             await prismaAuth.account.create({
                                 data: {
@@ -88,14 +88,13 @@ export const config = {
                                     token_type: account.token_type,
                                     scope: account.scope,
                                     id_token: account.id_token,
-                                    // session_state: account.session_stat,
                                 }
                             });
                         }
                         return true;
                     }
 
-                    // If user doesn't exist, create new user (your existing logic)
+                    //* If user doesn't exist, create new user (your existing logic)
                     await prismaAuth.user.create({
                         data: {
                             email: user.email!,
@@ -110,20 +109,6 @@ export const config = {
                 }
             }
             return true;
-        },
-        async session({ session, user, trigger, token }: any) {
-            //* Set user id from token
-            //? jwt token has a subject property(sub). By default that is userId
-            session.user.id = token.sub
-            session.user.role = token.role
-            session.user.name = token.name
-
-            //* If there is an update, set the user name
-            if (trigger === 'update') {
-                session.user.name = user.name
-            }
-
-            return session
         },
         async jwt({ token, user, trigger, session, account }: any) {
             //* Assign user fields to token
@@ -142,19 +127,18 @@ export const config = {
                     //* For credentials sign-in
                     token.id = user.id
                     token.role = user.role
-
-                    //* If user has not name, use email
-                    if (user.name === 'NO_NAME') {
-                        token.name = user.email.split('@')[0]
-
-                        //* Update the database to reflect the token name
-                        await prisma.user.update({
-                            where: { id: user.id },
-                            data: { name: token.name }
-                        })
-                    }
+                    token.name = user.name
                 }
 
+                /**
+                 * * user ka login ma lope pl item twy ko add to cart lyk ml p dok shipping address go yin sign in lope khine ml
+                 * * dr pay mae nga dok ka cart to user.id nae u htr dr sessionCartId nae ma hote dok user sign in phyit yin thu item twy ka lose twr ml
+                 * * ae lo ma phyit ya ag sign in phyit yin cookies htl mr sessionCartId shi ma shi sit ml, shi mr pl shi ag lope htr loh
+                 * * shi yin ae sessionCardId nae cart shi lr sit, shi yin a khun win lr tae user yae id nae shi tae cart ko delete lyk ml
+                 * * p yin khu na ka sessionCartId nae ya lr tae cart yae id nae cart yae userId ko win lr tae user yae id nae update lyk ml
+                 * * ae lo so cart ll new ma phyit dok ta lo item twy ll pyouk ma twr vu
+                 * * delete dr ka new user so ma sai dok, exisiting user twy so mha delete dr
+                 */
                 if (trigger === 'signIn' || trigger === 'signUp') {
                     const cookiesObj = await cookies()
                     const sessionCartId = cookiesObj.get('sessionCartId')?.value
@@ -187,6 +171,20 @@ export const config = {
 
             return token
         },
+        async session({ session, user, trigger, token }: any) {
+            //* Set user id from token
+            //? jwt token has a subject property(sub). By default that is userId
+            session.user.id = token.sub
+            session.user.role = token.role
+            session.user.name = token.name
+
+            //* If there is an update, set the user name
+            if (trigger === 'update') {
+                session.user.name = user.name
+            }
+
+            return session
+        },
         //* We have to create middleeare.ts to work this function 
         // ** -----
         authorized({ request, auth }: any) {
@@ -207,7 +205,7 @@ export const config = {
             //* Check if user is not authenticated and try to access protected paths
             if (!auth && protectedPaths.some(p => p.test(pathname))) return false
 
-            //* Check for session cart cookie
+            //? Check for session cart cookie
             if (!request.cookies.get('sessionCartId')) {
                 const sessionCartId = crypto.randomUUID()
 
@@ -237,9 +235,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth(config)
 
 // * ----- 
 /**
- * * user log in or not add to cart loh ya ml so sessionCartId so ml 
+ * * user log in or not add to cart loh ya ml so sessionCartId lo ml 
  * * so dok website ko win lr dr nae ae dr ko create py lyk ml p mha ae dr nae manipulate br nyar
- * * authorized function ko use ml p create ml ae kg ka response to return pyn ya ml
+ * * authorized function ko use p create ml ae kg ka response to return pyn ya ml
  * * a yin sone req htl ka cookies htl mr sessionCartId ko check ml
  * * shi yin return true htet create ma ny dok vu cuz pages tine mr run ny mr moh
  * * ma shi yin sessionCartId ko create ml uuid format a tine so use crypto.randomUUID()
