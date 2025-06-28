@@ -104,7 +104,12 @@ export async function getAllProductsAction({
     })
 
     const dataCount = await prisma.product.count({
-        where: { ...queryFilter }
+        where: {
+            ...queryFilter,
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter
+        }
     })
 
     return {

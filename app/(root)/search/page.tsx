@@ -228,8 +228,8 @@ export default async function SearchPage(props:
                             <ProductCard key={product.id} product={product} />
                         ))
                     }
-                    <Pagination page={page} totalPages={products.totalPages} />
                 </div>
+                <Pagination page={page} totalPages={products.totalPages} />
             </div>
         </div >
     )

@@ -36,6 +36,8 @@ export default function Pagination({ page, totalPages, urlParamName }: Paginatio
         router.push(newURL)
     }
 
+    if (totalPages === 1) return null
+
     return (
         <div className='flex gap-2 items-center'>
             <Button size='lg' variant='outline' className='w-28' disabled={Number(page) <= 1} onClick={() => handleClick('prev')}>
