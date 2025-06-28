@@ -105,6 +105,7 @@ export const shippingAddressSchema = z.object({
     fullName: z
         .string()
         .min(3, { message: "Name must be at least 3 characters." }),
+    phone: z.string().regex(/^0[1-9]\d{7,9}$/g, { message: "Invalid phone number." }),
     streetAddress: z
         .string()
         .min(3, { message: "Address must be at least 3 characters." }),

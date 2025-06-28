@@ -1,3 +1,6 @@
+import sampleData from "@/db/sample-data"
+import { formatCurrency } from "@/lib/utils"
+import { Order } from '@/types'
 import {
     Body,
     Column,
@@ -13,9 +16,6 @@ import {
     Tailwind,
     Text
 } from "@react-email/components"
-import { Order } from '@/types'
-import { formatCurrency } from "@/lib/utils"
-import sampleData from "@/db/sample-data"
 
 require('dotenv').config()
 
@@ -30,6 +30,7 @@ DeliveryNotification.PreviewProps = {
         paymentMethod: 'Stripe',
         shippingAddress: {
             fullName: 'John Doe',
+            phone: '1234567890',
             streetAddress: '123 Main St',
             city: 'New York',
             postalCode: '12345',
@@ -78,6 +79,16 @@ export default function DeliveryNotification({ order }: DeliveryNotificationProp
                 <Body className="font-sans bg-white">
                     <Container className="max-w-xl">
                         <Section className="text-center mb-8">
+                            <div className="flex items-center justify-center gap-2 my-2">
+                                <Img
+                                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.svg`}
+                                    alt="Prostore Logo"
+                                    width="60"
+                                    height="60"
+                                />
+                                <Text className="text-2xl font-semibold text-gray-900 m-0">Prostore</Text>
+                            </div>
+
                             <Heading className="text-green-600 text-2xl mb-2">🎉 Delivered Successfully!</Heading>
                             <Text className="text-lg text-gray-700 mb-0">
                                 Great news! We have successfully delivered your order to your address.
@@ -120,12 +131,13 @@ export default function DeliveryNotification({ order }: DeliveryNotificationProp
                         <Section className="mb-6">
                             <Heading className="text-xl text-gray-800 mb-4">Delivered To</Heading>
                             <div className="bg-gray-50 p-4 rounded-lg">
-                                <Text className="mb-1 font-medium">{order.shippingAddress.fullName}</Text>
-                                <Text className="mb-1 text-gray-600">{order.shippingAddress.streetAddress}</Text>
+                                <Text className="mb-1 font-medium">Name: {order.shippingAddress.fullName}</Text>
+                                <Text className="mb-1 text-gray-600">Phone Number: {order.shippingAddress.phone}</Text>
+                                <Text className="mb-1 text-gray-600">Address: {order.shippingAddress.streetAddress}</Text>
                                 <Text className="mb-0 text-gray-600">
-                                    {order.shippingAddress.city}, {order.shippingAddress.postalCode}
+                                    City: {order.shippingAddress.city}, {order.shippingAddress.postalCode}
                                 </Text>
-                                <Text className="mb-0 text-gray-600">{order.shippingAddress.country}</Text>
+                                <Text className="mb-0 text-gray-600">Country: {order.shippingAddress.country}</Text>
                             </div>
                         </Section>
 

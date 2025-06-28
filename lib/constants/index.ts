@@ -14,6 +14,7 @@ export const SIGN_UP_DEFAULT_VALUES = {
 }
 export const SHIPPING_ADDRESS_DEFAULT_VALUES = {
     fullName: '',
+    phone: '',
     streetAddress: '',
     city: '',
     postalCode: '',

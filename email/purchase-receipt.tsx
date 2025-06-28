@@ -29,6 +29,7 @@ PurchaseReceiptEmail.PreviewProps = {
         paymentMethod: 'Stripe',
         shippingAddress: {
             fullName: 'John Doe',
+            phone: '1234567890',
             streetAddress: '123 Main St',
             city: 'New York',
             postalCode: '12345',
@@ -76,6 +77,15 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                 <Head />
                 <Body className="font-sans bg-white">
                     <Container className="max-w-xl">
+                        <div className="flex items-center justify-center gap-2 my-2">
+                            <Img
+                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.svg`}
+                                alt="Prostore Logo"
+                                width="60"
+                                height="60"
+                            />
+                            <Text className="text-2xl font-semibold text-gray-900 m-0">Prostore</Text>
+                        </div>
                         <Heading>Purchase Receipt</Heading>
                         <Section>
                             <Row>
