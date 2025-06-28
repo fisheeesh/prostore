@@ -41,9 +41,10 @@ export default async function PlaceOrderPage() {
                     <Card>
                         <CardContent className="p-4 gap-4">
                             <h2 className="text-xl pb-4 font-bold">Shipping Address</h2>
-                            <p>{userAddress.fullName}</p>
+                            <p><span className="font-medium">Name: </span>{userAddress.fullName}</p>
+                            <p><span className="font-medium">Phone Number: </span>{userAddress.phone}</p>
                             <p>
-                                {userAddress.streetAddress}, {userAddress.city} {' '}
+                                <span className="font-medium">Address: </span>{userAddress.streetAddress}, {userAddress.city} {' '}
                                 {userAddress.postalCode}, {userAddress.country} {' '}
                             </p>
                             <div className="mt-3">

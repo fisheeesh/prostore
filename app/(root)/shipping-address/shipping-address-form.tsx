@@ -70,6 +70,21 @@ export default function ShippingAddressForm({ address }: { address: ShippingAddr
                         <div className="flex flex-col gap-5 md:flex-row">
                             <FormField
                                 control={form.control}
+                                name="phone"
+                                render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'phone'> }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Phone Number <span className="text-red-600">*</span></FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter Phone Number" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-5 md:flex-row">
+                            <FormField
+                                control={form.control}
                                 name="streetAddress"
                                 render={({ field }: { field: ControllerRenderProps<z.infer<typeof shippingAddressSchema>, 'streetAddress'> }) => (
                                     <FormItem className="w-full">

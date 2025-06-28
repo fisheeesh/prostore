@@ -1,21 +1,42 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Product } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
-import ProductPrice from "./product-price";
+"use client"
+
+import { useState } from "react"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Product } from "@/types"
+import Image from "next/image"
+import Link from "next/link"
+import ProductPrice from "./product-price"
+import { cn } from "@/lib/utils"
 
 export default function ProductCard({ product }: { product: Product }) {
+    const [isLoading, setIsLoading] = useState(true)
+
     return (
         <Card className="w-full max-w-lg sm:max-w-sm h-full flex flex-col justify-between">
-            <CardHeader className="p-0 items-center">
+            <CardHeader className="p-1.5">
                 <Link href={`/product/${product.slug}`}>
-                    <Image className="w-full h-full object-cover object-center rounded-xl p-1.5" src={product.images[0]} alt={product.name} width={300} height={300} priority={true} />
+                    <div className="relative w-full h-[350px] rounded-xl overflow-hidden">
+                        {isLoading && (
+                            <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700" />
+                        )}
+                        <Image
+                            className={cn(
+                                "w-full h-full object-contain object-center transition-opacity duration-300",
+                                isLoading ? "opacity-0" : "opacity-100"
+                            )}
+                            src={product.images[0]}
+                            alt={product.name}
+                            fill
+                            priority
+                            onLoad={() => setIsLoading(false)}
+                        />
+                    </div>
                 </Link>
             </CardHeader>
             <CardContent className="p-4 grid gap-4">
                 <div className="text-xs">{product.brand}</div>
                 <Link href={`/product/${product.slug}`}>
-                    <h2 className="text-sm font-medium">{product.name}</h2>
+                    <h2 className="text-sm font-medium line-clamp-1">{product.name}</h2>
                 </Link>
                 <div className="flex-between gap-4">
                     <div className="flex items-center gap-2">
@@ -29,15 +50,19 @@ export default function ProductCard({ product }: { product: Product }) {
                             </svg>
                             <span className="text-black">{product.rating}</span>
                         </div>
-                        <span className="text-sm font-medium block md:hidden xl:block">{product.sold} sold</span>
+                        <span className="text-sm font-medium block md:hidden xl:block">
+                            {product.sold} sold
+                        </span>
                     </div>
-                    {
-                        product.stock > 0 ? (
-                            <ProductPrice discount={Number(product.discount)} value={Number(product.price)} className="" />
-                        ) : (
-                            <p className="text-destructive line-clamp-1">Out of Stock</p>
-                        )
-                    }
+                    {product.stock > 0 ? (
+                        <ProductPrice
+                            discount={Number(product.discount)}
+                            value={Number(product.price)}
+                            className=""
+                        />
+                    ) : (
+                        <p className="text-destructive line-clamp-1">Out of Stock</p>
+                    )}
                 </div>
             </CardContent>
         </Card>

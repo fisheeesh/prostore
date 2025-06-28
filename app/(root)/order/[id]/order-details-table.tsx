@@ -118,9 +118,9 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
                     <Card>
                         <CardContent className="p-4 gap-4">
                             <h2 className="text-xl pb-4 font-bold">Shipping Address</h2>
-                            <p>{shippingAddress.fullName}</p>
-                            <p>{shippingAddress.streetAddress}, {shippingAddress.city}</p>
-                            <p className="mb-2">{shippingAddress.postalCode}, {shippingAddress.country}</p>
+                            <p><span className="font-medium">Name: </span>{shippingAddress.fullName}</p>
+                            <p><span className="font-medium">Phone Number: </span>{shippingAddress.phone}</p>
+                            <p><span className="font-medium">Address: </span>{shippingAddress.streetAddress}, {shippingAddress.city} {shippingAddress.postalCode}, {shippingAddress.country}</p>
                             {isDelivered ? (
                                 <Badge variant='secondary'>Delivered at {formatDateTime(deliveredAt!).dateTime}</Badge>
                             ) : (

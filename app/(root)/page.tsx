@@ -1,3 +1,4 @@
+import CookieConsent from '@/components/cookie-constent'
 import DealCountdown from '@/components/deal-countdown'
 import IconBoxes from '@/components/icon-boxes'
 import ProductCarousel from '@/components/shared/product/product-carousel'
@@ -12,6 +13,7 @@ export default async function page() {
 
   return (
     <>
+      <CookieConsent />
       {featuredProducts.length > 0 && <ProductCarousel data={featuredProducts} />}
       <ProductList data={latestProducts} title='Newest Arrrivals' limit={4} />
       <ViewAllProductsBtn />

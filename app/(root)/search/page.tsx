@@ -1,3 +1,4 @@
+import Pagination from '@/components/shared/pagination'
 import ProductCard from '@/components/shared/product/product-card'
 import { Button } from '@/components/ui/button'
 import { getAllCategoriesAction, getAllProductsAction } from '@/lib/actions/product.actions'
@@ -227,6 +228,7 @@ export default async function SearchPage(props:
                             <ProductCard key={product.id} product={product} />
                         ))
                     }
+                    <Pagination page={page} totalPages={products.totalPages} />
                 </div>
             </div>
         </div >
