@@ -120,7 +120,7 @@ export default function OrderDetailsTable({ order, paypalClientId, isAdmin, stri
                             <h2 className="text-xl pb-4 font-bold">Shipping Address</h2>
                             <p><span className="font-medium">Name: </span>{shippingAddress.fullName}</p>
                             <p><span className="font-medium">Phone Number: </span>{shippingAddress.phone}</p>
-                            <p><span className="font-medium">Address: </span>{shippingAddress.streetAddress}, {shippingAddress.city} {shippingAddress.postalCode}, {shippingAddress.country}</p>
+                            <p className="mb-2"><span className="font-medium">Address: </span>{shippingAddress.streetAddress}, {shippingAddress.city} {shippingAddress.postalCode}, {shippingAddress.country}</p>
                             {isDelivered ? (
                                 <Badge variant='secondary'>Delivered at {formatDateTime(deliveredAt!).dateTime}</Badge>
                             ) : (

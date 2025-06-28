@@ -71,6 +71,11 @@ type DeliveryNotificationProps = {
 }
 
 export default function DeliveryNotification({ order }: DeliveryNotificationProps) {
+    const logoPath = "/images/logo.svg";
+    const logoSrc = logoPath.startsWith("/")
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${logoPath}`
+        : logoPath;
+
     return (
         <Html>
             <Preview>Your Order Has Been Delivered!</Preview>
@@ -81,7 +86,7 @@ export default function DeliveryNotification({ order }: DeliveryNotificationProp
                         <Section className="text-center mb-8">
                             <div className="flex items-center justify-center gap-2 my-2">
                                 <Img
-                                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.svg`}
+                                    src={logoSrc}
                                     alt="Prostore Logo"
                                     width="60"
                                     height="60"

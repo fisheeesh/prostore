@@ -70,6 +70,11 @@ type OrderInformationProps = {
 }
 
 export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
+    const logoPath = "/images/logo.svg";
+    const logoSrc = logoPath.startsWith("/")
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${logoPath}`
+        : logoPath;
+        
     return (
         <Html>
             <Preview>View Order Receipt</Preview>
@@ -79,7 +84,7 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                     <Container className="max-w-xl">
                         <div className="flex items-center justify-center gap-2 my-2">
                             <Img
-                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.svg`}
+                                src={logoSrc}
                                 alt="Prostore Logo"
                                 width="60"
                                 height="60"
