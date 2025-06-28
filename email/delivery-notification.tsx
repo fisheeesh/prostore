@@ -71,10 +71,7 @@ type DeliveryNotificationProps = {
 }
 
 export default function DeliveryNotification({ order }: DeliveryNotificationProps) {
-    const logoPath = "/images/logo.svg";
-    const logoSrc = logoPath.startsWith("/")
-        ? `${process.env.NEXT_PUBLIC_SERVER_URL}${logoPath}`
-        : logoPath;
+    const logoSrc = `https://www.theprostore.shop/images/logo.svg`;
 
     return (
         <Html>
