@@ -108,7 +108,7 @@ export async function getAllProductsAction({
     })
 
     return {
-        data,
+        data: convertToPlainObject(data),
         totalPages: Math.ceil(dataCount / limit)
     }
 }
