@@ -87,7 +87,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                                     }
                                 </div>
                             </div>
-                            <p>{product.numReviews} Reviews</p>
+                            <p>{product.numReviews} Review{product.numReviews > 1 && 's'}</p>
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                                 <ProductPrice discount={Number(product.discount)} value={Number(product.price)} className="w-fit rounded-full bg-green-100 text-green-700 px-5 py-2" />
                             </div>
