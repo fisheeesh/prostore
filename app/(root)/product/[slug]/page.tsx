@@ -70,7 +70,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
                             <div className="flex items-center justify-between gap-2">
                                 <Rating value={Number(product.rating)} />
                                 <div className="flex items-center gap-3">
-                                    <span>{product.sold > 0 && `${product.sold} sold`}</span>
+                                    <span>{product.sold >= 0 && `${product.sold} sold`}</span>
                                     {userId ?
                                         <FavoriteButton
                                             favorites={favorites}
