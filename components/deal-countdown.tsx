@@ -112,7 +112,7 @@ export default function DealCountdown({ data }: { data: Product }) {
             </div>
             <div className="flex justify-center">
                 <Image
-                    src={'/images/promo.jpg'}
+                    src={data.images[0]}
                     alt="Promotions"
                     width={300}
                     height={200}
