@@ -71,7 +71,6 @@ type DeliveryNotificationProps = {
 }
 
 export default function DeliveryNotification({ order }: DeliveryNotificationProps) {
-    const logoSrc = `https://www.theprostore.shop/images/logo.svg`;
 
     return (
         <Html>
@@ -81,16 +80,6 @@ export default function DeliveryNotification({ order }: DeliveryNotificationProp
                 <Body className="font-sans bg-white">
                     <Container className="max-w-xl">
                         <Section className="text-center mb-8">
-                            <div className="flex items-center justify-center gap-2 my-2">
-                                <Img
-                                    src={logoSrc}
-                                    alt="Prostore Logo"
-                                    width="60"
-                                    height="60"
-                                />
-                                <Text className="text-2xl font-semibold text-gray-900 m-0">Prostore</Text>
-                            </div>
-
                             <Heading className="text-green-600 text-2xl mb-2">🎉 Delivered Successfully!</Heading>
                             <Text className="text-lg text-gray-700 mb-0">
                                 Great news! We have successfully delivered your order to your address.

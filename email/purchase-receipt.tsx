@@ -73,7 +73,6 @@ type OrderInformationProps = {
 };
 
 export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
-    const logoSrc = `https://www.theprostore.shop/images/logo.svg`;
 
     return (
         <Html>
@@ -82,19 +81,8 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                 <Head />
                 <Body className="font-sans bg-white">
                     <Container className="max-w-xl">
-                        <div className="flex items-center justify-center gap-2 my-2">
-                            <Img
-                                src={logoSrc}
-                                alt="Prostore Logo"
-                                width="60"
-                                height="60"
-                            />
-                            <Text className="text-2xl font-semibold text-gray-900 m-0">
-                                Prostore
-                            </Text>
-                        </div>
 
-                        <Heading>Purchase Receipt</Heading>
+                        <Heading className="text-2xl">Purchase Receipt</Heading>
                         <Section>
                             <Row>
                                 <Column>
