@@ -95,13 +95,29 @@ export const config = {
                     }
 
                     //* If user doesn't exist, create new user (your existing logic)
-                    await prismaAuth.user.create({
+                    const newUser = await prismaAuth.user.create({
                         data: {
                             email: user.email!,
                             name: user.name || user.email!.split('@')[0],
                             role: 'user',
                         }
                     });
+
+                    await prismaAuth.account.create({
+                        data: {
+                            userId: newUser.id,
+                            type: account.type,
+                            provider: account.provider,
+                            providerAccountId: account.providerAccountId,
+                            refresh_token: account.refresh_token,
+                            access_token: account.access_token,
+                            expires_at: account.expires_at,
+                            token_type: account.token_type,
+                            scope: account.scope,
+                            id_token: account.id_token,
+                        }
+                    });
+                    
                     return true;
                 } catch (error) {
                     console.error("Error during Google sign-in:", error);
