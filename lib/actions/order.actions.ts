@@ -349,7 +349,6 @@ export async function getOrderSummary() {
                 },
             },
         },
-        take: 6
     });
 
     const result = users.map(user => {
@@ -360,7 +359,7 @@ export async function getOrderSummary() {
             totalOrders: user._count.Order,
             totalSpent,
         };
-    }).sort((a, b) => b.totalOrders - a.totalOrders);
+    }).sort((a, b) => b.totalOrders - a.totalOrders).slice(0, 6);
 
     const bestSellers = await prisma.$queryRawUnsafe<BestSeller[]>(`
     SELECT DISTINCT ON (month) 
